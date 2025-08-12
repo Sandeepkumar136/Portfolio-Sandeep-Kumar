@@ -113,6 +113,21 @@ body {
   opacity: 1;
 }
 
-.nav-toggle-btn {
+.nav-toggle-btn.theme {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  color: #999;
+  margin: 0 1rem;
+  transition: 0.3s all ease-in-out;
+  cursor: pointer;
+}
+
+.nav-toggle-btn.theme:hover {
+  color: #000;
+}
+
+.nav-toggle-btn.toggle {
   display: none;
 }/*# sourceMappingURL=Style.css.map */
