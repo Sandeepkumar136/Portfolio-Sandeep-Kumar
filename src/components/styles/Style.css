@@ -49,9 +49,7 @@ body {
   justify-content: center;
   align-items: center;
   font-size: 1.8rem;
-  background-image: repeating-linear-gradient(45deg, red, blue 7%, green 10%);
-  -webkit-background-clip: text;
-  color: transparent;
+  opacity: 0.5;
 }
 
 .nav-title {
@@ -59,9 +57,6 @@ body {
   justify-content: start;
   align-items: center;
   font-size: 1.3rem;
-  background-image: repeating-linear-gradient(45deg, red, blue 7%, green 10%);
-  -webkit-background-clip: text;
-  color: transparent;
 }
 
 .nav-contents {
@@ -102,11 +97,11 @@ body {
   padding: 7px 15px;
   cursor: pointer;
   border-radius: 3px;
-  opacity: 0.7;
+  opacity: 0.8;
   text-transform: capitalize;
   font-size: 0.7rem;
   font-weight: 600;
-  box-shadow: 0 0 1px 0.6px #999;
+  box-shadow: 0 0 0px 0.6px #999;
 }
 
 .nav-toggle-items:hover {
@@ -118,16 +113,28 @@ body {
   justify-content: center;
   align-items: center;
   font-size: 1.5rem;
-  color: #999;
-  margin: 0 1rem;
+  color: #000;
+  margin: 0 0.5rem;
   transition: 0.3s all ease-in-out;
   cursor: pointer;
 }
 
-.nav-toggle-btn.theme:hover {
-  color: #000;
-}
-
 .nav-toggle-btn.toggle {
   display: none;
+  font-size: 1.7rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media only screen and (max-width: 1024px) {
+  .nav-toggle-items {
+    display: none;
+  }
+  .nav-items {
+    display: none;
+  }
+  .nav-toggle-btn.toggle {
+    display: inline;
+  }
 }/*# sourceMappingURL=Style.css.map */
