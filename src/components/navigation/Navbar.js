@@ -1,4 +1,5 @@
 import React from "react";
+import Image_Exported from "../assets/ImageExporter";
 
 const Navbar = () => {
   return (
@@ -28,6 +29,20 @@ const Navbar = () => {
           </li>
         </ul>
       </nav>
+      <aside className="sidebar">
+        <div className="profile">
+          <img src={Image_Exported.profile_picture} alt="Profile Picture" className="profile-picture" />
+          <p className="profile-title">Sandeep Kumar</p>
+        </div>
+        <ul className="side-list">
+            <li className="side-items"><i class='bx bx-devices'></i> <span className="title-items-sidebar">Services</span></li>
+            <li className="side-items"><i class='bx bx-book-open'></i> <span className="title-items-sidebar">Books</span></li>
+            <li className="side-items"><i class='bx bx-code-alt'></i> <span className="title-items-sidebar">Projects</span></li>
+            <li className="side-items"><i class='bx bx-trophy'></i> <span className="title-items-sidebar">Achievements</span></li>
+            <li className="side-items"><i class='bx bx-file'></i> <span className="title-items-sidebar">Resume</span></li>
+            <li className="side-items"><i class='bx bx-user'></i> <span className="title-items-sidebar">About</span></li>
+        </ul>
+      </aside>
     </div>
   );
 };
