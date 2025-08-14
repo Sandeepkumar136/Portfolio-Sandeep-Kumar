@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Image_Exported from "../assets/ImageExporter";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [IsSidebarOpen, setIsSidebarOpen]= useState(false);
@@ -11,21 +12,21 @@ const Navbar = () => {
     <div className="navigation">
       <nav className="navbar">
         <div className="nav-contain">
-          <div className="logo-contain">
+          <Link to='/' className="logo-contain">
             <i className="bx bx-code-alt"></i>
             <span className="nav-title"> Codewith Sanju</span>
-          </div>
+          </Link>
           <ul className="nav-contents">
-            <li className="nav-items">profile</li>
-            <li className="nav-items">services</li>
-            <li className="nav-items">books</li>
-            <li className="nav-items">projects</li>
+            <Link to='/profile' className="nav-items">profile</Link>
+            <Link to='/services' className="nav-items">services</Link>
+            <Link to='/books' className="nav-items">books</Link>
+            <Link to='/projects' className="nav-items">projects</Link>
           </ul>
         </div>
         <ul className="nav-toggle-contents">
-          <li className="nav-toggle-items">Achievements</li>
-          <li className="nav-toggle-items">Resume</li>
-          <li className="nav-toggle-items">About</li>
+          <Link to='/achievements' className="nav-toggle-items">Achievements</Link>
+          <Link to='/resume' className="nav-toggle-items">Resume</Link>
+          <Link to='/about' className="nav-toggle-items">About</Link>
           <li className="nav-toggle-btn theme">
             <i className="bx bx-sun"></i>
           </li>
@@ -40,12 +41,12 @@ const Navbar = () => {
           <p className="profile-title">Sandeep Kumar</p>
         </div>
         <ul className="side-list">
-            <li  onClick={handleSidebar} className="side-items"><i class='bx bx-devices'></i> <span className="title-items-sidebar">Services</span></li>
-            <li  onClick={handleSidebar} className="side-items"><i class='bx bx-book-open'></i> <span className="title-items-sidebar">Books</span></li>
-            <li  onClick={handleSidebar} className="side-items"><i class='bx bx-code-alt'></i> <span className="title-items-sidebar">Projects</span></li>
-            <li  onClick={handleSidebar} className="side-items"><i class='bx bx-trophy'></i> <span className="title-items-sidebar">Achievements</span></li>
-            <li  onClick={handleSidebar} className="side-items"><i class='bx bx-file'></i> <span className="title-items-sidebar">Resume</span></li>
-            <li  onClick={handleSidebar} className="side-items"><i class='bx bx-user'></i> <span className="title-items-sidebar">About</span></li>
+            <Link to='/services'  onClick={handleSidebar} className="side-items"><i class='bx bx-devices'></i> <span className="title-items-sidebar">Services</span></Link>
+            <Link to='/books'  onClick={handleSidebar} className="side-items"><i class='bx bx-book-open'></i> <span className="title-items-sidebar">Books</span></Link>
+            <Link to='/projects'  onClick={handleSidebar} className="side-items"><i class='bx bx-code-alt'></i> <span className="title-items-sidebar">Projects</span></Link>
+            <Link to='/achievements'  onClick={handleSidebar} className="side-items"><i class='bx bx-trophy'></i> <span className="title-items-sidebar">Achievements</span></Link>
+            <Link to='/resume'  onClick={handleSidebar} className="side-items"><i class='bx bx-file'></i> <span className="title-items-sidebar">Resume</span></Link>
+            <Link to='/about'  onClick={handleSidebar} className="side-items"><i class='bx bx-user'></i> <span className="title-items-sidebar">About</span></Link>
         </ul>
       </aside>
     </div>
