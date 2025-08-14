@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import Image_Exported from "../assets/ImageExporter";
 
 const Navbar = () => {
+  const [IsSidebarOpen, setIsSidebarOpen]= useState(false);
+  const handleSidebar = ()=>{
+    setIsSidebarOpen(!IsSidebarOpen);
+  }
+
   return (
     <div className="navigation">
       <nav className="navbar">
@@ -25,22 +30,22 @@ const Navbar = () => {
             <i className="bx bx-sun"></i>
           </li>
           <li className="nav-toggle-btn toggle">
-            <i className="bx bx-menu"></i>
+            <i onClick={handleSidebar} className={`bx bx-${IsSidebarOpen ? 'x': 'menu'}`}></i>
           </li>
         </ul>
       </nav>
-      <aside className="sidebar">
-        <div className="profile">
+      <aside className={`sidebar ${IsSidebarOpen ? "open": ''}`}>
+        <div onClick={handleSidebar} className="profile">
           <img src={Image_Exported.profile_picture} alt="Profile Picture" className="profile-picture" />
           <p className="profile-title">Sandeep Kumar</p>
         </div>
         <ul className="side-list">
-            <li className="side-items"><i class='bx bx-devices'></i> <span className="title-items-sidebar">Services</span></li>
-            <li className="side-items"><i class='bx bx-book-open'></i> <span className="title-items-sidebar">Books</span></li>
-            <li className="side-items"><i class='bx bx-code-alt'></i> <span className="title-items-sidebar">Projects</span></li>
-            <li className="side-items"><i class='bx bx-trophy'></i> <span className="title-items-sidebar">Achievements</span></li>
-            <li className="side-items"><i class='bx bx-file'></i> <span className="title-items-sidebar">Resume</span></li>
-            <li className="side-items"><i class='bx bx-user'></i> <span className="title-items-sidebar">About</span></li>
+            <li  onClick={handleSidebar} className="side-items"><i class='bx bx-devices'></i> <span className="title-items-sidebar">Services</span></li>
+            <li  onClick={handleSidebar} className="side-items"><i class='bx bx-book-open'></i> <span className="title-items-sidebar">Books</span></li>
+            <li  onClick={handleSidebar} className="side-items"><i class='bx bx-code-alt'></i> <span className="title-items-sidebar">Projects</span></li>
+            <li  onClick={handleSidebar} className="side-items"><i class='bx bx-trophy'></i> <span className="title-items-sidebar">Achievements</span></li>
+            <li  onClick={handleSidebar} className="side-items"><i class='bx bx-file'></i> <span className="title-items-sidebar">Resume</span></li>
+            <li  onClick={handleSidebar} className="side-items"><i class='bx bx-user'></i> <span className="title-items-sidebar">About</span></li>
         </ul>
       </aside>
     </div>
