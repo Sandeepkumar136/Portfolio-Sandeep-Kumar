@@ -16,6 +16,12 @@
 
 body {
   background-color: #fff;
+  color: #111;
+}
+
+.dark-mode {
+  background-color: #222;
+  color: #fff;
 }
 
 .navigation {
@@ -35,6 +41,10 @@ body {
   -webkit-backdrop-filter: blur(3.7px);
 }
 
+.dark-mode .navbar {
+  background: rgba(0, 149, 255, 0.715);
+}
+
 .nav-contain {
   display: flex;
   justify-content: start;
@@ -47,6 +57,24 @@ body {
   justify-content: start;
   align-items: center;
   gap: 0.5rem;
+  text-decoration: none;
+  color: #111;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.dark-mode .logo-contain {
+  color: #fff;
+}
+
+.logo-contain:active,
+.logo-contain:visited,
+.logo-contain:focus {
+  background-color: transparent !important;
+  outline: none;
+  -webkit-tap-highlight-color: transparent; /* <– THIS is the true slayer */
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .logo-contain i {
@@ -81,6 +109,24 @@ body {
   text-transform: capitalize;
   font-size: 1rem;
   font-weight: 600;
+  text-decoration: none;
+  color: #111;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.dark-mode .nav-items {
+  color: #fff;
+}
+
+.nav-items:active,
+.nav-items:visited,
+.nav-items:focus {
+  background-color: transparent !important;
+  outline: none;
+  -webkit-tap-highlight-color: transparent; /* <– THIS is the true slayer */
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .nav-items:hover {
@@ -108,6 +154,23 @@ body {
   font-size: 0.9rem;
   font-weight: 600;
   box-shadow: 0 0 0px 0.6px #999;
+  text-decoration: none;
+  outline: none;
+  background-color: transparent;
+  color: #111;
+}
+
+.dark-mode .nav-toggle-items {
+  color: #fff;
+}
+
+.nav-toggle-items:active,
+.nav-toggle-items:visited,
+.nav-toggle-items:focus {
+  background-color: transparent !important;
+  outline: none;
+  -webkit-tap-highlight-color: transparent; /* <– THIS is the true slayer */
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .nav-toggle-items:hover {
@@ -122,6 +185,10 @@ body {
   color: #000;
   transition: 0.3s all ease-in-out;
   cursor: pointer;
+}
+
+.dark-mode .nav-toggle-btn.theme {
+  color: #fff;
 }
 
 .nav-toggle-btn.toggle {
@@ -152,6 +219,10 @@ body {
   transition: 0.5s all ease-in-out;
 }
 
+.dark-mode .sidebar {
+  background: rgba(0, 149, 255, 0.404);
+}
+
 .sidebar.open {
   transform: translateX(0);
 }
@@ -164,6 +235,21 @@ body {
   border-radius: 15px;
   gap: 1rem;
   box-shadow: 0px 0px 1px 0.5px rgba(0, 0, 0, 0.15);
+  border: none;
+  outline: none;
+  background-color: transparent;
+  text-decoration: none;
+  color: #111;
+  cursor: pointer;
+}
+
+.profile:active,
+.profile:visited,
+.profile:focus {
+  background-color: transparent !important;
+  outline: none;
+  -webkit-tap-highlight-color: transparent; /* <– THIS is the true slayer */
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .profile-picture {
@@ -198,6 +284,19 @@ body {
   gap: 0.5rem;
   border-radius: 10px;
   box-shadow: 0px 0px 1px 0.5px rgba(0, 0, 0, 0.15);
+  text-decoration: none;
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
+
+.side-items:active,
+.side-items:visited,
+.side-items:focus {
+  background-color: transparent !important;
+  outline: none;
+  -webkit-tap-highlight-color: transparent; /* <– THIS is the true slayer */
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .side-items i {
@@ -214,6 +313,7 @@ body {
   font-size: 0.9rem;
   font-family: "poppins", sans-serif;
   font-weight: 500;
+  color: #111;
 }
 
 @media only screen and (max-width: 1024px) {

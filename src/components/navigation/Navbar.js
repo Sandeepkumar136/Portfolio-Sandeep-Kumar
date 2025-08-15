@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import Image_Exported from "../assets/ImageExporter";
 import { Link } from "react-router-dom";
+import { useDarkMode } from "../context/DarkModeContext";
 
 const Navbar = () => {
+  // Sidebar
   const [IsSidebarOpen, setIsSidebarOpen]= useState(false);
   const handleSidebar = ()=>{
     setIsSidebarOpen(!IsSidebarOpen);
   }
+  // Darkmode
+  const {toggleDarkMode, darkMode} = useDarkMode();
 
   return (
     <div className="navigation">
@@ -27,8 +31,8 @@ const Navbar = () => {
           <Link to='/achievements' className="nav-toggle-items">Achievements</Link>
           <Link to='/resume' className="nav-toggle-items">Resume</Link>
           <Link to='/about' className="nav-toggle-items">About</Link>
-          <li className="nav-toggle-btn theme">
-            <i className="bx bx-sun"></i>
+          <li onClick={toggleDarkMode} className="nav-toggle-btn theme">
+            <i className={`bx bx-${darkMode ? 'moon':'sun'}`}></i>
           </li>
           <li className="nav-toggle-btn toggle">
             <i onClick={handleSidebar} className={`bx bx-${IsSidebarOpen ? 'x': 'menu'}`}></i>
@@ -36,10 +40,10 @@ const Navbar = () => {
         </ul>
       </nav>
       <aside className={`sidebar ${IsSidebarOpen ? "open": ''}`}>
-        <div onClick={handleSidebar} className="profile">
+        <Link to='/profile' onClick={handleSidebar} className="profile">
           <img src={Image_Exported.profile_picture} alt="Profile Picture" className="profile-picture" />
           <p className="profile-title">Sandeep Kumar</p>
-        </div>
+        </Link>
         <ul className="side-list">
             <Link to='/services'  onClick={handleSidebar} className="side-items"><i class='bx bx-devices'></i> <span className="title-items-sidebar">Services</span></Link>
             <Link to='/books'  onClick={handleSidebar} className="side-items"><i class='bx bx-book-open'></i> <span className="title-items-sidebar">Books</span></Link>

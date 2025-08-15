@@ -10,11 +10,13 @@ import Projects from './components/Routes/Projects';
 import Achievements from './components/Routes/Achievements';
 import Resume from './components/Routes/Resume';
 import About from './components/Routes/About';
+import { DarkModeProvider } from './components/context/DarkModeContext';
 
 const App = () => {
   return (
     <>
       <Router>
+        <DarkModeProvider>
         <Navbar/>
         <Routes>
           <Route path='/' element={<Home/>}/>
@@ -26,6 +28,7 @@ const App = () => {
           <Route path='/resume' element={<Resume/>}/>
           <Route path='/about' element={<About/>}/>
         </Routes>
+        </DarkModeProvider>
       </Router>
     </>
   )
