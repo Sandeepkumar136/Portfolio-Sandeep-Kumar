@@ -3,6 +3,48 @@ import { motion } from "framer-motion";
 import Image_Exported from "../assets/ImageExporter";
 
 const Profile = () => {
+  const items = [
+    {
+      heading: "10th",
+      subtitle: "Inter High School",
+      location: "Kishanganj",
+      state: "Bihar",
+      desc: "The roots of discipline and discovery. A chapter where dreams formed under chalk dust and morning bells in the gentle heartland of Kishanganj.",
+      back_image: Image_Exported["madel-image"],
+    },
+    {
+      heading: "Intermediate",
+      subtitle: "Insan Inter College",
+      location: "Kishanganj",
+      state: "Bihar",
+      desc: "A scholarly rite of passage where youth was sculpted with choice and clarity. The place that sharpened purpose and invited deeper reflection.",
+      back_image: Image_Exported["madel-image"],
+    },
+    {
+      heading: "B.COM",
+      subtitle: "Purnia University",
+      location: "Purnia",
+      state: "Bihar",
+      desc: "Beneath the academic archways of Purnia, commerce was embraced like a craft. Here, balance sheets and ambitions were equally honored.",
+      back_image: Image_Exported["madel-image"],
+    },
+    {
+      heading: "Frontend Development",
+      subtitle: "W3s School",
+      location: "Hamburg",
+      state: "Germany",
+      desc: "A canvas of pixels and code. In W3s School’s realm, interfaces took form, and the visual soul of the web began to breathe.",
+      back_image: Image_Exported["madel-image"],
+    },
+    {
+      heading: "Backend Development",
+      subtitle: "Apna College",
+      location: "Delhi",
+      state: "India",
+      desc: "The unseen workings of the web revealed their secrets. Through Apna College’s light, logic and structure flourished in code behind the curtains.",
+      back_image: Image_Exported["madel-image"],
+    },
+  ];
   return (
     <motion.div
       className="profile-container"
@@ -105,6 +147,23 @@ const Profile = () => {
           </motion.ul>
         </motion.div>
       </motion.div>
+      <div className="p-ed-container">
+        {items.map((e, i) => (
+          <div key={i} className="p-ed-card">
+            <div className="p-ed-inner">
+              <i class="front-icon-p-ed bx bxs-graduation"></i>
+              <h3 className="heading-p-ed">{e.heading}</h3>
+              <p className="p-ed-subtitle">{e.subtitle}</p>
+              <p className="p-ed-loc"><span className="p-ed-state">{e.state}</span><span className="p-ed-city">{e.location}</span></p>
+              <p className="text-p-ed">{e.desc}</p>
+            </div>
+            <div className="p-ed-back">
+              <i className="icon-p-ed-back bx bxs-trophy"></i>
+              <h1 className="back-title-p-ed">Education</h1>
+            </div>
+          </div>
+        ))}
+      </div>
     </motion.div>
   );
 };
