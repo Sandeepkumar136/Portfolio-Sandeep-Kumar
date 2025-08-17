@@ -11,6 +11,12 @@
   font-variation-settings: "slnt" 0, "wdth" 100;
   transition: 0.2s all ease-in;
 }
+%typeExcessiveFont {
+  font-family: "Bitcount Prop Single", system-ui;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings: "slnt" 0, "CRSV" 0.5, "ELSH" 0, "ELXP" 0;
+}
 * {
   padding: 0;
   margin: 0;
@@ -21,15 +27,11 @@ body {
   background-color: #fff;
   color: #111;
 }
-.dark-mode{
-  background-color: #222;
+.dark-mode {
+  background-color: #111;
   color: #fff;
 }
-.navigation {
-  position: sticky;
-  top: 0;
-  z-index: 50000000;
-}
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -40,8 +42,8 @@ body {
   backdrop-filter: blur(3.7px);
   -webkit-backdrop-filter: blur(3.7px);
 }
-.dark-mode .navbar{
-  background: rgba(0, 149, 255, 0.715);
+.dark-mode .navbar {
+  background: #111;
 }
 .nav-contain {
   display: flex;
@@ -60,7 +62,7 @@ body {
   outline: none;
   background-color: transparent;
 }
-.dark-mode .logo-contain{
+.dark-mode .logo-contain {
   color: #fff;
 }
 .logo-contain:active,
@@ -113,7 +115,7 @@ body {
   outline: none;
   background-color: transparent;
 }
-.dark-mode .nav-items{
+.dark-mode .nav-items {
   color: #fff;
 }
 .nav-items:active,
@@ -153,7 +155,7 @@ body {
   background-color: transparent;
   color: #111;
 }
-.dark-mode .nav-toggle-items{
+.dark-mode .nav-toggle-items {
   color: #fff;
 }
 .nav-toggle-items:active,
@@ -177,7 +179,7 @@ body {
   transition: 0.3s all ease-in-out;
   cursor: pointer;
 }
-.dark-mode .nav-toggle-btn.theme{
+.dark-mode .nav-toggle-btn.theme {
   color: #fff;
 }
 // .nav-toggle-btn.theme:hover{
@@ -209,8 +211,11 @@ body {
   transform: translateX(110%);
   transition: 0.5s all ease-in-out;
 }
-.dark-mode .sidebar{
-  background: rgba(0, 149, 255, 0.404);
+.dark-mode .sidebar {
+  background: rgba(0, 64, 255, 0);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(9.6px);
+  -webkit-backdrop-filter: blur(9.6px);
 }
 .sidebar.open {
   transform: translateX(0);
@@ -231,6 +236,9 @@ body {
   color: #111;
   cursor: pointer;
 }
+.dark-mode .profile {
+  color: #fff;
+}
 .profile:active,
 .profile:visited,
 .profile:focus {
@@ -249,6 +257,9 @@ body {
   font-family: "poppins", sans-serif;
   font-weight: 600;
   opacity: 0.7;
+}
+.dark-mode .profile-title {
+  opacity: 0.9;
 }
 .side-list {
   list-style: none;
@@ -292,15 +303,32 @@ body {
   text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
 }
+.dark-mode .side-items i {
+  color: #87c1ff;
+}
 .title-items-sidebar {
   font-size: 0.9rem;
   font-family: "poppins", sans-serif;
   font-weight: 500;
   color: #111;
 }
+.dark-mode .title-items-sidebar {
+  color: #fff;
+}
 // Navbar and Sidebar MediaQueries
 @media only screen and (max-width: 1024px) {
-  .nav-title{
+  .navigation {
+    position: sticky;
+    top: 0;
+    z-index: 50000000;
+  }
+  .dark-mode .navbar {
+    background: rgba(0, 64, 255, 0);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(7.6px);
+    -webkit-backdrop-filter: blur(7.6px);
+  }
+  .nav-title {
     font-size: 1rem;
   }
   .nav-toggle-items {
@@ -640,5 +668,152 @@ body {
   }
   .subtitle-gen {
     font-size: 0.7rem;
+  }
+}
+// Profile
+.p-user-container {
+  display: flex;
+  justify-content: start;
+  margin: 2rem;
+  gap: 2rem;
+}
+.p-u-logo-contain {
+  clip-path: polygon(20% 0, 100% 0, 100% 80%, 80% 99%, 0 100%, 0% 60%, 0 20%);
+  width: 50%;
+  background: linear-gradient(-45deg, #0000 1.3%, transparent 0 32%, #0000 0),
+    linear-gradient(45deg, #0000 48%, #1a8fe5 0 52%, #0000 0),
+    linear-gradient(45deg, #0000 1.3%, transparent 0 32%, #0000 0)
+      calc(32px / 2) calc(32px / 2),
+    linear-gradient(-45deg, #0000 48%, #1a8fe5 0 52%, #0000 0) transparent;
+  background-size: calc(2 * 32px) 32px, 32px 32px;
+}
+.gl-p-in-wrapper {
+  width: 100%;
+  // height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  text-align: center;
+  background-color: transparent;
+}
+.p-in-name {
+  position: relative;
+  font-size: 2rem;
+  // @extend %type-robboto-font;
+  font-family: "poppins", sans-serif;
+  // font-style: italic;
+  font-weight: bold;
+  color: #000;
+  letter-spacing: 3px;
+  z-index: 1;
+}
+.p-in-name:before,
+.p-in-name:after {
+  display: block;
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.8;
+}
+
+.p-in-name:before {
+  animation: glitch-it 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+  color: #00ffff;
+  z-index: -1;
+}
+
+.p-in-name:after {
+  animation: glitch-it 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both
+    infinite;
+  color: #ff00ff;
+  z-index: -2;
+}
+
+@keyframes glitch-it {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  to {
+    transform: translate(0);
+  }
+}
+.p-in-subtitle {
+  font-size: 1.5rem;
+  font-weight: 800;
+  opacity: 0.7;
+}
+.text-in {
+  width: 70%;
+  font-size: 0.9rem;
+  font-weight: 600;
+  opacity: 0.8;
+}
+.in-links-contain {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  list-style: none;
+  gap: 0.5rem;
+}
+.links-in {
+  cursor: pointer;
+  font-size: 1.8rem;
+  opacity: 0.5;
+}
+.img-user-p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: 300px;
+  height: 430px;
+}
+@media only screen and (max-width: 768px) {
+  .p-user-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+    gap: 1rem;
+  }
+  .p-u-logo-contain {
+    width: 100%;
+    clip-path: polygon(
+      20% 0,
+      100% 0,
+      100% 85%,
+      80% 100%,
+      0 100%,
+      0% 60%,
+      0 15%
+    );
+  }
+  .p-in-name{
+    font-size: 1.5rem;
+  }
+  .p-in-subtitle{
+    font-size: 1.2rem;
+  }
+  .text-in{
+    width: 100%;
+    margin: 0.5rem 1rem 0.5rem 0rem;
+    font-size: 0.8rem;
+  }
+  .img-user-p {
+    width: 100%;
+    height: 100%;
   }
 }
