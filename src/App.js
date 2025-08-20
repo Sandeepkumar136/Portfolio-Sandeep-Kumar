@@ -11,12 +11,16 @@ import Achievements from './components/Routes/Achievements';
 import Resume from './components/Routes/Resume';
 import About from './components/Routes/About';
 import { DarkModeProvider } from './components/context/DarkModeContext';
+import { LangDialogueboxProvider } from './components/context/LanguageContext';
+import { FilterDialogueBoxProvider } from './components/context/FilterContext';
 
 const App = () => {
   return (
     <>
       <Router>
         <DarkModeProvider>
+          <LangDialogueboxProvider>
+            <FilterDialogueBoxProvider>
         <Navbar/>
         <Routes>
           <Route path='/' element={<Home/>}/>
@@ -28,6 +32,8 @@ const App = () => {
           <Route path='/resume' element={<Resume/>}/>
           <Route path='/about' element={<About/>}/>
         </Routes>
+            </FilterDialogueBoxProvider>
+          </LangDialogueboxProvider>
         </DarkModeProvider>
       </Router>
     </>
