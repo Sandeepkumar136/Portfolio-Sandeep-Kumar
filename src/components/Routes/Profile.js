@@ -45,6 +45,29 @@ const Profile = () => {
       back_image: Image_Exported["madel-image"],
     },
   ];
+  const skills = [
+    "html5",
+    "css3",
+    "javascript",
+    "sass",
+    "react",
+    "nodejs",
+    "redux",
+    "mongodb",
+    "typescript",
+    "jquery",
+    "vuejs",
+    "python",
+    "flask",
+    "postgresql",
+    "bootstrap",
+    "netlify",
+    "github",
+    "git",
+    "visual-studio",
+    "terminal",
+  ];
+
   return (
     <motion.div
       className="profile-container"
@@ -195,6 +218,18 @@ const Profile = () => {
             forests of MongoDB. Document by document, he deciphers the art of
             flexible data. His journey is one of modern mastery.
           </p>
+        </div>
+      </div>
+      <h4 className="infinity-heading">Languages</h4>
+      <div className="lang-container">
+        <div className="lang-overlay">
+          <div className="lang-list">
+              {
+                skills.map((e, i)=>(
+                  <i key={i} className={`bx ${e.startsWith("bxs") ? e: `bxl-${e}` }`} />
+                ))
+              }
+          </div>
         </div>
       </div>
     </motion.div>
