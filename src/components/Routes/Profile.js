@@ -147,22 +147,55 @@ const Profile = () => {
           </motion.ul>
         </motion.div>
       </motion.div>
+      <h4 className="infinity-heading">Academic Journey</h4>
       <div className="p-ed-container">
         {items.map((e, i) => (
           <div key={i} className="p-ed-card">
-            <div className="p-ed-inner">
-              <i class="front-icon-p-ed bx bxs-graduation"></i>
-              <h3 className="heading-p-ed">{e.heading}</h3>
-              <p className="p-ed-subtitle">{e.subtitle}</p>
-              <p className="p-ed-loc"><span className="p-ed-state">{e.state}</span><span className="p-ed-city">{e.location}</span></p>
-              <p className="text-p-ed">{e.desc}</p>
+            <div className="p-ed-upper-contain">
+              <div className="p-ed-title-contain">
+                <h3 className="heading-p-ed">{e.heading}</h3>
+                <p className="p-ed-subtitle">{e.subtitle}</p>
+              </div>
+              <p className="p-ed-loc">
+                <span className="p-ed-city">{e.location}</span>
+                <span className="p-ed-state">{e.state}</span>
+              </p>
             </div>
-            <div className="p-ed-back">
-              <i className="icon-p-ed-back bx bxs-trophy"></i>
-              <h1 className="back-title-p-ed">Education</h1>
-            </div>
+            <p className="text-p-ed">{e.desc}</p>
           </div>
         ))}
+      </div>
+      <h4 className="infinity-heading">Learning</h4>
+      <div className="cur-ed-container">
+        <div className="cur-ed-cards">
+          <div className="cur-ed-upper-contain">
+            <p className="cur-ed-title-contain">
+              <h3 className="cur-ed-title">Master in C.</h3>
+              <h4 className="cur-ed-subtitle">Sradha Khapra</h4>
+            </p>
+            <p className="curr-cur-info">currently</p>
+          </div>
+          <p className="cur-ed-text">
+            With quiet perseverance, Sradha Khanpra delves into the elegant
+            precision of C—where logic flows like a river through valleys of
+            memory. In every function, she chisels mastery, weaving clarity and
+            power into the codebase.
+          </p>
+        </div>
+        <div className="cur-ed-cards">
+          <div className="cur-ed-upper-contain">
+            <p className="cur-ed-title-contain">
+              <h3 className="cur-ed-title">Master in MongoDB</h3>
+              <h4 className="cur-ed-subtitle">Haris Ali Khan</h4>
+            </p>
+            <p className="curr-cur-info">currently</p>
+          </div>
+          <p className="cur-ed-text">
+            In the dynamic heart of NoSQL, Haris Ali Khan studies the vast
+            forests of MongoDB. Document by document, he deciphers the art of
+            flexible data. His journey is one of modern mastery.
+          </p>
+        </div>
       </div>
     </motion.div>
   );

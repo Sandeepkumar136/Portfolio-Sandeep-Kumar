@@ -17,6 +17,19 @@
   font-style: normal;
   font-variation-settings: "slnt" 0, "CRSV" 0.5, "ELSH" 0, "ELXP" 0;
 }
+.infinity-heading{
+  font-size: 1.7rem;
+  margin: 0 2rem;
+  font-weight: 800;
+  opacity: 0.5;
+}
+@media only screen and (max-width: 768px) {
+  .infinity-heading{
+    font-size: 1.1rem;
+    margin: 0 1rem;
+  }
+  
+}
 * {
   padding: 0;
   margin: 0;
@@ -818,115 +831,149 @@ body {
   }
 }
 // Profile/Flip Card
-.p-ed-container {
+.p-ed-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* responsive */
-  gap: 2rem; /* exactly 2rem gap */
-  perspective: 1000px;
+  grid-template-columns: repeat(3,1fr);
+  gap: 1rem;
   margin: 1rem 2rem;
-  padding: 1rem;
+  padding: 2rem;
 }
-
-.p-ed-card {
-  position: relative;
-  width: 100%; /* take full column width */
-  height: 400px;
-  transform-style: preserve-3d;
-  transition: transform 0.8s ease;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.p-ed-card:hover {
-  transform: rotateY(180deg);
-}
-
-.p-ed-inner,
-.p-ed-back {
-  position: absolute;
-  width: 100%;
+.p-ed-card{
   height: 100%;
-  backface-visibility: hidden; /* hides flipped side */
-  // border-radius: 1rem;
-  overflow: hidden;
-}
-
-.p-ed-inner {
   padding: 1rem;
+  box-shadow: 0 0 1px 0.3px #999;
+}
+.p-ed-upper-contain{
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background-color: #d9ebff;
+  justify-content: space-between;
+  align-items: start;
 }
-.dark-mode .p-ed-inner {
-  background-color: #001c38;
-}
-
-.p-ed-back {
-  background: #d9ebff;
-  transform: rotateY(180deg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-.dark-mode .p-ed-back{
-  background-color: #001c38;
-}
-.p-ed-inner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0;
-}
-.front-icon-p-ed {
-  font-size: 5rem;
-  // margin: auto;
-}
-.heading-p-ed {
-  font-size: 1.1rem;
-  font-weight: bold;
-  opacity: 0.9;
-}
-.p-ed-subtitle {
+.heading-p-ed{
   font-size: 1rem;
-  font-weight: bold;
-  text-transform: capitalize;
-  opacity: 0.8;
-}
-.p-ed-loc {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 1rem;
-}
-.p-ed-state {
   font-weight: 700;
-  opacity: 0.5;
+  // opacity: ;
 }
-.p-ed-city {
+.p-ed-subtitle{
+  font-size: 0.9rem;
   font-weight: 700;
   opacity: 0.7;
 }
-.text-p-ed {
+.p-ed-loc{
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+  // gap: 0.3rem;
+}
+.p-ed-state{
   font-size: 0.9rem;
+  font-weight: 600;
   opacity: 0.5;
 }
-.icon-p-ed-back {
-  font-size: 5rem;
+.p-ed-city{
+  opacity: 0.9;
+  font-size: 0.9rem;
+  font-weight: 600;
 }
-.back-title-p-ed {
-  font-size: 1.1rem;
-  font-weight: 700;
-  opacity: 0.8;
+.text-p-ed{
+  padding: 1rem;
+  opacity: 0.5;
+  font-size: 0.9rem;
+  // font-weight: ;
 }
 @media only screen and (max-width: 768px) {
   .p-ed-container{
+    gap: 0.5rem;
     margin: 1rem;
-    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .p-ed-card{
+    padding: 0.5rem;
+  }
+  .heading-p-ed{
+    font-size: 0.8rem;
+  }
+  .p-ed-subtitle{
+    font-size: 0.8rem;
+  }
+  .p-ed-state, .p-ed-city{
+    font-size: 0.7rem;
+  }
+  .text-p-ed{
+    font-size: 0.7rem;
+  }
+}
+// Profile/Currently_Education
+.cur-ed-container{
+  margin: 1rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.cur-ed-cards{
+  border: 1px solid #999;
+  // width: 50%;
+  height: 100%;
+}
+.cur-ed-upper-contain{
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  align-items: start;
+}
+.cur-ed-title{
+  font-size: 1.1rem;
+  font-weight: 800;
+  opacity: 0.8;
+}
+.cur-ed-subtitle{
+  font-size: 1rem;
+  font-weight: 700;
+  opacity: 0.6;
+}
+.curr-cur-info{
+  border: 1px solid #999;
+  font-size: 0.9rem;
+  padding: 5px 15px;
+  text-transform: capitalize;
+  font-weight: 600;
+  opacity: 0.5;
+}
+.cur-ed-text{
+  font-size: 0.9rem;
+  padding: 1rem;
+  font-weight: 600;
+  opacity: 0.5;
+}
+@media only screen and (max-width: 768px) {
+  .cur-ed-container{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    padding: 0;
+    margin: 1rem;
+  }
+  .cur-ed-cards{
+    width: 100%;
+  }
+  .cur-ed-title{
+    font-size: 0.9rem;
+  }
+  .cur-ed-subtitle{
+    font-size: 0.8rem;
+  }
+  .curr-cur-info{
+    font-size: 0.7rem;
+  }
+  .cur-ed-text{
+    font-size: 0.7rem;
   }
   
 }
