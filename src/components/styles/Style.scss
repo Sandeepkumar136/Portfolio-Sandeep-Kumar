@@ -1116,7 +1116,6 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  // padding: rem 0;
   margin-top: 4rem;
 }
 .heading-project {
@@ -1129,11 +1128,14 @@ body {
 .p-highlight {
   background-image: linear-gradient(to top, #0051ff80 0.1em, transparent 0.1em);
 }
+.dark-mode .p-highlight {
+  background-image: linear-gradient(to top, #0051fffb 0.1em, transparent 0.1em);
+}
 .p-inp-contain {
   display: flex;
   align-items: center;
   position: relative;
-  // max-width: 100%;
+  max-width: 100%;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
@@ -1147,9 +1149,13 @@ body {
   // background: #FFFFFF;
   color: #000;
   border: 1px solid #999;
+  border-radius: 7px;
   transition: 0.3s ease;
 }
-
+.dark-mode .p-inp-contain input {
+  background-color: #000;
+  color: #f1f1f1;
+}
 .p-inp-contain input:focus {
   background: #f0f0f0;
 }
@@ -1157,14 +1163,25 @@ body {
 .p-inp-contain input::placeholder {
   color: #dddddd;
 }
+.dark-mode .p-inp-contain input:focus {
+  background: #9999;
+}
 
+.dark-mode .p-inp-contain input::placeholder {
+  color: #dddddd;
+}
 .p-search {
   position: absolute;
   font-size: 1.5rem;
   left: 10px;
   width: 18px;
   height: 18px;
+  margin-bottom: 0.2rem;
+  border-radius: 10px;
 }
+// .dark-mode .p-search{
+//   color: #ddd;
+// }
 .button-p-inp-contain {
   display: flex;
   justify-content: start;
@@ -1173,12 +1190,20 @@ body {
 }
 .btn-p-inp {
   font-size: 1rem;
-  padding: 5px 15px;
+  padding: 8px 20px;
+  border-radius: 3px;
   font-weight: 500;
   opacity: 0.8;
   cursor: pointer;
   background-color: transparent;
-  border: 1px solid #999;
+  // border: 1px solid #999;
+  border: none;
+  outline: none;
+  background-color: #f0f0f0;
+}
+.dark-mode .btn-p-inp {
+  color: #fff;
+  background-color: #555;
 }
 .project-cards {
   display: grid;
@@ -1189,12 +1214,16 @@ body {
 }
 .project-card {
   padding: 1rem;
-  border: 1px solid #999;
   border-radius: 5px;
-  box-shadow: 0 0 1px 0.3px #999;
+  background-color: #f0f0f0;
   transition: 0.3s all ease-in-out;
   cursor: pointer;
   text-transform: capitalize;
+}
+.dark-mode .project-card{
+  border: none;
+  box-shadow: none;
+  background-color: #1f1e1e;
 }
 .dialog-overlay {
   position: fixed;
@@ -1211,11 +1240,117 @@ body {
   align-items: center;
 }
 .dialog-box {
-  width: 800px;
-  height: 400px;
+  width: 700px;
+  height: 300px;
   padding: 2rem;
-background: rgba(255, 255, 255, 0.878);
-box-shadow: 0 0 3px 0.5px #999;
-backdrop-filter: blur(5.7px);
--webkit-backdrop-filter: blur(5.7px);
+  background: rgba(239, 238, 238, 0.878);
+  // box-shadow: 0 0 3px 0.5px #999;
+  backdrop-filter: blur(5.7px);
+  -webkit-backdrop-filter: blur(5.7px);
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: start;
+}
+.dark-mode .dialog-box {
+  background: #333;
+}
+.heading-l-d-box {
+  font-size: 1.1rem;
+  font-weight: 700;
+  opacity: 0.5;
+}
+.lang-btn-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.lang-btn {
+  padding: 7px 15px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  font-weight: 600;
+  opacity: 0.5;
+  cursor: pointer;
+  color: #111;
+  background-color: #fff;
+}
+.dark-mode .lang-btn {
+  background-color: #1f1e1e;
+  color: #fff;
+}
+.lang-btn.active {
+  opacity: 1;
+  background-color: #87c1ffcb;
+}
+.dark-mode .lang-btn.active{
+  background-color: #007bff;
+  color: #fff;
+}
+.l-c-btn-contain {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: end;
+}
+.lang-close-btn {
+  position: absolute;
+  display: flex;
+  align-items: end;
+  justify-content: end;
+  margin: auto;
+  border: none;
+  padding: 5px 15px;
+  font-size: 1rem;
+  opacity: 0.8;
+  cursor: pointer;
+  background-color: #fff;
+}
+.dark-mode .lang-close-btn{
+  background-color: #1f1e1e;
+  color: #fff;
+}
+.filter-inputs label {
+  margin: 0 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  opacity: 0.5;
+}
+.filter-inputs input {
+  border: none;
+  outline: none;
+  padding: 5px 15px;
+  text-transform: uppercase;
+  // opacity: 0.5;
+  cursor: pointer;
+}
+.dark-mode .filter-inputs input{
+  background-color: #1f1e1e;
+  color: #fff;
+}
+@media only screen and (max-width: 1024px) {
+  .p-g-inp-container{
+    padding: 1rem;
+  }
+  .heading-project{
+    font-size: 2rem;
+  }
+  .subtitle-project{
+    font-size: 1.2rem;
+  }
+  .project-cards{
+    grid-template-columns: repeat(1, 1fr);
+    margin: 0;
+    padding: 1.5rem;
+  }
+  .project-card{
+    font-size: 0.9rem;
+    // text-wrap: ;
+  }
+  .btn-p-inp{
+
+  }
+  
 }

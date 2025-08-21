@@ -16,6 +16,7 @@ const Projects = () => {
   const { openFilter, closeFilter, isFilterOpen } = useFilter();
   const { openLang, closeLang, isLangOpen } = useLang();
 
+  // ✅ Fetch Repos
   useEffect(() => {
     fetch("https://api.github.com/users/Sandeepkumar136/repos")
       .then((res) => res.json())
@@ -26,6 +27,7 @@ const Projects = () => {
       .catch((err) => console.error("Fetched Error:", err));
   }, []);
 
+  // ✅ Reusable Date Filter
   const filterByDate = (repoDate, from, to) => {
     const date = new Date(repoDate);
     if (from && date < new Date(from)) return false;
@@ -33,10 +35,12 @@ const Projects = () => {
     return true;
   };
 
+  // ✅ Filtering logic
   const filteredRepos = repos.filter((repo) => {
     const matchesSearch = repo.name
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
+
     const matchesCreated = filterByDate(
       repo.created_at,
       createdFrom,
@@ -50,29 +54,33 @@ const Projects = () => {
     const matchesLanguage = selectedLanguage
       ? repo.language === selectedLanguage
       : true;
+
     return matchesSearch && matchesCreated && matchesUpdated && matchesLanguage;
   });
 
+  // ✅ Unique Languages
   const languages = [
     ...new Set(repos.map((repo) => repo.language).filter(Boolean)),
   ];
 
   return (
     <div className="project">
-      {/* ✅ Only show search + filter when NO repo is selected */}
+      {/* 🔹 Search + Filter UI (only when NO repo selected) */}
       {!selectedRepo && (
         <>
-          {/* 🔹 Search + Buttons */}
           <div className="p-g-inp-container">
             <div className="p-heading-contain">
               <h3 className="heading-project">Creative work, reimagined</h3>
               <h6 className="subtitle-project">
-                Interactive <span className="p-highlight">frontend</span>, optimized{" "}
-                <span className="p-highlight">backend</span>, seamless user experience.
+                Interactive <span className="p-highlight">frontend</span>,
+                optimized <span className="p-highlight">backend</span>, seamless
+                user experience.
               </h6>
             </div>
+
+            {/* 🔹 Search Input */}
             <div className="p-inp-contain">
-              <i className=" p-search bx bx-search"></i>
+              <i className="p-search bx bx-search"></i>
               <input
                 className="input"
                 type="text"
@@ -81,6 +89,8 @@ const Projects = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
+
+            {/* 🔹 Filter + Language Buttons */}
             <div className="button-p-inp-contain">
               <button className="btn-p-inp" onClick={openFilter}>
                 Filter
@@ -106,7 +116,7 @@ const Projects = () => {
         </>
       )}
 
-      {/* ✅ Show details directly in DOM (not modal) */}
+      {/* 🔹 Project Details */}
       {selectedRepo && (
         <div className="project-details-container">
           <button onClick={() => setSelectedRepo(null)}>← Back</button>
@@ -117,12 +127,9 @@ const Projects = () => {
       {/* 🔹 Filter Dialog */}
       {isFilterOpen && (
         <div className="dialog-overlay" onClick={closeFilter}>
-          <div
-            className="dialog-box"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h4>Filter by Date</h4>
-            <div>
+          <div className="dialog-box" onClick={(e) => e.stopPropagation()}>
+            <h4 className="heading-l-d-box">Filter by Date</h4>
+            <div className="filter-inputs">
               <label>Created From:</label>
               <input
                 type="date"
@@ -136,7 +143,7 @@ const Projects = () => {
                 onChange={(e) => setCreatedTo(e.target.value)}
               />
             </div>
-            <div>
+            <div className="filter-inputs">
               <label>Updated From:</label>
               <input
                 type="date"
@@ -150,7 +157,11 @@ const Projects = () => {
                 onChange={(e) => setUpdatedTo(e.target.value)}
               />
             </div>
-            <button onClick={closeFilter}>Close</button>
+            <div className="l-c-btn-contain">
+              <button className="lang-close-btn" onClick={closeFilter}>
+                Close
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -158,23 +169,36 @@ const Projects = () => {
       {/* 🔹 Language Dialog */}
       {isLangOpen && (
         <div className="dialog-overlay" onClick={closeLang}>
-          <div
-            className="dialog-box"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h4>Select Language</h4>
-            <select
-              value={selectedLanguage}
-              onChange={(e) => setSelectedLanguage(e.target.value)}
-            >
-              <option value="">All Languages</option>
+          <div className="dialog-box" onClick={(e) => e.stopPropagation()}>
+            <h4 className="heading-l-d-box">Select Language</h4>
+            <div className="lang-btn-group">
+              <button
+                onClick={() => setSelectedLanguage("")}
+                className={
+                  selectedLanguage === "" ? "lang-btn active" : "lang-btn"
+                }
+                type="button"
+              >
+                All
+              </button>
               {languages.map((lang) => (
-                <option key={lang} value={lang}>
+                <button
+                  key={lang}
+                  type="button"
+                  onClick={() => setSelectedLanguage(lang)} // ✅ FIXED
+                  className={
+                    selectedLanguage === lang ? "lang-btn active" : "lang-btn"
+                  }
+                >
                   {lang}
-                </option>
+                </button>
               ))}
-            </select>
-            <button onClick={closeLang}>Close</button>
+            </div>
+            <div className="l-c-btn-contain">
+              <button className="lang-close-btn" onClick={closeLang}>
+                Close
+              </button>
+            </div>
           </div>
         </div>
       )}
