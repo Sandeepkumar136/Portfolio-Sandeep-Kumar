@@ -129,7 +129,8 @@ const Projects = () => {
         <div className="dialog-overlay" onClick={closeFilter}>
           <div className="dialog-box" onClick={(e) => e.stopPropagation()}>
             <h4 className="heading-l-d-box">Filter by Date</h4>
-            <div className="filter-inputs">
+          <div className="filter-container">
+              <div className="filter-inputs">
               <label>Created From:</label>
               <input
                 type="date"
@@ -157,11 +158,7 @@ const Projects = () => {
                 onChange={(e) => setUpdatedTo(e.target.value)}
               />
             </div>
-            <div className="l-c-btn-contain">
-              <button className="lang-close-btn" onClick={closeFilter}>
-                Close
-              </button>
-            </div>
+          </div>
           </div>
         </div>
       )}
