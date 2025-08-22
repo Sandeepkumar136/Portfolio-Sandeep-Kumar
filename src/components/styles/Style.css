@@ -1326,4 +1326,172 @@ body {
   .project-card {
     font-size: 0.9rem;
   }
+}
+.close-p-d-btn {
+  border: none;
+  padding: 5px 15px;
+  font-size: 1rem;
+  opacity: 0.8;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  margin: 2rem;
+  border-radius: 3px;
+}
+
+.project-details {
+  margin: 0 2rem;
+}
+
+.p-d-heading-contain {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  gap: 0.5rem;
+  flex-direction: column;
+}
+
+.heading-p-d {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  font-size: 3rem;
+}
+
+.subtitle-p-d {
+  font-size: 1.3rem;
+  opacity: 0.7;
+}
+
+.config-p-d-contain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  margin: 2rem;
+}
+
+.config-p-d {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.subtitle-c-p-d {
+  font-size: 0.9rem;
+  font-weight: 700;
+  opacity: 0.7;
+}
+
+.item-c-p-d {
+  padding: 5px 15px;
+  background-color: #f0f0f0;
+  border-radius: 3px;
+  text-transform: capitalize;
+}
+
+.p-d-acp-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+}
+
+.p-d-acp-contain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.subtitle-acp-p-d {
+  font-size: 0.9rem;
+  font-weight: 700;
+  opacity: 0.7;
+}
+
+.content-acp-p-d-c {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.content-acp-p-d-c i {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  opacity: 0.7;
+}
+
+.item-acp-p-d-c {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.p-d-ow-d-container {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+  margin: 2rem;
+}
+
+.heading-p-d-ow {
+  font-size: 1.5rem;
+  opacity: 0.8;
+  text-transform: capitalize;
+}
+
+.p-e-ow-pcv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 3rem;
+}
+
+.heading-ow-p-d {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 5px 15px;
+  background-color: #f0f0f0;
+  border-radius: 3px;
+}
+
+.heading-ow-p-d img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.heading-ow-p-d a {
+  text-decoration: none;
+  color: #111;
+  font-weight: 600;
+}
+
+.link-v-g {
+  padding: 5px 15px;
+  border-radius: 3px;
+  text-decoration: none;
+  font-size: 1rem;
+  color: #111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem;
+  background-color: #f0f0f0;
+}
+
+.p-icon-g {
+  font-size: 1.5rem;
 }/*# sourceMappingURL=Style.css.map */

@@ -119,7 +119,7 @@ const Projects = () => {
       {/* 🔹 Project Details */}
       {selectedRepo && (
         <div className="project-details-container">
-          <button onClick={() => setSelectedRepo(null)}>← Back</button>
+          <button className="close-p-d-btn" onClick={() => setSelectedRepo(null)}><i className="fas fa-angle-left" ></i> Back</button>
           <ProjectDetails repo={selectedRepo} />
         </div>
       )}
