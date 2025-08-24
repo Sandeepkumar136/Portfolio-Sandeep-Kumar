@@ -1713,8 +1713,8 @@ body {
 }
 .sr-d-p-contain{
   display: flex;
-  justify-self: center;
-  align-self: center;
+  justify-self: start;
+  align-self: start;
   flex-direction: column;
   margin: 1rem;
 }
@@ -1810,4 +1810,26 @@ body {
     margin: 0.5rem;
     font-size: 0.8rem;
   }
+}
+// Books ---- b-container
+.b-container{
+  margin: 2rem;
+}
+.b-contain{
+  margin: 1rem;
+}
+.heading-b-n{
+  font-size: 3rem;
+}
+.subtitle-b-n{
+  font-size: 1.3rem;
+  opacity: 0.8;
+}
+.img-b-n{
+  width: 300px;
+  height: 320px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
 }
