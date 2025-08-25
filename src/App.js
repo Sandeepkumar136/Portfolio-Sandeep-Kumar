@@ -14,6 +14,7 @@ import { DarkModeProvider } from './components/context/DarkModeContext';
 import { LangDialogueboxProvider } from './components/context/LanguageContext';
 import { FilterDialogueBoxProvider } from './components/context/FilterContext';
 import ServicesDetails from './components/contents/ServicesDetails';
+import CertificateDetails from './components/contents/CertificateDetails';
 
 const App = () => {
   return (
@@ -33,6 +34,7 @@ const App = () => {
           <Route path='/resume' element={<Resume/>}/>
           <Route path='/about' element={<About/>}/>
           <Route path='/services/:id' element={<ServicesDetails/>}/>
+          <Route path='/cert/:id' element={<CertificateDetails/>}/>
         </Routes>
             </FilterDialogueBoxProvider>
           </LangDialogueboxProvider>

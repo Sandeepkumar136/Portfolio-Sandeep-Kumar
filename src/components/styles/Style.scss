@@ -1845,3 +1845,47 @@ body {
     height: 270px;
   }
 }
+// Achievements/Achievements --- ac-card-contain
+.ac-card-contain{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 1rem;
+  gap: 1rem;
+}
+.ac-card{
+  padding: 1rem;
+  height: 100%;
+  border-radius: 15px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  transition: 0.3s all ease-in-out;
+}
+.ac-card:hover{
+  border: 0.1px solid #999;
+}
+.dark-mode .ac-card{
+  background-color: #1f1e1e;
+}
+.dark-mode .ac-card:hover{
+  border: 0.1px solid #333;
+}
+.ac-logo-contain{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+}
+.ac-title{
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+.logo-ac{
+  font-size: 2rem;
+}
+.text-ac-c{
+  font-size: 1rem;
+  opacity: 0.5;
+}

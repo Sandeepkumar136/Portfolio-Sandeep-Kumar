@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import data from "../assets/Certficates";
+import { Link } from "react-router-dom";
 
 const Achievements = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const filteredData = data.filter((title) =>
-    title.id.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredData = data.filter((element) =>
+    element.id.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -28,24 +29,27 @@ const Achievements = () => {
           />
         </div>
       </div>
-      <div className="serv-card-contain">
-        {
-          filteredData.length > 0 ? (
-            filteredData.map((e, i)=>(
-              <div className="serv-card">
-                <p className="text-serv-card">{e.title}</p>
+      <div className="ac-card-contain">
+        {filteredData.length > 0 ? (
+          filteredData.map((e, i) => (
+            <Link to={`/cert/${i}`} className="ac-card">
+              <div className="ac-logo-contain">
+                <p className="ac-title">{e.title}</p>
+                <i className={`logo-ac ${e.icon}`}></i>
               </div>
-            ))
-          ):(
-                      <div className="n-fo-container">
+              <p className="text-ac-c">{e.short_desc}</p>
+            </Link>
+          ))
+        ) : (
+          <div className="n-fo-container">
             <h className="heading-n-fo">Excellence Without Boundaries</h>
             <p className="subtitle-n-fo">
               We strive to deliver outstanding solutions, breaking limits and
-              setting <span className="p-highlight">new standards</span> for every <span className="p-highlight">client experience</span>.
+              setting <span className="p-highlight">new standards</span> for
+              every <span className="p-highlight">client experience</span>.
             </p>
           </div>
-          )
-        }
+        )}
       </div>
     </div>
   );
