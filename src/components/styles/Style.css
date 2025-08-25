@@ -1854,4 +1854,17 @@ body {
   justify-content: center;
   align-items: center;
   margin: auto;
+}
+
+@media only screen and (max-width: 768px) {
+  .heading-b-n {
+    font-size: 2.5rem;
+  }
+  .subtitle-b-n {
+    font-size: 1.2rem;
+  }
+  .img-b-n {
+    width: 250px;
+    height: 270px;
+  }
 }/*# sourceMappingURL=Style.css.map */

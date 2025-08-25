@@ -45,12 +45,12 @@ const Navbar = () => {
           <p className="profile-title">Sandeep Kumar</p>
         </Link>
         <ul className="side-list">
-            <Link to='/services'  onClick={handleSidebar} className="side-items"><i class='bx bx-devices'></i> <span className="title-items-sidebar">Services</span></Link>
-            <Link to='/books'  onClick={handleSidebar} className="side-items"><i class='bx bx-book-open'></i> <span className="title-items-sidebar">Books</span></Link>
-            <Link to='/projects'  onClick={handleSidebar} className="side-items"><i class='bx bx-code-alt'></i> <span className="title-items-sidebar">Projects</span></Link>
-            <Link to='/achievements'  onClick={handleSidebar} className="side-items"><i class='bx bx-trophy'></i> <span className="title-items-sidebar">Achievements</span></Link>
-            <Link to='/resume'  onClick={handleSidebar} className="side-items"><i class='bx bx-file'></i> <span className="title-items-sidebar">Resume</span></Link>
-            <Link to='/about'  onClick={handleSidebar} className="side-items"><i class='bx bx-user'></i> <span className="title-items-sidebar">About</span></Link>
+            <Link to='/services'  onClick={handleSidebar} className="side-items"><i className='bx bx-devices'></i> <span className="title-items-sidebar">Services</span></Link>
+            <Link to='/books'  onClick={handleSidebar} className="side-items"><i className='bx bx-book-open'></i> <span className="title-items-sidebar">Books</span></Link>
+            <Link to='/projects'  onClick={handleSidebar} className="side-items"><i className='bx bx-code-alt'></i> <span className="title-items-sidebar">Projects</span></Link>
+            <Link to='/achievements'  onClick={handleSidebar} className="side-items"><i className='bx bx-trophy'></i> <span className="title-items-sidebar">Achievements</span></Link>
+            <Link to='/resume'  onClick={handleSidebar} className="side-items"><i className='bx bx-file'></i> <span className="title-items-sidebar">Resume</span></Link>
+            <Link to='/about'  onClick={handleSidebar} className="side-items"><i className='bx bx-user'></i> <span className="title-items-sidebar">About</span></Link>
         </ul>
       </aside>
     </div>
