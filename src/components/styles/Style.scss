@@ -2047,3 +2047,97 @@ body {
   }
   
 }
+// Achievements/Contributors ---- cont-container
+.heading-inf{
+  font-size: 2rem;
+  opacity: 0.7;
+  margin: 1rem 0;
+}
+.cont-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.cont-card{
+  padding: 1rem;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+}
+.logo-contain-cont{
+  display: flex;
+  justify-content: start;
+  gap: 0.5rem;
+  align-items: center;
+}
+.logo-cont{
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+}
+.title-contain-cont{
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+}
+.title-cont{
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.subtitle-cont{
+  font-size: 1rem;
+  font-weight: 600;
+  opacity: 0.7;
+}
+.text-cont{
+  padding: 0.5rem;
+  font-size: 1rem;
+  opacity: 0.5;
+}
+.client-container{
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.cli-contain{
+  padding: 1rem;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+}
+.cli-logo-contain{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 0.5rem;
+}
+.cli-logo{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.title-cli{
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.star-rating{
+  font-size: 1.7rem;
+}
+.star.full{
+    color: #000;
+}
+.star.half{
+  color: #555;
+}
+.star.empty{
+  color: #999;
+}
+.text-cli{
+  font-weight: 600;
+  opacity: 0.5;
+}

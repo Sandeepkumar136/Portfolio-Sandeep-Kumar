@@ -3,6 +3,7 @@ import data from "../assets/Certficates";
 import { useCert } from "../context/CertDialogueContext";
 import Chart from "../contents/Chart";
 import Client_Data from "../contents/ClientRowData";
+import Images from "../Pictures/ImageProvider";
 
 const StarRating = ({ rating }) => {
   const totalStars = 5;
@@ -174,11 +175,6 @@ const Achievements = () => {
           ))}
         </div>
 
-        <div className="heading-inf">Contribution Chart</div>
-        <div className="con-chart">
-          <Chart />
-        </div>
-
         <div className="heading-inf">Top Client Reviews</div>
 
         <div className="client-container">
@@ -196,6 +192,10 @@ const Achievements = () => {
               <p className="text-cli">{client.description}</p>
             </div>
           ))}
+        </div>
+        <div className="heading-inf">Contribution Chart</div>
+        <div className="con-chart">
+          <Chart />
         </div>
       </div>
     </div>
