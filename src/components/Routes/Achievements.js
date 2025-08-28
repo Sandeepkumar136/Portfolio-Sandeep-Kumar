@@ -4,6 +4,7 @@ import { useCert } from "../context/CertDialogueContext";
 import Chart from "../contents/Chart";
 import Client_Data from "../contents/ClientRowData";
 import Images from "../Pictures/ImageProvider";
+import { motion } from "framer-motion";
 
 const StarRating = ({ rating }) => {
   const totalStars = 5;
@@ -73,15 +74,35 @@ const Achievements = () => {
     setSelectedItem(null);
   };
 
+  // Animation variants
+  const cardVariant = {
+    hidden: { y: 60, scale: 0.95, opacity: 1 },
+    visible: {
+      y: 0,
+      scale: 1,
+      opacity: 1,
+      transition: { duration: 0.35, ease: "easeOut" },
+    },
+  };
+
+  const containerVariant = {
+    hidden: {},
+    visible: {
+      transition: { staggerChildren: 0.1 },
+    },
+  };
+
   return (
     <div className="services">
       <h3 className="heading-ser">Credentials that Count.</h3>
       <div className="subtitle-heading-ser">
         Showcasing valuable certifications that highlight expertise, validate{" "}
         <span className="p-highlight">professional skills</span>, build
-        <span className="p-highlight">credibility</span>, inspire confidence,
+        <span className="p-highlight"> credibility</span>, inspire confidence,
         and strengthen lasting career opportunities
       </div>
+
+      {/* Search */}
       <div className="ser-inp-container">
         <div className="p-inp-contain">
           <i className="p-search bx bx-search"></i>
@@ -93,32 +114,57 @@ const Achievements = () => {
           />
         </div>
       </div>
-      <div className="ac-card-contain">
+
+      {/* Certificates */}
+      <motion.div
+        className="ac-card-contain"
+        variants={containerVariant}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.2 }}
+      >
         {filteredData.length > 0 ? (
           filteredData.map((e, i) => (
-            <div key={i} className="ac-card" onClick={() => handleCardClick(e)}>
+            <motion.div
+              key={i}
+              className="ac-card"
+              onClick={() => handleCardClick(e)}
+              variants={cardVariant}
+            >
               <div className="ac-logo-contain">
                 <p className="ac-title">{e.title}</p>
                 <i className={`logo-ac ${e.icon}`}></i>
               </div>
               <p className="text-ac-c">{e.short_desc}</p>
-            </div>
+            </motion.div>
           ))
         ) : (
-          <div className="n-fo-container">
+          <motion.div
+            className="n-fo-container"
+            variants={cardVariant}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.2 }}
+          >
             <h className="heading-n-fo">Excellence Without Boundaries</h>
             <p className="subtitle-n-fo">
               We strive to deliver outstanding solutions, breaking limits and
               setting <span className="p-highlight">new standards</span> for
               every <span className="p-highlight">client experience</span>.
             </p>
-          </div>
+          </motion.div>
         )}
-      </div>
-      {/* Modal Section */}
+      </motion.div>
+
+      {/* Modal */}
       {selectedItem && (
         <div className="modal-overlay">
-          <div className="modal-box">
+          <motion.div
+            className="modal-box"
+            initial={{ y: 100, scale: 0.9 }}
+            animate={{ y: 0, scale: 1 }}
+            transition={{ duration: 0.35 }}
+          >
             <div className="a-m-d-up-contain">
               <div className="a-m-t-contain">
                 <h3 className="title-a-m-t">{selectedItem.title}</h3>
@@ -154,15 +200,22 @@ const Achievements = () => {
                 <i className="icon-d-a-m  bx bx-x"></i>
               </button>
             </div>
-          </div>
+          </motion.div>
         </div>
       )}
+
+      {/* Contributors */}
       <div>
         <div className="heading-inf">Contributors</div>
-
-        <div className="cont-container">
+        <motion.div
+          className="cont-container"
+          variants={containerVariant}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.2 }}
+        >
           {ContRowdata.map((item, index) => (
-            <div key={index} className="cont-card">
+            <motion.div key={index} className="cont-card" variants={cardVariant}>
               <div className="logo-contain-cont">
                 <img src={item.img} alt={item.Partner} className="logo-cont" />
                 <div className="title-contain-cont">
@@ -171,15 +224,21 @@ const Achievements = () => {
                 </div>
               </div>
               <p className="text-cont">{item.text}</p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
+        {/* Clients */}
         <div className="heading-inf">Top Client Reviews</div>
-
-        <div className="client-container">
+        <motion.div
+          className="client-container"
+          variants={containerVariant}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.2 }}
+        >
           {Client_Data.map((client, index) => (
-            <div key={index} className="cli-contain">
+            <motion.div key={index} className="cli-contain" variants={cardVariant}>
               <div className="cli-logo-contain">
                 <img
                   src={client.img}
@@ -190,13 +249,21 @@ const Achievements = () => {
               </div>
               <StarRating rating={parseFloat(client.star)} />
               <p className="text-cli">{client.description}</p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
+
+        {/* Chart */}
         <div className="heading-inf">Contribution Chart</div>
-        <div className="con-chart">
+        <motion.div
+          className="con-chart"
+          initial={{ y: 80, scale: 0.9 }}
+          whileInView={{ y: 0, scale: 1 }}
+          transition={{ duration: 0.4 }}
+          viewport={{ once: false, amount: 0.2 }}
+        >
           <Chart />
-        </div>
+        </motion.div>
       </div>
     </div>
   );

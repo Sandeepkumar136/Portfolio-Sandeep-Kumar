@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 const Chart = () => {
   const [daysToFetch, setDaysToFetch] = useState(5);
   const [chartData, setChartData] = useState({ series: [], categories: [] });
-  const USERNAME = 'Sandeepkumar136'; // Thy GitHub name
+  const USERNAME = 'Sandeepkumar136'; // Your GitHub username
   const BASE_URL = 'https://api.github.com';
 
   const getAllEvents = async (username, days) => {
@@ -131,11 +131,6 @@ const Chart = () => {
         tools: { download: true }
       }
     },
-    title: {
-      text: '',
-      align: 'left',
-      style: { fontSize: '20px', fontWeight: 'bold' }
-    },
     xaxis: {
       categories: chartData.categories,
       type: 'datetime',
@@ -155,31 +150,47 @@ const Chart = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
       className="chart-container"
+      initial={{ y: 80 }}
+      whileInView={{ y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <div className="chart-label-contain">
-        <form className="git-form" onSubmit={handleSubmit}>
+      <motion.form
+        className="git-form"
+        onSubmit={handleSubmit}
+        initial={{ y: 40 }}
+        whileInView={{ y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        <label className='git-days' htmlFor="git_days">
+          Enter Specified Days (5–90):
+        </label>
         <input
           type="number"
           id="git_days"
           value={daysToFetch}
           onChange={(e) => setDaysToFetch(Number(e.target.value))}
         />
-        <button className='fetch-btn' type="submit">Fetch data</button>
-      </form>
-        <label className='git-days' htmlFor="git_days">Enter Specified Days Between  (5–90):</label>
-      </div>
-      <div className="chart-wrapper" style={{ height: '500px' }}>
+        <button className='fetch-btn' type="submit">Fetch</button>
+      </motion.form>
+
+      <motion.div
+        className="chart-wrapper"
+        style={{ height: '500px' }}
+        initial={{ y: 60 }}
+        whileInView={{ y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7, ease: "easeOut", delay: 0.3 }}
+      >
         <ApexCharts
           options={options}
           series={chartData.series}
           type="line"
           height={500}
         />
-      </div>
+      </motion.div>
     </motion.div>
   );
 };
