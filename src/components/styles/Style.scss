@@ -2381,6 +2381,7 @@ body {
   border: none;
   outline: none;
   background-color: transparent;
+  cursor: pointer;
 }
 .p-l-pro-wrap{
   display: flex;
@@ -2394,7 +2395,7 @@ body {
   width: 100%;
   padding: 0.5rem;
   text-transform: capitalize;
-  font-weight: 600;
+  font-weight: 300;
   opacity: 0.7;
   border-radius: 5px;
   background-color: #ffd9ae;
@@ -2455,4 +2456,91 @@ body {
   font-size: 1rem;
   background-color: #111;
   color: #fff;
+  cursor: pointer;
+}
+@media only screen and (max-width: 768px) {
+  .p-l-contain{
+    padding: 1rem;
+  }
+  .err-pro{
+    font-size: 1rcap;
+    padding: 1rem;
+  }
+  .heading-p-l{
+    font-size: 1rem;
+  }
+  .pro-m-wrap{
+    gap: 1rem;
+  }
+  .lbl-p-l{
+    font-size: 0.8rem;
+  }
+  .p-l-l-wrap input{
+    width: 280px;
+    font-size: 0.9rem;
+    padding: 0.8rem;
+  }
+  .btn-sr-d{
+    font-size: 0.8rem;
+  }
+  .heading-pro{
+    font-size: 2rem;
+  }
+  .subtitle-pro{
+    font-size: 1.2rem;
+  }
+  .pro-notice-card{
+    margin: 0.5rem 2.5rem;
+  }
+  .heading-p-n-c{
+    font-size: 1rem;
+  }
+  .text-p-n-c{
+    font-size: 0.8rem;
+  }
+}
+
+// Resume /Resume Page ---- resume-container
+// Resume
+.resume-wrapper {
+  max-width: 1200px;
+  margin: auto;
+  padding: 3rem 2rem;
+  border-radius: 20px;
+}
+.slider-card {
+  padding: 10px;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+
+.resume-image {
+  width: 100%;
+  max-height: 420px;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.slick-dots li button:before {
+  font-size: 10px;
+  color: #7f8c8d;
+}
+.dark-mode .slick-dots li button:before {
+  font-size: 10px;
+  color: #f0f0f0;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #3498db;
+}
+.dark-mode .slick-dots li.slick-active button:before {
+  color: #0099ff;
+}
+
+/* Optional for mobile spacing */
+@media (max-width: 768px) {
+  .resume-title {
+    font-size: 1.5rem;
+  }
 }

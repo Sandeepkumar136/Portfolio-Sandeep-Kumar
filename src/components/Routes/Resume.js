@@ -1,23 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import ResumeContain from "../contents/ResumeContain";
 
-const ProtectedComponent = () => (
-  <div>
-    <h2>🎉 You’re in!</h2>
-    <p>This is the restricted content.</p>
-  </div>
-);
 
 const Resume = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [error, setError] = useState(""); // 🆕 Track error message
+  const [error, setError] = useState("");
   const [isShowNotice, setIsShowNotice] = useState(false);
 
-  const validUsername = "admin";
-  const validPassword = "1234";
+  const validUsername = process.env.REACT_APP_USERNAME;
+  const validPassword = process.env.REACT_APP_PASSWORD;
 
-  // On mount, check sessionStorage
   useEffect(() => {
     const loggedIn = sessionStorage.getItem("isAuthenticated");
     if (loggedIn) setIsAuthenticated(true);
@@ -27,10 +22,10 @@ const Resume = () => {
     e.preventDefault();
     if (username === validUsername && password === validPassword) {
       setIsAuthenticated(true);
-      sessionStorage.setItem("isAuthenticated", "true"); // persists until browser close
-      setError(""); // clear any previous error
+      sessionStorage.setItem("isAuthenticated", "true");
+      setError("");
     } else {
-      setError("Please Enter Valid Credentials"); // set error
+      setError("Please Enter Valid Credentials");
     }
   };
 
@@ -39,7 +34,7 @@ const Resume = () => {
   };
 
   return isAuthenticated ? (
-    <ProtectedComponent />
+    <ResumeContain />
   ) : (
     <div className="pro-container">
       <div className="pro-heading-contain">
@@ -50,50 +45,104 @@ const Resume = () => {
           <span className="p-highlight">impactful</span> user experiences.
         </h6>
       </div>
-      <div className={`pro-notice-card ${isShowNotice ? "close" : ""}`}>
-        <div className="p-n-c-heading-contain">
-          <h3 className="heading-p-n-c">No Peeking, No Sneaking</h3>
-          <button type="button" onClick={handleNotice} className="p-n-c-btn">
-            <i className="icon-p-n-c bx bx-x"></i>
-          </button>
-        </div>
-        <p className="text-p-n-c">
-          Members only beyond this point. Login to unlock the magic. Need
-          access? <span className="p-highlight">Ping</span> the{" "}
-          <span className="p-highlight">gatekeeper.</span>
-        </p>
-      </div>
-      <div className="p-l-pro-wrap">
+
+      {/* Notice Card Animation */}
+      <AnimatePresence>
+        {!isShowNotice && (
+          <motion.div
+            className="pro-notice-card"
+            initial={{ y: -50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -50, opacity: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          >
+            <div className="p-n-c-heading-contain">
+              <h3 className="heading-p-n-c">No Peeking, No Sneaking</h3>
+              <button
+                type="button"
+                onClick={handleNotice}
+                className="p-n-c-btn"
+              >
+                <i className="icon-p-n-c bx bx-x"></i>
+              </button>
+            </div>
+            <p className="text-p-n-c">
+              Members only beyond this point. Login to unlock the magic. Need
+              access? <span className="p-highlight">Ping</span> the{" "}
+              <span className="p-highlight">gatekeeper.</span>
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <motion.div
+        className="p-l-pro-wrap"
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <div className="p-l-contain">
-          {error && <div className="err-pro">{error}</div>}
-          <form onSubmit={handleLogin}>
-              <h4 className="heading-p-l">Login</h4>
+          {/* Error Alert Animation */}
+          <AnimatePresence>
+            {error && (
+              <motion.div
+                className="err-pro"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                key="error"
+              >
+                {error}
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Form Animation */}
+          <motion.form
+            onSubmit={handleLogin}
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h4 className="heading-p-l">Login</h4>
             <div className="pro-m-wrap">
               <div className="p-l-l-wrap">
                 <label htmlFor="text" className="lbl-p-l">
                   Username
                 </label>
-                <input
+                <motion.input
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
+                  className="input-underline"
+                  whileFocus={{ scale: 1.02 }}
                 />
               </div>
               <div className="p-l-l-wrap">
                 <label htmlFor="password" className="lbl-p-l">
                   Password
                 </label>
-                <input
+                <motion.input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  className="input-underline"
+                  whileFocus={{ scale: 1.02 }}
                 />
               </div>
-              <button className="pro-s-btn" type="submit">Login</button>
+              <motion.button
+                className="pro-s-btn"
+                type="submit"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Login
+              </motion.button>
             </div>
-          </form>
+          </motion.form>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
