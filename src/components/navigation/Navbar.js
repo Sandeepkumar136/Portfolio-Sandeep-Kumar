@@ -25,6 +25,8 @@ const Navbar = () => {
             <Link to='/services' className="nav-items">services</Link>
             <Link to='/books' className="nav-items">books</Link>
             <Link to='/projects' className="nav-items">projects</Link>
+            <Link to='/fordev' className="nav-items">For Dev</Link>
+            <Link to='/blog' className="nav-items">Blogs</Link>
           </ul>
         </div>
         <ul className="nav-toggle-contents">
@@ -50,6 +52,7 @@ const Navbar = () => {
             <Link to='/projects'  onClick={handleSidebar} className="side-items"><i className='bx bx-code-alt'></i> <span className="title-items-sidebar">Projects</span></Link>
             <Link to='/achievements'  onClick={handleSidebar} className="side-items"><i className='bx bx-trophy'></i> <span className="title-items-sidebar">Achievements</span></Link>
             <Link to='/resume'  onClick={handleSidebar} className="side-items"><i className='bx bx-file'></i> <span className="title-items-sidebar">Resume</span></Link>
+            <Link to='/fordev'  onClick={handleSidebar} className="side-items"><i className='bx bx-code-alt'></i> <span className="title-items-sidebar">For Dev</span></Link>
             <Link to='/about'  onClick={handleSidebar} className="side-items"><i className='bx bx-user'></i> <span className="title-items-sidebar">About</span></Link>
         </ul>
       </aside>

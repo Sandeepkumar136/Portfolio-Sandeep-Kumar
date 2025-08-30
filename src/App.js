@@ -15,6 +15,8 @@ import { LangDialogueboxProvider } from "./components/context/LanguageContext";
 import { FilterDialogueBoxProvider } from "./components/context/FilterContext";
 import ServicesDetails from "./components/contents/ServicesDetails";
 import { CertDialogueContextProvider } from "./components/context/CertDialogueContext";
+import ForDev from "./components/Routes/ForDev";
+import PostList from "./components/Routes/PostList";
 
 const App = () => {
   return (
@@ -35,6 +37,8 @@ const App = () => {
                   <Route path="/resume" element={<Resume />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/services/:id" element={<ServicesDetails />} />
+                  <Route path="/fordev" element={<ForDev />} />
+                  <Route path="/blog" element={<PostList />} />
                 </Routes>
               </CertDialogueContextProvider>
             </FilterDialogueBoxProvider>
