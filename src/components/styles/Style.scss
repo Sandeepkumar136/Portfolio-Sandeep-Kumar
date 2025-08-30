@@ -2155,7 +2155,7 @@ body {
 }
 .con-chart {
   //display: flex;
-  width: 80%;
+  width: 100%;
   display: flex;
   align-self: center;
   justify-self: center;
@@ -2205,45 +2205,17 @@ body {
   background-size: 64px 96px;
   background-color: #ffffff;
 }
-.dark-mode .con-chart {
-  background: radial-gradient(
-        circle farthest-side at 0% 50%,
-        #000000 23.5%,
-        #0000 0
-      )
-      33.6px 48px,
-    radial-gradient(circle farthest-side at 0% 50%, #004307 24%, #0000 0) 30.4px
-      48px,
-    linear-gradient(#000000 14%, #0000 0, #0000 85%, #000000 0) 0 0,
-    linear-gradient(
-        150deg,
-        #000000 24%,
-        #004307 0,
-        #004307 26%,
-        #0000 0,
-        #0000 74%,
-        #004307 0,
-        #004307 76%,
-        #000000 0
-      )
-      0 0,
-    linear-gradient(
-        30deg,
-        #000000 24%,
-        #004307 0,
-        #004307 26%,
-        #0000 0,
-        #0000 74%,
-        #004307 0,
-        #004307 76%,
-        #000000 0
-      )
-      0 0,
-    linear-gradient(90deg, #004307 2%, #000000 0, #000000 98%, #004307 0%) 0 0
-      #000000;
-  background-size: 64px 96px;
-  background-color: #000000;
-}
+// .dark-mode .con-chart {
+// 	background:
+// 		  radial-gradient(circle farthest-side at 0% 50%,#111111 23.5%,#0000 0)33.6px 48px,
+// 		  radial-gradient(circle farthest-side at 0% 50%,#023700 24%,#0000 0)30.4px 48px,
+// 		  linear-gradient(#111111 14%,#0000 0, #0000 85%,#111111 0)0 0,
+// 		  linear-gradient(150deg,#111111 24%,#023700 0,#023700 26%,#0000 0,#0000 74%,#023700 0,#023700 76%,#111111 0)0 0,
+// 		  linear-gradient(30deg,#111111 24%,#023700 0,#023700 26%,#0000 0,#0000 74%,#023700 0,#023700 76%,#111111 0)0 0,
+// 		  linear-gradient(90deg,#023700 2%,#111111 0,#111111 98%,#023700 0%)0 0 #111111;
+// 	background-size: 64px 96px;
+// 	background-color: #111111;
+// }
 .chart-container {
   width: 100%;
 }
@@ -2367,4 +2339,120 @@ body {
   .text-cli {
     font-size: 1rcap;
   }
+}
+// Resume /Login Page ---- pro-container
+.pro-heading-contain {
+  margin: 1rem 2rem;
+}
+.heading-pro {
+  font-size: 3rem;
+}
+.subtitle-pro {
+  font-size: 1.7rem;
+  opacity: 0.7;
+}
+.pro-notice-card {
+  margin: 0.5rem 4rem;
+  padding: 1rem;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+}
+.pro-notice-card.close {
+  display: none;
+}
+.p-n-c-heading-contain {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.heading-p-n-c {
+  font-size: 1.2rem;
+  opacity: 0.85;
+}
+.text-p-n-c {
+  font-size: 1rem;
+  opacity: 0.5;
+}
+.p-n-c-btn {
+  font-size: 1.7rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+.p-l-pro-wrap{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // height: 50vh;
+  flex-direction: column;
+  padding: 1rem;
+}
+.err-pro{
+  width: 100%;
+  padding: 0.5rem;
+  text-transform: capitalize;
+  font-weight: 600;
+  opacity: 0.7;
+  border-radius: 5px;
+  background-color: #ffd9ae;
+}
+.p-l-contain{
+  padding: 2rem;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+  gap: 0.3rem;
+  background-color: #f0f0f0;
+}
+.p-l-contain form{
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+.p-l-l-wrap{
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+}
+.heading-p-l{
+  font-size: 1.2rem;
+  opacity: 0.6;
+}
+.lbl-p-l{
+  font-size: 0.9rem;
+  opacity: 0.77;
+}
+.pro-m-wrap{
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.p-l-l-wrap input{
+  outline: none;
+  padding: 0.5rem;
+  width: 300px;
+  font-size: 1.1rem;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  border-bottom: 1px solid #000;
+  transform-origin: bottom;
+
+}
+.pro-s-btn{
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  background-color: #111;
+  color: #fff;
 }
