@@ -54,6 +54,7 @@ const Navbar = () => {
             <Link to='/resume'  onClick={handleSidebar} className="side-items"><i className='bx bx-file'></i> <span className="title-items-sidebar">Resume</span></Link>
             <Link to='/fordev'  onClick={handleSidebar} className="side-items"><i className='bx bx-code-alt'></i> <span className="title-items-sidebar">For Dev</span></Link>
             <Link to='/about'  onClick={handleSidebar} className="side-items"><i className='bx bx-user'></i> <span className="title-items-sidebar">About</span></Link>
+            <Link to='/blog'  onClick={handleSidebar} className="side-items"><i className='bx bx-book-open'></i> <span className="title-items-sidebar">Blogs</span></Link>
         </ul>
       </aside>
     </div>
