@@ -1,18 +1,20 @@
 import React from "react";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth, db } from "./firebase";
+import { auth, authDb } from './firebaseConfig';
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function SignInwithGoogle() {
+  const navigate = useNavigate();
+
   const handleGoogleSignIn = async () => {
     try {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      // Check if user already exists in Firestore
-      const userRef = doc(db, "Users", user.uid);
+      const userRef = doc(authDb, "Users", user.uid);
       const userSnap = await getDoc(userRef);
 
       if (!userSnap.exists()) {
@@ -25,18 +27,14 @@ function SignInwithGoogle() {
       }
 
       toast.success("Google Login Successful");
-      window.location.href = "/profile";
+      navigate("/profile");
     } catch (error) {
       toast.error(error.message);
     }
   };
 
   return (
-    <button
-      type="button"
-      className="btn btn-danger mt-3"
-      onClick={handleGoogleSignIn}
-    >
+    <button type="button" className="btn btn-danger mt-3" onClick={handleGoogleSignIn}>
       Sign in with Google
     </button>
   );

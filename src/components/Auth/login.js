@@ -1,25 +1,23 @@
 import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import React, { useState } from "react";
-import { auth } from "./firebase";
+import { auth } from "./firebaseConfig";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import SignInwithGoogle from "./signInWIthGoogle";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      window.location.href = "/profile";
-      toast.success("User logged in Successfully", {
-        position: "top-center",
-      });
+      toast.success("User logged in Successfully", { position: "top-center" });
+      navigate("/profile");
     } catch (error) {
-      toast.error(error.message, {
-        position: "bottom-center",
-      });
+      toast.error(error.message, { position: "bottom-center" });
     }
   };
 
@@ -39,7 +37,6 @@ function Login() {
   return (
     <form onSubmit={handleSubmit}>
       <h3>Login</h3>
-
       <div className="mb-3">
         <label>Email address</label>
         <input
@@ -50,7 +47,6 @@ function Login() {
           onChange={(e) => setEmail(e.target.value)}
         />
       </div>
-
       <div className="mb-3">
         <label>Password</label>
         <input
@@ -61,27 +57,17 @@ function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-
       <div className="d-grid">
-        <button type="submit" className="btn btn-primary">
-          Login
-        </button>
+        <button type="submit" className="btn btn-primary">Login</button>
       </div>
-
       <p className="text-right mt-2">
-        <button
-          type="button"
-          className="btn btn-link"
-          onClick={handleForgotPassword}
-        >
+        <button type="button" className="btn btn-link" onClick={handleForgotPassword}>
           Forgot Password?
         </button>
       </p>
-
       <p className="text-right">
         New user? <a href="/register">Register Here</a>
       </p>
-
       <SignInwithGoogle />
     </form>
   );

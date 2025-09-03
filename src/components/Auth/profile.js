@@ -1,38 +1,45 @@
 import React, { useEffect, useState } from "react";
-import { auth, db } from "./firebase";
+import { auth, authDb } from "./firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { deleteUser } from "firebase/auth";
-import ChangePassword from "./ChangePassword"; // your component
+import ChangePassword from "./ChangePassword";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
   const [userDetails, setUserDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showChangePassword, setShowChangePassword] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
-        const docRef = doc(db, "Users", user.uid);
-        const docSnap = await getDoc(docRef);
-
-        let data = docSnap.exists() ? docSnap.data() : {};
-        data.email = user.email;
-        data.firstName = data.firstName || user.displayName || "User";
-        data.photo = user.photoURL || data.photo || "";
-
-        setUserDetails(data);
+        try {
+          const docRef = doc(authDb, "Users", user.uid);
+          const docSnap = await getDoc(docRef);
+          let data = docSnap.exists() ? docSnap.data() : {};
+          setUserDetails({
+            email: user.email,
+            firstName: data.firstName || user.displayName || "User",
+            photo: user.photoURL || data.photo || "",
+          });
+        } catch (error) {
+          toast.error("Failed to fetch user data");
+        }
+      } else {
+        navigate("/login"); // redirect if not logged in
       }
       setLoading(false);
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [navigate]);
 
   const handleLogout = async () => {
     try {
       await auth.signOut();
-      window.location.href = "/login";
+      navigate("/login");
     } catch (error) {
       toast.error(error.message);
     }
@@ -42,61 +49,39 @@ function Profile() {
     try {
       await deleteUser(auth.currentUser);
       toast.success("Account deleted");
-      window.location.href = "/login";
+      navigate("/login");
     } catch (error) {
       toast.error(error.message);
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p>Loading profile...</p>;
 
-  const isGoogleUser = auth.currentUser?.providerData?.some(
-    (p) => p.providerId === "google.com"
-  );
+  const isGoogleUser = auth.currentUser?.providerData?.some(p => p.providerId === "google.com");
 
   return (
     <div className="text-center">
       {userDetails?.photo ? (
-        <img
-          src={userDetails.photo}
-          alt="Profile"
-          width="120"
-          height="120"
-          style={{ borderRadius: "50%", objectFit: "cover" }}
-          referrerPolicy="no-referrer"
-        />
+        <img src={userDetails.photo} alt="Profile" width="120" height="120" style={{ borderRadius: "50%", objectFit: "cover" }} referrerPolicy="no-referrer" />
       ) : (
-        <i
-          className="bx bx-user-circle"
-          style={{ fontSize: "120px", color: "#6c757d" }}
-        >logo</i>
+        <i className="bx bx-user-circle" style={{ fontSize: "120px", color: "#6c757d" }}></i>
       )}
-
       <h3 className="mt-3">Welcome {userDetails?.firstName} 🙏🙏</h3>
       <p>Email: {userDetails?.email}</p>
 
-      {/* Only show Change Password button for manual users */}
       {!isGoogleUser && !showChangePassword && (
-        <button
-          className="btn btn-warning mt-3"
-          onClick={() => setShowChangePassword(true)}
-        >
+        <button className="btn btn-warning mt-3" onClick={() => setShowChangePassword(true)}>
           Change Password
         </button>
       )}
 
-      {/* Show the ChangePassword component only when button is clicked */}
       {showChangePassword && <ChangePassword />}
 
       <div className="mt-3">
-        <button className="btn btn-danger" onClick={handleDeleteAccount}>
-          Delete Account
-        </button>
+        <button className="btn btn-danger" onClick={handleDeleteAccount}>Delete Account</button>
       </div>
 
-      <button className="btn btn-secondary mt-3" onClick={handleLogout}>
-        Logout
-      </button>
+      <button className="btn btn-secondary mt-3" onClick={handleLogout}>Logout</button>
     </div>
   );
 }

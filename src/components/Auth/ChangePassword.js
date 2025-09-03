@@ -1,22 +1,32 @@
 import React, { useState } from "react";
-import { updatePassword } from "firebase/auth"; // only import updatePassword
-import { auth } from "./firebase"; // import your firebase auth instance
+import { updatePassword } from "firebase/auth";
+import { auth } from "./firebaseConfig";
 import { toast } from "react-toastify";
 
 function ChangePassword() {
   const [newPassword, setNewPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChangePassword = async () => {
     if (!newPassword) {
       toast.error("Enter a new password");
       return;
     }
+
+    if (!auth.currentUser) {
+      toast.error("No logged-in user found");
+      return;
+    }
+
     try {
+      setLoading(true);
       await updatePassword(auth.currentUser, newPassword);
       toast.success("Password updated successfully");
       setNewPassword("");
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -29,8 +39,12 @@ function ChangePassword() {
         value={newPassword}
         onChange={(e) => setNewPassword(e.target.value)}
       />
-      <button className="btn btn-warning" onClick={handleChangePassword}>
-        Change Password
+      <button
+        className="btn btn-warning"
+        onClick={handleChangePassword}
+        disabled={loading}
+      >
+        {loading ? "Updating..." : "Change Password"}
       </button>
     </div>
   );

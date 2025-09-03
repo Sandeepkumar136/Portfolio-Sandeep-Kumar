@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "../../firebaseConfig";
+import { blogDb } from "../Auth/firebaseConfig"; // <-- updated
 
 const ForDev = () => {
   const [title, setTitle] = useState("");
@@ -36,7 +36,7 @@ const ForDev = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await addDoc(collection(db, "posts"), {
+      await addDoc(collection(blogDb, "posts"), { // <-- use blogDb
         title,
         subtitle,
         sections,
@@ -79,7 +79,9 @@ const ForDev = () => {
               type="text"
               placeholder="Mini Heading"
               value={mh}
-              onChange={(e) => handleSectionChange(secIndex, "miniHeadings", e.target.value, i)}
+              onChange={(e) =>
+                handleSectionChange(secIndex, "miniHeadings", e.target.value, i)
+              }
             />
           ))}
           <button type="button" onClick={() => addMiniHeading(secIndex)}>
@@ -92,7 +94,9 @@ const ForDev = () => {
               key={i}
               placeholder="Paragraph"
               value={p}
-              onChange={(e) => handleSectionChange(secIndex, "paragraphs", e.target.value, i)}
+              onChange={(e) =>
+                handleSectionChange(secIndex, "paragraphs", e.target.value, i)
+              }
             ></textarea>
           ))}
           <button type="button" onClick={() => addParagraph(secIndex)}>

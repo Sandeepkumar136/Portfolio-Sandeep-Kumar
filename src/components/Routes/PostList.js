@@ -1,7 +1,7 @@
 // PostList.js
 import React, { useEffect, useState } from "react";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
-import { db } from "../../firebaseConfig";
+import { blogDb } from "../Auth/firebaseConfig"; // <-- updated
 import SinglePost from "../contents/SinglePost";
 
 const PostList = () => {
@@ -9,7 +9,7 @@ const PostList = () => {
   const [selectedPost, setSelectedPost] = useState(null); // Track which post is clicked
 
   useEffect(() => {
-    const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
+    const q = query(collection(blogDb, "posts"), orderBy("createdAt", "desc")); // <-- use blogDb
     const unsubscribe = onSnapshot(q, (snapshot) => {
       setPosts(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
     });

@@ -22,10 +22,11 @@ import ServicesDetails from "./components/contents/ServicesDetails";
 import { CertDialogueContextProvider } from "./components/context/CertDialogueContext";
 import ForDev from "./components/Routes/ForDev";
 import PostList from "./components/Routes/PostList";
-import { auth } from "../src/components/Auth/firebase";
+import { auth } from "./components/Auth/firebaseConfig";
 import SignUp from "../src/components/Auth/register";
 import Profile from "../src/components/Auth/profile";
 import Login from "../src/components/Auth/login";
+import PrivateRoute from "./components/Auth/PrivateRoute";
 
 const App = () => {
   const [user, setUser] = useState();
@@ -47,23 +48,25 @@ const App = () => {
                 <Navbar />
                 <Routes>
                   <Route path="/" element={<Home />} />
-                  {/* <Route path="/profile" element={<Profile />} /> */}
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<SignUp />} />
+                  <Route
+                    path="/profile"
+                    element={
+                      <PrivateRoute user={user}>
+                        <Profile />
+                      </PrivateRoute>
+                    }
+                  />
                   <Route path="/services" element={<Services />} />
+                  <Route path="/services/:id" element={<ServicesDetails />} />
                   <Route path="/books" element={<Books />} />
                   <Route path="/projects" element={<Projects />} />
                   <Route path="/resume" element={<Resume />} />
                   <Route path="/about" element={<About />} />
-                  <Route path="/services/:id" element={<ServicesDetails />} />
                   <Route path="/fordev" element={<ForDev />} />
                   <Route path="/blog" element={<PostList />} />
                   <Route path="/achievements" element={<Achievements />} />
-                  <Route
-                    path="/"
-                    element={user ? <Navigate to="/profile" /> : <Login />}
-                  />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/register" element={<SignUp />} />
-                  <Route path="/profile" element={<Profile />} />
                 </Routes>
               </CertDialogueContextProvider>
             </FilterDialogueBoxProvider>
