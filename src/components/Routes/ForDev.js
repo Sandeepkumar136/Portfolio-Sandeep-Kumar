@@ -5,15 +5,31 @@ import { db } from "../../firebaseConfig";
 const ForDev = () => {
   const [title, setTitle] = useState("");
   const [subtitle, setSubtitle] = useState("");
-  const [sections, setSections] = useState([{ miniHeading: "", paragraph: "" }]);
+  const [sections, setSections] = useState([]);
 
+  // Add a new empty section
   const addSection = () => {
-    setSections([...sections, { miniHeading: "", paragraph: "" }]);
+    setSections([...sections, { miniHeadings: [], paragraphs: [] }]);
   };
 
-  const handleSectionChange = (index, field, value) => {
+  // Add mini heading to a section
+  const addMiniHeading = (index) => {
     const newSections = [...sections];
-    newSections[index][field] = value;
+    newSections[index].miniHeadings.push("");
+    setSections(newSections);
+  };
+
+  // Add paragraph to a section
+  const addParagraph = (index) => {
+    const newSections = [...sections];
+    newSections[index].paragraphs.push("");
+    setSections(newSections);
+  };
+
+  // Update input in section
+  const handleSectionChange = (sectionIndex, field, value, itemIndex) => {
+    const newSections = [...sections];
+    newSections[sectionIndex][field][itemIndex] = value;
     setSections(newSections);
   };
 
@@ -24,11 +40,11 @@ const ForDev = () => {
         title,
         subtitle,
         sections,
-        createdAt: serverTimestamp()
+        createdAt: serverTimestamp(),
       });
       setTitle("");
       setSubtitle("");
-      setSections([{ miniHeading: "", paragraph: "" }]);
+      setSections([]);
       alert("✅ Blog post added!");
     } catch (err) {
       console.error(err);
@@ -52,23 +68,42 @@ const ForDev = () => {
         onChange={(e) => setSubtitle(e.target.value)}
       />
 
-      {sections.map((sec, i) => (
-        <div key={i}>
-          <input
-            type="text"
-            placeholder="Mini Heading"
-            value={sec.miniHeading}
-            onChange={(e) => handleSectionChange(i, "miniHeading", e.target.value)}
-          />
-          <textarea
-            placeholder="Paragraph"
-            value={sec.paragraph}
-            onChange={(e) => handleSectionChange(i, "paragraph", e.target.value)}
-          ></textarea>
+      {sections.map((sec, secIndex) => (
+        <div key={secIndex} className="section border p-2 my-2">
+          <h4>Section {secIndex + 1}</h4>
+
+          {/* Mini Headings */}
+          {sec.miniHeadings.map((mh, i) => (
+            <input
+              key={i}
+              type="text"
+              placeholder="Mini Heading"
+              value={mh}
+              onChange={(e) => handleSectionChange(secIndex, "miniHeadings", e.target.value, i)}
+            />
+          ))}
+          <button type="button" onClick={() => addMiniHeading(secIndex)}>
+            + Add Mini Heading
+          </button>
+
+          {/* Paragraphs */}
+          {sec.paragraphs.map((p, i) => (
+            <textarea
+              key={i}
+              placeholder="Paragraph"
+              value={p}
+              onChange={(e) => handleSectionChange(secIndex, "paragraphs", e.target.value, i)}
+            ></textarea>
+          ))}
+          <button type="button" onClick={() => addParagraph(secIndex)}>
+            + Add Paragraph
+          </button>
         </div>
       ))}
 
-      <button type="button" onClick={addSection}>+ Add Section</button>
+      <button type="button" onClick={addSection}>
+        + Add Section
+      </button>
       <button type="submit">Publish Post</button>
     </form>
   );
