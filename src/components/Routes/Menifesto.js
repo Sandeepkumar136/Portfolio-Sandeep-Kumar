@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import Image_Exported from "../assets/ImageExporter";
 
-const Profile = () => {
+const Menifesto = () => {
   const items = [
     {
       heading: "10th",
@@ -236,4 +236,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Menifesto;

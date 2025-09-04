@@ -27,6 +27,7 @@ import SignUp from "../src/components/Auth/register";
 import Profile from "../src/components/Auth/profile";
 import Login from "../src/components/Auth/login";
 import PrivateRoute from "./components/Auth/PrivateRoute";
+import Menifesto from "./components/Routes/Menifesto";
 
 const App = () => {
   const [user, setUser] = useState();
@@ -61,6 +62,7 @@ const App = () => {
                   <Route path="/services" element={<Services />} />
                   <Route path="/services/:id" element={<ServicesDetails />} />
                   <Route path="/books" element={<Books />} />
+                  <Route path="/menifesto" element={<Menifesto />} />
                   <Route path="/projects" element={<Projects />} />
                   <Route path="/resume" element={<Resume />} />
                   <Route path="/about" element={<About />} />

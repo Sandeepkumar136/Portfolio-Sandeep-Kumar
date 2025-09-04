@@ -58,6 +58,11 @@ body {
   -webkit-backdrop-filter: blur(5px) saturate(180%);
   background-color: rgba(255, 255, 255, 0.8);
 }
+.dark-mode .navbar {
+  backdrop-filter: blur(10px) saturate(161%);
+  -webkit-backdrop-filter: blur(10px) saturate(161%);
+  background-color: rgba(17, 25, 40, 0.6);
+}
 .nav-r-contain {
   display: flex;
   justify-content: start;
@@ -67,8 +72,8 @@ body {
   border: none;
   outline: none;
   text-decoration: none;
-  color: #111;
   margin: 0.5rem;
+  color: #000;
   font-size: 1.5rem;
   text-align: center;
   display: flex;
@@ -77,6 +82,20 @@ body {
   gap: 0.2rem;
   margin-right: 2rem;
   opacity: 0.8;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+.dark-mode .nav-logo {
+  color: #fff;
+}
+.nav-logo:active,
+.nav-logo:visited,
+.nav-logo:focus {
+  background-color: transparent !important;
+  outline: none;
+  -webkit-tap-highlight-color: transparent; /* <– THIS is the true slayer */
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 .nav-title {
   font-family: "poppins", sans-serif;
@@ -94,6 +113,22 @@ body {
   text-transform: capitalize;
   padding: 9px 15px;
   opacity: 0.8;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: #111;
+  text-decoration: none;
+}
+.dark-mode .nav-contain {
+  color: #fff;
+}
+.nav-contain:active,
+.nav-contain:visited,
+.nav-contain:focus {
+  background-color: transparent !important;
+  outline: none;
+  -webkit-tap-highlight-color: transparent; /* <– THIS is the true slayer */
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 .n-d-d-btn-contain {
   position: relative;
@@ -113,10 +148,18 @@ body {
 .n-d-d-heading {
   font-size: 0.8rem;
   font-weight: 600;
+  color: #111;
+}
+.dark-mode .n-d-d-heading {
+  color: #fff;
 }
 .n-d-d-icon {
   font-size: 1.3rem;
   cursor: pointer;
+  color: #111;
+}
+.dark-mode .n-d-d-icon {
+  color: #fff;
 }
 .n-d-item-contain {
   position: absolute;
@@ -135,6 +178,11 @@ body {
   gap: 0.3rem;
   padding: 0.5rem;
 }
+.dark-mode .n-d-item-contain {
+  backdrop-filter: blur(20px) saturate(184%);
+  -webkit-backdrop-filter: blur(20px) saturate(184%);
+  background-color: rgba(17, 25, 40, 0.75);
+}
 .n-d-links {
   width: 100%;
   padding: 7px 15px;
@@ -143,6 +191,30 @@ body {
   opacity: 0.8;
   cursor: pointer;
   background-color: #dedede;
+  text-decoration: none;
+  outline: none;
+  text-decoration: none;
+  color: #111;
+}
+.dark-mode .n-d-links {
+  color: #fff;
+  background-color: #1f1e1ec0;
+}
+.n-d-links:active,
+.n-d-links:visited,
+.n-d-links:focus {
+  background-color: #dedede !important;
+  outline: none;
+  -webkit-tap-highlight-color: #dedede; /* <– THIS is the true slayer */
+  -webkit-tap-highlight-color: #dedede;
+}
+.dark-mode .n-d-links:active,
+.dark-mode .n-d-links:visited,
+.dark-mode .n-d-links:focus {
+  background-color: #1f1e1ec0 !important;
+  outline: none;
+  -webkit-tap-highlight-color: #1f1e1ec0; /* <– THIS is the true slayer */
+  -webkit-tap-highlight-color: #1f1e1ec0;
 }
 .nav-l-contain {
   display: flex;
@@ -163,11 +235,20 @@ body {
 }
 .user-name-n {
   font-size: 0.8rem;
+  color: #111;
   font-weight: 600;
+  text-decoration: none;
+}
+.dark-mode .user-name-n {
+  color: #fff;
 }
 .btn-s-n-db {
   font-size: 1.3rem;
+  color: #111;
   cursor: pointer;
+}
+.dark-mode .btn-s-n-db {
+  color: #fff;
 }
 .nav-side-links {
   list-style: none;
@@ -197,7 +278,15 @@ body {
   font-size: 1.3rem;
   border-radius: 50%;
   background-color: #fff;
+  padding: 0;
 }
+.n-db-u-img {
+  color: #111;
+}
+.dark-mode .n-db-u-img {
+  color: #fff;
+}
+
 .drop-content-n {
   position: absolute;
   right: 0;
@@ -216,6 +305,11 @@ body {
   gap: 0.3rem;
   padding: 0.5rem;
 }
+.dark-mode .drop-content-n {
+  backdrop-filter: blur(20px) saturate(184%);
+  -webkit-backdrop-filter: blur(20px) saturate(184%);
+  background-color: rgba(17, 25, 40, 0.75);
+}
 .btn-s-n-db-c {
   list-style: none;
   display: flex;
@@ -230,11 +324,40 @@ body {
   text-transform: capitalize;
   font-size: 0.8rem;
   background-color: #dedede;
+  color: #111;
+}
+.dark-mode .btn-s-n-item-db {
+  color: #fff;
+  background-color: #1f1e1ec0;
+}
+.btn-s-n-item-db:active,
+.btn-s-n-item-db:visited,
+.btn-s-n-item-db:focus {
+  background-color: #dedede !important;
+  outline: none;
+  -webkit-tap-highlight-color: #dedede; /* <– THIS is the true slayer */
+  -webkit-tap-highlight-color: #dedede;
+}
+.dark-mode .btn-s-n-item-db:active,
+.dark-mode .btn-s-n-item-db:visited,
+.dark-mode .btn-s-n-item-db:focus {
+  background-color: #1f1e1ec0 !important;
+  outline: none;
+  -webkit-tap-highlight-color: #1f1e1ec0; /* <– THIS is the true slayer */
+  -webkit-tap-highlight-color: #1f1e1ec0;
 }
 .nav-s-contain {
   padding: 9px 15px;
   font-size: 0.8rem;
   text-transform: capitalize;
+  color: #111;
+  text-decoration: none;
+  outline: none;
+  border: none;
+  text-decoration: none;
+}
+.dark-mode .nav-s-contain {
+  color: #fff;
 }
 .toogle-btns-contain-n {
   display: flex;
@@ -242,6 +365,7 @@ body {
   align-items: center;
   list-style: none;
   gap: 1rem;
+  background-color: transparent;
 }
 .t-b-c-nav {
   display: flex;
@@ -250,6 +374,17 @@ body {
   font-size: 1.5rem;
   opacity: 0.8;
   cursor: pointer;
+  background-color: transparent;
+  outline: none;
+  border: none;
+}
+.t-b-c-nav:active,
+.t-b-c-nav:visited,
+.t-b-c-nav:focus {
+  background-color: transparent !important;
+  outline: none;
+  -webkit-tap-highlight-color: transparent; /* <– THIS is the true slayer */
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 .nav-toggle-btn {
   display: none;
@@ -258,6 +393,19 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #111;
+  background-color: transparent;
+}
+.dark-mode .t-b-c-nav i {
+  color: #fff;
+}
+.t-b-c-nav i:active,
+.t-b-c-nav i:visited,
+.t-b-c-nav i:focus {
+  background-color: transparent !important;
+  outline: none;
+  -webkit-tap-highlight-color: transparent; /* <– THIS is the true slayer */
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 // Sidebar
 .sidebar {
@@ -280,7 +428,7 @@ body {
   background-color: rgba(255, 255, 255, 0.744);
   transition: 0.3s all ease-in-out;
 }
-.sidebar.open{
+.sidebar.open {
   transform: translateX(0);
 }
 .s-user-contain {
@@ -452,19 +600,19 @@ body {
   .nav-links {
     display: none;
   }
-  .sidebar{
+  .sidebar {
     display: inline;
   }
-  .side-contents{
+  .side-contents {
     margin-top: 0.5rem;
   }
 }
 @media only screen and (max-width: 425px) {
-  .sidebar{
+  .sidebar {
     width: 80%;
   }
-  
 }
+// Sidebar/Navbar Reform
 // Home_Typer
 .section-home {
   width: 100%;

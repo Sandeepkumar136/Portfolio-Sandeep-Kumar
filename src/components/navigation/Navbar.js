@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { auth, authDb } from "../Auth/firebaseConfig"; // adjust if needed
 import { doc, getDoc } from "firebase/firestore";
 import { deleteUser } from "firebase/auth";
+import { useDarkMode } from "../context/DarkModeContext";
 
 const Navbar = () => {
   // DROPDOWNS / SIDEBAR STATE
@@ -13,6 +14,9 @@ const Navbar = () => {
   const [isSdOpen, setIsSdOpen] = useState(false);
   const [isAOpen, setIsAdOpen] = useState(false);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const {darkMode, toggleDarkMode} = useDarkMode();
+  const MotionLink = motion(Link);
+
 
   // AUTH STATE FOR NAVBAR/SIDEBAR
   const [authUser, setAuthUser] = useState(null);
@@ -149,10 +153,10 @@ const Navbar = () => {
           </Link>
 
           <ul className="nav-links">
-            <li className="nav-contain">services</li>
-            <li className="nav-contain">books</li>
-            <li className="nav-contain">projects</li>
-            <li className="nav-contain">blogs</li>
+            <Link to='/services' className="nav-contain">services</Link>
+            <Link to='/books' className="nav-contain">books</Link>
+            <Link to='/projects' className="nav-contain">projects</Link>
+            <Link to='/blog' className="nav-contain">blogs</Link>
 
             {/* Snapshot dropdown */}
             <div className="n-d-d-btn-contain">
@@ -180,15 +184,15 @@ const Navbar = () => {
                     exit="closed"
                     style={{ transformOrigin: "top center" }}
                   >
-                    <motion.li className="n-d-links" variants={itemVariants}>
+                    <MotionLink to='/menifesto' className="n-d-links" variants={itemVariants}>
                       manifesto
-                    </motion.li>
-                    <motion.li className="n-d-links" variants={itemVariants}>
+                    </MotionLink>
+                    <MotionLink to='/achievements' className="n-d-links" variants={itemVariants}>
                       Achivements
-                    </motion.li>
-                    <motion.li className="n-d-links" variants={itemVariants}>
+                    </MotionLink>
+                    <MotionLink to='/resume' className="n-d-links" variants={itemVariants}>
                       Resume
-                    </motion.li>
+                    </MotionLink>
                   </motion.ul>
                 )}
               </AnimatePresence>
@@ -198,8 +202,8 @@ const Navbar = () => {
 
         <div className="nav-l-contain">
           <ul className="nav-side-links">
-            <li className="nav-s-contain">for dev</li>
-            <li className="nav-s-contain">about</li>
+            <Link to='/fordev' className="nav-s-contain">for dev</Link>
+            <Link to='/about' className="nav-s-contain">about</Link>
 
             {/* Account dropdown (top-right) */}
             <li className="nav-s-drop-btn-c">
@@ -222,7 +226,7 @@ const Navbar = () => {
                           referrerPolicy="no-referrer"
                         />
                       ) : (
-                        <i className="bx bx-user"></i>
+                        <i className="bx bx-user n-db-u-img"></i>
                       )}
                     </div>
                     <span className="user-name-n">{authUser.name}</span>
@@ -289,15 +293,15 @@ const Navbar = () => {
           </ul>
 
           <ul className="toogle-btns-contain-n">
-            <li className="t-b-c-nav">
-              <i className="bx bx-moon"></i>
-            </li>
-            <li className="t-b-c-nav nav-toggle-btn">
+            <button className="t-b-c-nav">
+              <i onClick={toggleDarkMode} className={`bx bx-${darkMode ? 'moon': 'sun'}`}></i>
+            </button>
+            <button className="t-b-c-nav nav-toggle-btn">
               <i
                 onClick={toggleSidebarBtn}
                 className={`bx ${isSidebarOpen ? "bx-x" : "bx-menu"}`}
               ></i>
-            </li>
+            </button>
           </ul>
         </div>
       </nav>
@@ -338,22 +342,22 @@ const Navbar = () => {
             </div>
 
             <motion.ul className="side-contents">
-              <motion.li className="side-items" variants={itemVariants}>
+              <MotionLink to='/services' className="side-items" variants={itemVariants}>
                 <i className="side-c-icon bx bx-devices"></i>
                 <span className="side-c-title">services</span>
-              </motion.li>
-              <motion.li className="side-items" variants={itemVariants}>
+              </MotionLink>
+              <MotionLink to='/books' className="side-items" variants={itemVariants}>
                 <i className="side-c-icon bx bx-book-open"></i>
                 <span className="side-c-title">books</span>
-              </motion.li>
-              <motion.li className="side-items" variants={itemVariants}>
+              </MotionLink>
+              <MotionLink to='/projects' className="side-items" variants={itemVariants}>
                 <i className="side-c-icon bx bx-layers"></i>
                 <span className="side-c-title">projects</span>
-              </motion.li>
-              <motion.li className="side-items" variants={itemVariants}>
+              </MotionLink>
+              <MotionLink to='/blog' className="side-items" variants={itemVariants}>
                 <i className="side-c-icon bx bx-comment"></i>
                 <span className="side-c-title">blogs</span>
-              </motion.li>
+              </MotionLink>
 
               {/* Sidebar Snapshot dropdown */}
               <div className="side-c-drop-container">
@@ -384,31 +388,31 @@ const Navbar = () => {
                       exit="closed"
                       style={{ transformOrigin: "top center" }}
                     >
-                      <motion.li className="side-s-links" variants={itemVariants}>
+                      <MotionLink to='/menifesto' className="side-s-links" variants={itemVariants}>
                         <i className="bx bx-bulb"></i>
                         <span className="side-s-title">manifesto</span>
-                      </motion.li>
-                      <motion.li className="side-s-links" variants={itemVariants}>
+                      </MotionLink>
+                      <MotionLink to='/achievements' className="side-s-links" variants={itemVariants}>
                         <i className="bx bx-trophy"></i>
                         <span className="side-s-title">achievements</span>
-                      </motion.li>
-                      <motion.li className="side-s-links" variants={itemVariants}>
+                      </MotionLink>
+                      <MotionLink to='/resume' className="side-s-links" variants={itemVariants}>
                         <i className="bx bx-id-card"></i>
                         <span className="side-s-title">resume</span>
-                      </motion.li>
+                      </MotionLink>
                     </motion.ul>
                   )}
                 </AnimatePresence>
               </div>
 
-              <motion.li className="side-items" variants={itemVariants}>
+              <MotionLink to='/fordev' className="side-items" variants={itemVariants}>
                 <i className="side-c-icon bx bx-code-alt"></i>
                 <span className="side-c-title">for dev</span>
-              </motion.li>
-              <motion.li className="side-items" variants={itemVariants}>
+              </MotionLink>
+              <MotionLink to='/about' className="side-items" variants={itemVariants}>
                 <i className="side-c-icon bx bx-info-circle"></i>
                 <span className="side-c-title">about</span>
-              </motion.li>
+              </MotionLink>
 
               {/* Sidebar Account dropdown — only when logged in */}
               {isLoggedIn && (
