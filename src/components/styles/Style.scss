@@ -275,7 +275,13 @@ body {
   overflow: auto;
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
+  display: none;
+  transform: translateX(110%);
   background-color: rgba(255, 255, 255, 0.744);
+  transition: 0.3s all ease-in-out;
+}
+.sidebar.open{
+  transform: translateX(0);
 }
 .s-user-contain {
   display: flex;

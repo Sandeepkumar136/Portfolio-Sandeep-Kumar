@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isNdOpen, setIsNdOpen] = useState(false);
   const [isSdOpen, setIsSdOpen] = useState(false);
   const [isAOpen, setIsAdOpen] = useState(false);
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(true); // Simulate login status
   const user = {
     name: "Thakur lal bosak",
@@ -16,6 +18,59 @@ const Navbar = () => {
   const toggleDropdown = () => setIsOpen(!isOpen);
   const toggleSdBtn = () => setIsSdOpen(!isSdOpen);
   const toggleAdBtn = () => setIsAdOpen(!isAOpen);
+  const toggleSidebarBtn = () => setSidebarOpen(!isSidebarOpen);
+
+  // Variants
+  const menuVariants = {
+    closed: {
+      opacity: 0,
+      y: -8,
+      scale: 0.98,
+      pointerEvents: "none",
+      transition: { duration: 0.15, ease: "easeInOut" },
+    },
+    open: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      pointerEvents: "auto",
+      transition: {
+        duration: 0.2,
+        ease: "easeOut",
+        when: "beforeChildren",
+        staggerChildren: 0.04,
+        delayChildren: 0.04,
+      },
+    },
+  };
+
+  const itemVariants = {
+    closed: { opacity: 0, y: -4 },
+    open: { opacity: 1, y: 0, transition: { duration: 0.18 } },
+  };
+
+  const sidebarVariants = {
+    closed: { x: "100%", opacity: 0, transition: { duration: 0.2, ease: "easeInOut" } },
+    open: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.25,
+        ease: "easeOut",
+        when: "beforeChildren",
+        staggerChildren: 0.03,
+        delayChildren: 0.05,
+      },
+    },
+  };
+
+  const chevronRotate = (open) => ({
+    rotate: open ? 180 : 0,
+    transition: { duration: 0.2, ease: "easeOut" },
+  });
+
+  const buttonTap = { scale: 0.98, transition: { duration: 0.06 } };
+  const buttonHover = { scale: 1.02, transition: { duration: 0.12 } };
 
   return (
     <div className="navigation">
@@ -31,21 +86,45 @@ const Navbar = () => {
             <li className="nav-contain">books</li>
             <li className="nav-contain">projects</li>
             <li className="nav-contain">blogs</li>
+
+            {/* Snapshot dropdown */}
             <div className="n-d-d-btn-contain">
-              <button className="nav-dropdown-btn">
+              <motion.button
+                className="nav-dropdown-btn"
+                whileHover={buttonHover}
+                whileTap={buttonTap}
+                onClick={toggleNdBtn}
+              >
                 <div className="n-d-d-heading">Shapshot</div>
-                <i
+                <motion.i
                   className="n-d-d-icon bx-chevron-down"
-                  onClick={toggleNdBtn}
-                ></i>
-              </button>
-              {isNdOpen && (
-                <ul className="n-d-item-contain">
-                  <li className="n-d-links">manifesto</li>
-                  <li className="n-d-links">Achivements</li>
-                  <li className="n-d-links">Resume</li>
-                </ul>
-              )}
+                  animate={chevronRotate(isNdOpen)}
+                />
+              </motion.button>
+
+              <AnimatePresence initial={false}>
+                {isNdOpen && (
+                  <motion.ul
+                    className="n-d-item-contain"
+                    key="nav-snapshot"
+                    variants={menuVariants}
+                    initial="closed"
+                    animate="open"
+                    exit="closed"
+                    style={{ transformOrigin: "top center" }}
+                  >
+                    <motion.li className="n-d-links" variants={itemVariants}>
+                      manifesto
+                    </motion.li>
+                    <motion.li className="n-d-links" variants={itemVariants}>
+                      Achivements
+                    </motion.li>
+                    <motion.li className="n-d-links" variants={itemVariants}>
+                      Resume
+                    </motion.li>
+                  </motion.ul>
+                )}
+              </AnimatePresence>
             </div>
           </ul>
         </div>
@@ -54,8 +133,15 @@ const Navbar = () => {
           <ul className="nav-side-links">
             <li className="nav-s-contain">for dev</li>
             <li className="nav-s-contain">about</li>
+
+            {/* Account dropdown */}
             <li className="nav-s-drop-btn-c">
-              <button className="dropdown-btn-n">
+              <motion.button
+                className="dropdown-btn-n"
+                whileHover={buttonHover}
+                whileTap={buttonTap}
+                onClick={toggleDropdown}
+              >
                 {isLoggedIn ? (
                   <>
                     <div className="user-p-logo-n">{user.avatar}</div>
@@ -64,29 +150,47 @@ const Navbar = () => {
                 ) : (
                   <span className="user-name-n">Login</span>
                 )}
-                <i
-                  onClick={toggleDropdown}
+                <motion.i
                   className="bx  bx-chevron-down btn-s-n-db"
-                ></i>
-              </button>
+                  animate={chevronRotate(isOpen)}
+                />
+              </motion.button>
 
-              {isOpen && (
-                <div className="drop-content-n">
-                  {isLoggedIn ? (
-                    <ul className="btn-s-n-db-c">
-                      <li className="btn-s-n-item-db">change password</li>
-                      <li className="btn-s-n-item-db">logout</li>
-                      <li className="btn-s-n-item-db">delete account</li>
-                    </ul>
-                  ) : (
-                    <ul className="btn-s-n-db-c">
-                      <Link to="/login" className="btn-s-n-item-db">
-                        Login
-                      </Link>
-                    </ul>
-                  )}
-                </div>
-              )}
+              <AnimatePresence initial={false} mode="wait">
+                {isOpen && (
+                  <motion.div
+                    className="drop-content-n"
+                    key="account-menu"
+                    variants={menuVariants}
+                    initial="closed"
+                    animate="open"
+                    exit="closed"
+                    style={{ transformOrigin: "top center" }}
+                  >
+                    {isLoggedIn ? (
+                      <motion.ul className="btn-s-n-db-c">
+                        <motion.li className="btn-s-n-item-db" variants={itemVariants}>
+                          change password
+                        </motion.li>
+                        <motion.li className="btn-s-n-item-db" variants={itemVariants}>
+                          logout
+                        </motion.li>
+                        <motion.li className="btn-s-n-item-db" variants={itemVariants}>
+                          delete account
+                        </motion.li>
+                      </motion.ul>
+                    ) : (
+                      <motion.ul className="btn-s-n-db-c">
+                        <motion.div variants={itemVariants}>
+                          <Link to="/login" className="btn-s-n-item-db">
+                            Login
+                          </Link>
+                        </motion.div>
+                      </motion.ul>
+                    )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </li>
           </ul>
 
@@ -95,107 +199,161 @@ const Navbar = () => {
               <i className="bx bx-moon"></i>
             </li>
             <li className="t-b-c-nav nav-toggle-btn">
-              <i className="bx bx-menu"></i>
+              <i
+                onClick={toggleSidebarBtn}
+                className={`bx ${isSidebarOpen ? "bx-x" : "bx-menu"}`}
+              ></i>
             </li>
           </ul>
         </div>
       </nav>
-      <aside className="sidebar">
-        <div className="s-user-contain">
-          {isLoggedIn ? (
-            <>
-              <div className="side-logo">{user.avatar}</div>
-              <span className="side-username">{user.name}</span>
-            </>
-          ) : (
-            <span className="side-username">Login</span>
-          )}
-        </div>
-        <ul className="side-contents">
-          <li className="side-items">
-            <i className="side-c-icon bx bx-devices"></i>
-            <span className="side-c-title">services</span>
-          </li>
-          <li className="side-items">
-            <i className="side-c-icon bx bx-book-open"></i>
-            <span className="side-c-title">books</span>
-          </li>
-          <li className="side-items">
-            <i className="side-c-icon bx bx-layers"></i>
-            <span className="side-c-title">projects</span>
-          </li>
-          <li className="side-items">
-            <i className="side-c-icon bx bx-comment"></i>
-            <span className="side-c-title">blogs</span>
-          </li>
-          <div className="side-c-drop-container">
-            <button className="side-c-drop-btn">
-              <div className="side-c-title-db">
-                <i className="bx bx-dots-horizontal-rounded"></i>
-                <span className="side-inner-db-title">snapshot</span>
-              </div>
-              <i
-                onClick={toggleSdBtn}
-                className="side-c-db-btn bx-chevron-down"
-              ></i>
-            </button>
-            {isSdOpen && (
-              <ul className="side-s-d-contain">
-                <li className="side-s-links">
-                  <i className="bx bx-bulb"></i>
-                  <span className="side-s-title">manifesto</span>
-                </li>
-                <li className="side-s-links">
-                  <i className="bx bx-trophy"></i>
-                  <span className="side-s-title">achievements</span>
-                </li>
-                <li className="side-s-links">
-                  <i className="bx bx-id-card"></i>
-                  <span className="side-s-title">resume</span>
-                </li>
-              </ul>
-            )}
-          </div>
-          <li className="side-items">
-            <i className="side-c-icon bx bx-code-alt"></i>
-            <span className="side-c-title">for dev</span>
-          </li>
-          <li className="side-items">
-            <i className="side-c-icon bx bx-info-circle"></i>
-            <span className="side-c-title">about</span>
-          </li>
-          <div className="side-c-drop-container">
-            <button className="side-c-drop-btn">
-              <div className="side-c-title-db">
-                <i className="bx bx-cog"></i>
-                <span className="side-inner-db-title">Account</span>
-              </div>
-              <i
-                onClick={toggleAdBtn}
-                className="side-c-db-btn bx-chevron-down"
-              ></i>
-            </button>
-            {isAOpen && (
-              <ul className="side-s-d-contain">
-                <li className="side-s-links">
-                  <i className="bx bx-lock-alt"></i>
-                  <span className="side-s-title">Change Password</span>
-                </li>
 
-                <li className="side-s-links">
-                  <i className="bx bx-log-out"></i>
-                  <span className="side-s-title">Logout</span>
-                </li>
+      {/* Sidebar with motion + exit animation */}
+      <AnimatePresence initial={false}>
+        {isSidebarOpen && (
+          <motion.aside
+            key="sidebar"
+            className="sidebar open"
+            variants={sidebarVariants}
+            initial="closed"
+            animate="open"
+            exit="closed"
+          >
+            <div className="s-user-contain">
+              {isLoggedIn ? (
+                <>
+                  <div className="side-logo">{user.avatar}</div>
+                  <span className="side-username">{user.name}</span>
+                </>
+              ) : (
+                <span className="side-username">Login</span>
+              )}
+            </div>
 
-                <li className="side-s-links">
-                  <i className="bx bx-user-x"></i>
-                  <span className="side-s-title">Delete Account</span>
-                </li>
-              </ul>
-            )}
-          </div>
-        </ul>
-      </aside>
+            <motion.ul className="side-contents">
+              <motion.li className="side-items" variants={itemVariants}>
+                <i className="side-c-icon bx bx-devices"></i>
+                <span className="side-c-title">services</span>
+              </motion.li>
+              <motion.li className="side-items" variants={itemVariants}>
+                <i className="side-c-icon bx bx-book-open"></i>
+                <span className="side-c-title">books</span>
+              </motion.li>
+              <motion.li className="side-items" variants={itemVariants}>
+                <i className="side-c-icon bx bx-layers"></i>
+                <span className="side-c-title">projects</span>
+              </motion.li>
+              <motion.li className="side-items" variants={itemVariants}>
+                <i className="side-c-icon bx bx-comment"></i>
+                <span className="side-c-title">blogs</span>
+              </motion.li>
+
+              {/* Sidebar Snapshot dropdown */}
+              <div className="side-c-drop-container">
+                <motion.button
+                  className="side-c-drop-btn"
+                  whileHover={buttonHover}
+                  whileTap={buttonTap}
+                  onClick={toggleSdBtn}
+                >
+                  <div className="side-c-title-db">
+                    <i className="bx bx-dots-horizontal-rounded"></i>
+                    <span className="side-inner-db-title">snapshot</span>
+                  </div>
+                  <motion.i
+                    className="side-c-db-btn bx-chevron-down"
+                    animate={chevronRotate(isSdOpen)}
+                  />
+                </motion.button>
+
+                <AnimatePresence initial={false}>
+                  {isSdOpen && (
+                    <motion.ul
+                      className="side-s-d-contain"
+                      key="side-snapshot"
+                      variants={menuVariants}
+                      initial="closed"
+                      animate="open"
+                      exit="closed"
+                      style={{ transformOrigin: "top center" }}
+                    >
+                      <motion.li className="side-s-links" variants={itemVariants}>
+                        <i className="bx bx-bulb"></i>
+                        <span className="side-s-title">manifesto</span>
+                      </motion.li>
+                      <motion.li className="side-s-links" variants={itemVariants}>
+                        <i className="bx bx-trophy"></i>
+                        <span className="side-s-title">achievements</span>
+                      </motion.li>
+                      <motion.li className="side-s-links" variants={itemVariants}>
+                        <i className="bx bx-id-card"></i>
+                        <span className="side-s-title">resume</span>
+                      </motion.li>
+                    </motion.ul>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              <motion.li className="side-items" variants={itemVariants}>
+                <i className="side-c-icon bx bx-code-alt"></i>
+                <span className="side-c-title">for dev</span>
+              </motion.li>
+              <motion.li className="side-items" variants={itemVariants}>
+                <i className="side-c-icon bx bx-info-circle"></i>
+                <span className="side-c-title">about</span>
+              </motion.li>
+
+              {/* Sidebar Account dropdown */}
+              <div className="side-c-drop-container">
+                <motion.button
+                  className="side-c-drop-btn"
+                  whileHover={buttonHover}
+                  whileTap={buttonTap}
+                  onClick={toggleAdBtn}
+                >
+                  <div className="side-c-title-db">
+                    <i className="bx bx-cog"></i>
+                    <span className="side-inner-db-title">Account</span>
+                  </div>
+                  <motion.i
+                    className="side-c-db-btn bx-chevron-down"
+                    animate={chevronRotate(isAOpen)}
+                  />
+                </motion.button>
+
+                <AnimatePresence initial={false}>
+                  {isAOpen && (
+                    <motion.ul
+                      className="side-s-d-contain"
+                      key="side-account"
+                      variants={menuVariants}
+                      initial="closed"
+                      animate="open"
+                      exit="closed"
+                      style={{ transformOrigin: "top center" }}
+                    >
+                      <motion.li className="side-s-links" variants={itemVariants}>
+                        <i className="bx bx-lock-alt"></i>
+                        <span className="side-s-title">Change Password</span>
+                      </motion.li>
+
+                      <motion.li className="side-s-links" variants={itemVariants}>
+                        <i className="bx bx-log-out"></i>
+                        <span className="side-s-title">Logout</span>
+                      </motion.li>
+
+                      <motion.li className="side-s-links" variants={itemVariants}>
+                        <i className="bx bx-user-x"></i>
+                        <span className="side-s-title">Delete Account</span>
+                      </motion.li>
+                    </motion.ul>
+                  )}
+                </AnimatePresence>
+              </div>
+            </motion.ul>
+          </motion.aside>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
