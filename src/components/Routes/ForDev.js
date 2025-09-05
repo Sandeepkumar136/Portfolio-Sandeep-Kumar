@@ -332,16 +332,16 @@ const ForDev = () => {
         <button className="ad-p" type="submit">Publish Post</button>
         </div>
       </form>
-      <div className="my-6">
-        <h4 className="mb-2">All Posts</h4>
+      <div className="ac-container">
+        <h4 className="ac-heading">All Posts</h4>
         {loadingPosts ? (
           <p>Loading…</p>
         ) : posts.length === 0 ? (
           <p>No posts yet.</p>
         ) : (
-          <ul className="divide-y">
+          <ul className="acc-container">
             {posts.map((p) => (
-              <li key={p.id} className="py-3 flex items-center justify-between">
+              <li key={p.id} className="acc-contain">
                 <div>
                   <div className="font-semibold">{p.title}</div>
                   <div className="text-sm opacity-80">{p.subtitle}</div>
@@ -350,8 +350,9 @@ const ForDev = () => {
                 <button
                   type="button"
                   onClick={() => handleDelete(p.id)}
-                  className="text-red-600 hover:underline"
+                  className="del-acc-btn"
                 >
+                  <i className='bx  bx-trash'  ></i> 
                   Delete
                 </button>
               </li>
