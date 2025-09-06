@@ -11,6 +11,50 @@ import {
   doc,
 } from "firebase/firestore";
 import { blogDb } from "../Auth/firebaseConfig";
+import { useCert } from "../context/CertDialogueContext";
+
+// Toastify
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useDarkMode } from "../context/DarkModeContext";
+
+// Helper: return first 8 words; trimmed; safe on empty
+function getExactly8Words(text) {
+  const safe = (text || "").trim();
+  if (!safe) return "";
+  const words = safe.split(/\s+/);
+  return words.slice(0, 8).join(" ");
+}
+function getExactly15Words(text) {
+  const safe = (text || "").trim();
+  if (!safe) return "";
+  const words = safe.split(/\s+/);
+  return words.slice(0, 15).join(" ");
+}
+
+// Framer Motion helpers
+const focusRing = {
+  boxShadow: "0 0 0 3px rgba(99,102,241,.35)",
+  borderColor: "rgb(99,102,241)",
+};
+const btnHover = { scale: 1.05, y: -1 };
+const btnTap = { scale: 0.97 };
+
+const backdropVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+  exit: { opacity: 0 },
+};
+
+const dropIn = {
+  hidden: { y: "-100vh", opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: { type: "spring", duration: 0.2, damping: 24, stiffness: 420 },
+  },
+  exit: { y: "100vh", opacity: 0 },
+};
 
 const ForDev = () => {
   const [title, setTitle] = useState("");
@@ -22,6 +66,8 @@ const ForDev = () => {
   const [password, setPassword] = useState("");
   const [posts, setPosts] = useState([]);
   const [loadingPosts, setLoadingPosts] = useState(true);
+  const { openCert, closeCert, isCertDialogOpen } = useCert();
+  const { darkMode } = useDarkMode();
 
   const validUsername = (process.env.REACT_APP_BLOG_USERNAME || "").trim();
   const validPassword = (process.env.REACT_APP_BLOG_PASSWORD || "").trim();
@@ -91,6 +137,7 @@ const ForDev = () => {
     setIsAuthenticated(false);
     setUsername("");
     setPassword("");
+    toast.success("Logged out");
   };
 
   // Add a new empty section
@@ -135,29 +182,37 @@ const ForDev = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Optionally strip empty entries to keep data clean
+    const cleanedSections = sections.map((s) => ({
+      miniHeadings: (s.miniHeadings || []).map((m) => m.trim()).filter(Boolean),
+      paragraphs: (s.paragraphs || []).map((p) => p.trim()).filter(Boolean),
+    }));
+
     try {
       await addDoc(collection(blogDb, "posts"), {
-        title,
-        subtitle,
-        sections,
+        title: title.trim(),
+        subtitle: subtitle.trim(),
+        sections: cleanedSections,
         createdAt: serverTimestamp(),
       });
       setTitle("");
       setSubtitle("");
       setSections([]);
-      alert("✅ Blog post added!");
+      toast.success("Blog post added!");
     } catch (err) {
       console.error(err);
-      alert("Error adding post");
+      toast.error("Error adding post");
     }
   };
 
   const handleDelete = async (id) => {
     try {
       await deleteDoc(doc(blogDb, "posts", id));
+      toast.success("Post deleted");
     } catch (err) {
       console.error(err);
-      alert("Error deleting post");
+      toast.error("Error deleting post");
     }
   };
 
@@ -165,6 +220,13 @@ const ForDev = () => {
   if (!isAuthenticated) {
     return (
       <div className="pro-container">
+        {/* Toasts available in unauthenticated view */}
+        <ToastContainer
+          position="top-right"
+          autoClose={3500}
+          theme={darkMode ? "dark" : "light"}
+        />
+
         <div className="pro-heading-contain">
           <h3 className="heading-pro">Precision Meets Creativity.</h3>
           <h6 className="subtitle-pro">
@@ -210,7 +272,8 @@ const ForDev = () => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 className="input-underline"
-                whileFocus={{ scale: 1.02 }}
+                whileFocus={focusRing}
+                transition={{ type: "spring", stiffness: 300, damping: 22 }}
               />
             </div>
             <div className="p-l-l-wrap">
@@ -223,14 +286,15 @@ const ForDev = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="input-underline"
-                whileFocus={{ scale: 1.02 }}
+                whileFocus={focusRing}
+                transition={{ type: "spring", stiffness: 300, damping: 22 }}
               />
             </div>
             <motion.button
               className="pro-s-btn"
               type="submit"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={btnHover}
+              whileTap={btnTap}
             >
               Login
             </motion.button>
@@ -243,6 +307,9 @@ const ForDev = () => {
   // Authenticated: show the Add Blog editor + List of posts
   return (
     <div className="fd-container">
+      {/* Toasts available in authenticated view */}
+      <ToastContainer position="top-right" autoClose={3500} theme="dark" />
+
       <div className="fd-d-heading-c">
         <div className="fd-dd-heading-c">
           <h3 className="fd-dd-heading-h-c">Add new blogs</h3>
@@ -250,88 +317,143 @@ const ForDev = () => {
             Craft Fresh Stories, Insights, and Ideas Instantly.
           </h6>
         </div>
-        <button className="fd-d-h-l-btn" type="button" onClick={handleLogout}>
+        <motion.button
+          className="fd-d-h-l-btn"
+          type="button"
+          onClick={handleLogout}
+          whileHover={btnHover}
+          whileTap={btnTap}
+        >
           Logout page
-        </button>
+        </motion.button>
       </div>
-
-      {/* Posts list (title, subtitle, date + delete) */}
 
       <form onSubmit={handleSubmit} className="fd-f-contain">
         <div className="fd-f-head-inp-contain">
           <div className="fd-f-head-wrap">
-          <label htmlFor="text">Heading
-          </label>
-          <input
-            type="text"
-            placeholder="Heading"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
+            <label htmlFor="post-title">Heading</label>
+            <motion.input
+              id="post-title"
+              type="text"
+              placeholder="Heading"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+              whileFocus={focusRing}
+              transition={{ type: "spring", stiffness: 300, damping: 22 }}
             />
-            </div>
-            <div className="fd-f-head-wrap">
-              <label htmlFor="text">subtitle</label>
-          <input
-            type="text"
-            placeholder="Subtitle"
-            value={subtitle}
-            onChange={(e) => setSubtitle(e.target.value)}
+          </div>
+          <div className="fd-f-head-wrap">
+            <label htmlFor="post-subtitle">Subtitle</label>
+            <motion.input
+              id="post-subtitle"
+              type="text"
+              placeholder="Subtitle"
+              value={subtitle}
+              onChange={(e) => setSubtitle(e.target.value)}
+              whileFocus={focusRing}
+              transition={{ type: "spring", stiffness: 300, damping: 22 }}
             />
-            </div>
+          </div>
         </div>
 
         <div className="fd-section-contain">
-        {sections.map((sec, secIndex) => (
-          <div key={secIndex} className="fd-m-p-inp-contain">
-            <h4 className="fd-heading-s" >Section {secIndex + 1}</h4>
-            <div className="contain-m-p-main">
-            {sec.miniHeadings.map((mh, i) => (
-              <input
-                key={`mh-${secIndex}-${i}`}
-                type="text"
-                className="fd-mini-inp"
-                placeholder="Subtitle"
-                value={mh}
-                onChange={(e) =>
-                  handleSectionChange(
-                    secIndex,
-                    "miniHeadings",
-                    e.target.value,
-                    i
-                  )
-                }
-                />
-              ))}
-            <button className="heading-m-fd" type="button" onClick={() => addMiniHeading(secIndex)}>
-              + Add Subtitle
-            </button>
+          {sections.map((sec, secIndex) => (
+            <div key={secIndex} className="fd-m-p-inp-contain">
+              <h4 className="fd-heading-s">Section {secIndex + 1}</h4>
+
+              <div className="contain-m-p-main">
+                {sec.miniHeadings.map((mh, i) => (
+                  <motion.input
+                    key={`mh-${secIndex}-${i}`}
+                    type="text"
+                    className="fd-mini-inp"
+                    placeholder="Subtitle"
+                    value={mh}
+                    onChange={(e) =>
+                      handleSectionChange(
+                        secIndex,
+                        "miniHeadings",
+                        e.target.value,
+                        i
+                      )
+                    }
+                    whileFocus={focusRing}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 22,
+                    }}
+                  />
+                ))}
+                <motion.button
+                  className="heading-m-fd"
+                  type="button"
+                  onClick={() => addMiniHeading(secIndex)}
+                  whileHover={btnHover}
+                  whileTap={btnTap}
+                >
+                  + Add Subtitle
+                </motion.button>
               </div>
+
               <div className="fd-p-main-contain">
-            {sec.paragraphs.map((p, i) => (
-              <textarea
-              key={`p-${secIndex}-${i}`}
-              placeholder="Paragraph"
-              value={p}
-              onChange={(e) =>
-                handleSectionChange(secIndex, "paragraphs", e.target.value, i)
-              }
-              />
-            ))}
-            <button className="fd-add-h-p" type="button" onClick={() => addParagraph(secIndex)}>
-              + Add Paragraph
-            </button>
+                {sec.paragraphs.map((p, i) => (
+                  <motion.textarea
+                    key={`p-${secIndex}-${i}`}
+                    placeholder="Paragraph"
+                    value={p}
+                    onChange={(e) =>
+                      handleSectionChange(
+                        secIndex,
+                        "paragraphs",
+                        e.target.value,
+                        i
+                      )
+                    }
+                    whileFocus={focusRing}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 22,
+                    }}
+                  />
+                ))}
+                <motion.button
+                  className="fd-add-h-p"
+                  type="button"
+                  onClick={() => addParagraph(secIndex)}
+                  whileHover={btnHover}
+                  whileTap={btnTap}
+                >
+                  + Add Paragraph
+                </motion.button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
         </div>
+
         <div className="btn-contain-fd">
-        <button className="ad-sec-btn-fd" type="button" onClick={addSection}>
-          + Add Section
-        </button>
-        <button className="ad-p" type="submit">Publish Post</button>
+          <motion.button
+            className="ad-sec-btn-fd"
+            type="button"
+            onClick={addSection}
+            whileHover={btnHover}
+            whileTap={btnTap}
+          >
+            + Add Section
+          </motion.button>
+          <motion.button
+            className="ad-p"
+            type="submit"
+            whileHover={btnHover}
+            whileTap={btnTap}
+          >
+            Publish Post
+          </motion.button>
         </div>
       </form>
+
       <div className="ac-container">
         <h4 className="ac-heading">All Posts</h4>
         {loadingPosts ? (
@@ -340,23 +462,98 @@ const ForDev = () => {
           <p>No posts yet.</p>
         ) : (
           <ul className="acc-container">
-            {posts.map((p) => (
-              <li key={p.id} className="acc-contain">
-                <div>
-                  <div className="font-semibold">{p.title}</div>
-                  <div className="text-sm opacity-80">{p.subtitle}</div>
-                  <div className="text-xs opacity-70">{p.createdAtText}</div>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => handleDelete(p.id)}
-                  className="del-acc-btn"
-                >
-                  <i className='bx  bx-trash'  ></i> 
-                  Delete
-                </button>
-              </li>
-            ))}
+            {posts.map((p) => {
+              const totalWords = (p.title || "")
+                .trim()
+                .split(/\s+/)
+                .filter(Boolean).length;
+              const preview = getExactly8Words(p.title || "");
+              const showEllipsis = totalWords > 8;
+              const totalsub = (p.subtitle || "")
+                .trim()
+                .split(/\s+/)
+                .filter(Boolean).length;
+              const ptsubtitle = getExactly15Words(p.subtitle || "");
+              const showsubellipsis = totalsub > 8;
+
+              return (
+                <li key={p.id} className="acc-contain">
+                  <div>
+                    <div className="acc-head-wrap">
+                      <div className="acc-head">
+                        {preview}
+                        {showEllipsis ? "..." : ""}...
+                      </div>
+                      <motion.button
+                        type="button"
+                        onClick={openCert}
+                        className="del-acc-btn"
+                        whileHover={btnHover}
+                        whileTap={btnTap}
+                      >
+                        <i className="bx bx-trash"></i>
+                      </motion.button>
+                    </div>
+                    <div className="acc-date">{p.createdAtText}</div>
+                    <div className="acc-sub">
+                      {ptsubtitle} {showsubellipsis ? "..." : ""}...
+                    </div>
+                  </div>
+
+                  {/* Animated confirm dialog */}
+                  <AnimatePresence>
+                    {isCertDialogOpen && (
+                      <motion.div
+                        className="acc-overlay-d"
+                        key="confirm-overlay"
+                        variants={backdropVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                        onClick={closeCert}
+                      >
+                        <motion.div
+                          className="acc-d-box"
+                          key="confirm-modal"
+                          variants={dropIn}
+                          initial="hidden"
+                          animate="visible"
+                          exit="exit"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <h4 className="heading-acc-d">
+                            Confirm blog deletion
+                          </h4>
+                          <div className="acc-btn-d-contain">
+                            <motion.button
+                              type="button"
+                              onClick={closeCert}
+                              className="btn-d-acc n"
+                              whileHover={{ scale: 1.05 }}
+                              whileTap={{ scale: 0.96 }}
+                            >
+                              cancel
+                            </motion.button>
+                            <motion.button
+                              type="button"
+                              onClick={() => {
+                                handleDelete(p.id);
+                                closeCert();
+                              }}
+                              className="btn-d-acc d"
+                              whileHover={{ scale: 1.05 }}
+                              whileTap={{ scale: 0.96 }}
+                            >
+                              delete
+                            </motion.button>
+                          </div>
+                        </motion.div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </li>
+              );
+            })}
           </ul>
         )}
       </div>

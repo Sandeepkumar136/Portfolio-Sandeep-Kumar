@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "./components/navigation/Navbar";
 import "./components/styles/Style.css";
 import Home from "./components/Routes/Home";
+
 import {
   BrowserRouter as Router,
   Routes,
