@@ -3002,7 +3002,6 @@ body {
 .dark-mode .fd-f-head-wrap input {
   color: #fff;
   outline: 0.5px solid #333;
-
 }
 .fd-section-contain {
   margin-top: 1rem;
@@ -3034,7 +3033,6 @@ body {
 .dark-mode .contain-m-p-main input {
   color: #fff;
   outline: 0.5px solid #333;
-
 }
 .heading-m-fd {
   margin: 3px 0 1rem 0;
@@ -3174,9 +3172,13 @@ body {
   align-items: start;
   flex-direction: column;
 }
+.dark-mode .acc-d-box{
+  background-color: #1e1e2fd1;
+  box-shadow: 0px 0.1px 2px #333;
+}
 .heading-acc-d {
   font-size: 1.1rem;
-  opacity: 0.5;
+  opacity: 0.8;
 }
 .acc-btn-d-contain {
   width: 100%;
@@ -3194,7 +3196,7 @@ body {
   padding: 10px 25px;
   text-transform: capitalize;
   font-weight: 650;
-  opacity: 0.5;
+  opacity: 0.8;
   color: #fff;
   border-radius: 5px;
   cursor: pointer;
@@ -3292,24 +3294,24 @@ body {
   .heading-acc-d {
     font-size: 0.9rem;
   }
-  .btn-d-acc{
-    padding: 8px 20px ;
+  .btn-d-acc {
+    padding: 8px 20px;
     opacity: 1;
   }
 }
 // Blog-list ---- jsm-container
-.jsm-j-container{
+.jsm-j-container {
   margin: 1rem 2rem;
 }
-.heading-jsm{
+.heading-jsm {
   // font-size: ;
   opacity: 0.7;
 }
-.subtitle-jsm{
+.subtitle-jsm {
   font-size: 1.3rem;
   opacity: 0.5;
 }
-.jsm-container{
+.jsm-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -3318,7 +3320,7 @@ body {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
-.jsm-contain{
+.jsm-contain {
   padding: 1rem;
   height: 100%;
   cursor: pointer;
@@ -3328,35 +3330,141 @@ body {
   flex-direction: column;
   background-color: #f0f0f0;
 }
-.dark-mode .jsm-contain{
+.dark-mode .jsm-contain {
   background-color: #1e1e2f;
   border-radius: 5px;
 }
-.jsm-c-title{
+.jsm-c-title {
   font-weight: 700;
   opacity: 0.8;
   font-size: 1rem;
 }
-.jsm-c-subtitle{
+.jsm-c-subtitle {
   font-size: 0.8rem;
   opacity: 0.5;
-
 }
 @media only screen and (max-width: 768px) {
-  .heading-jsm{
+  .heading-jsm {
     font-size: 1.3rem;
   }
-  .subtitle-jsm{
+  .subtitle-jsm {
     font-size: 1rem;
   }
-  .jsm-container{
-    grid-template-columns: repeat(1,1fr);
+  .jsm-container {
+    grid-template-columns: repeat(1, 1fr);
     gap: 1rem;
   }
-  .jsm-c-title{
+  .jsm-c-title {
     font-size: 0.8rem;
   }
-  .jsm-c-subtitle{
+  .jsm-c-subtitle {
     font-size: 1rcap;
   }
+}
+// Blogs Main ---- rbc-container
+.rbc-container {
+  margin: 1rem 2rem;
+}
+.rbc-btn-functions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.rbc-btn-functions button {
+  border: none;
+  outline: none;
+  padding: 8px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border-radius: 5px;
+  gap: 0.3rem;
+  color: #111;
+  opacity: 0.8;
+  background-color: #f0f0f0;
+}
+// .rbc-btn-functions button:first-child{
+//   background-color: red;
+// }
+// .rbc-btn-functions button:last-child{
+//   background-color: green;
+// }
+.rbc-btn-functions button i {
+  font-size: 1.3rem;
+}
+.rbc-head-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+.rbc-head-container h2 {
+  font-size: 2rem;
+  opacity: 0.9;
+  text-transform: capitalize;
+}
+.rbc-head-container h3 {
+  font-size: 1.2rem;
+  opacity: 0.7;
+  text-transform: capitalize;
+  text-wrap: wrap;
+}
+.rbc-contain-wrap {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.rbc-contain-m {
+  padding: 1rem;
+  border-radius: 5px;
+}
+.rbc-heading {
+  font-size: 1.1rem;
+  font-weight: 600;
+  opacity: 0.8;
+  margin-bottom: 0.5rem;
+}
+.rbc-head-wrap {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  gap: 0.5rem;
+}
+.rbc-pr-wrap {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+  gap: 2rem;
+  font-size: 0.9rem;
+}
+.rbc-subtitle {
+  opacity: 0.8;
+  padding: 1rem;
+  background-color: #cacaca;
+  width: 100%;
+  border-radius: 5px;
+}
+.dark-mode .rbc-subtitle{
+  background-color: #1e1e2f;
+}
+.dark-mode .rbc-btn-functions button{
+  background-color: #1e1e2f;
+  color: #fff;
+}
+.rbc-b-wrap-dbc{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 0.5rem;
+}
+.rbc-meta{
+  font-size: 0.8rem;
+  opacity: 0.5;
 }

@@ -3294,9 +3294,14 @@ body {
   flex-direction: column;
 }
 
+.dark-mode .acc-d-box {
+  background-color: rgba(30, 30, 47, 0.8196078431);
+  box-shadow: 0px 0.1px 2px #333;
+}
+
 .heading-acc-d {
   font-size: 1.1rem;
-  opacity: 0.5;
+  opacity: 0.8;
 }
 
 .acc-btn-d-contain {
@@ -3314,7 +3319,7 @@ body {
   padding: 10px 25px;
   text-transform: capitalize;
   font-weight: 650;
-  opacity: 0.5;
+  opacity: 0.8;
   color: #fff;
   border-radius: 5px;
   cursor: pointer;
@@ -3489,4 +3494,120 @@ body {
   .jsm-c-subtitle {
     font-size: 1rcap;
   }
+}
+.rbc-container {
+  margin: 1rem 2rem;
+}
+
+.rbc-btn-functions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rbc-btn-functions button {
+  border: none;
+  outline: none;
+  padding: 8px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border-radius: 5px;
+  gap: 0.3rem;
+  color: #111;
+  opacity: 0.8;
+  background-color: #f0f0f0;
+}
+
+.rbc-btn-functions button i {
+  font-size: 1.3rem;
+}
+
+.rbc-head-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.rbc-head-container h2 {
+  font-size: 2rem;
+  opacity: 0.9;
+  text-transform: capitalize;
+}
+
+.rbc-head-container h3 {
+  font-size: 1.2rem;
+  opacity: 0.7;
+  text-transform: capitalize;
+  text-wrap: wrap;
+}
+
+.rbc-contain-wrap {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.rbc-contain-m {
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+.rbc-heading {
+  font-size: 1.1rem;
+  font-weight: 600;
+  opacity: 0.8;
+  margin-bottom: 0.5rem;
+}
+
+.rbc-head-wrap {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  gap: 0.5rem;
+}
+
+.rbc-pr-wrap {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+  gap: 2rem;
+  font-size: 0.9rem;
+}
+
+.rbc-subtitle {
+  opacity: 0.8;
+  padding: 1rem;
+  background-color: #cacaca;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.dark-mode .rbc-subtitle {
+  background-color: #1e1e2f;
+}
+
+.dark-mode .rbc-btn-functions button {
+  background-color: #1e1e2f;
+  color: #fff;
+}
+
+.rbc-b-wrap-dbc {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rbc-meta {
+  font-size: 0.8rem;
+  opacity: 0.5;
 }/*# sourceMappingURL=Style.css.map */

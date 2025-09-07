@@ -12,8 +12,8 @@ const heroVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { type: "spring", stiffness: 160, damping: 22 }
-  }
+    transition: { type: "spring", stiffness: 160, damping: 22 },
+  },
 };
 
 const listVariants = {
@@ -23,9 +23,9 @@ const listVariants = {
     transition: {
       // Orchestrate children entering in a cascade
       staggerChildren: 0.08,
-      delayChildren: 0.12
-    }
-  }
+      delayChildren: 0.12,
+    },
+  },
 };
 
 const itemVariants = {
@@ -33,13 +33,13 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { type: "spring", stiffness: 260, damping: 24 }
+    transition: { type: "spring", stiffness: 260, damping: 24 },
   },
   exit: {
     opacity: 0,
     y: -10,
-    transition: { duration: 0.15 }
-  }
+    transition: { duration: 0.15 },
+  },
 };
 
 const PostList = () => {
@@ -86,7 +86,8 @@ const PostList = () => {
               Craft. Share. Inspire.
             </motion.h1>
             <motion.h3 className="subtitle-jsm" variants={heroVariants}>
-              Empowering ideas through stories, design, and meaningful digital expression.
+              Empowering ideas through stories, design, and meaningful digital
+              expression.
             </motion.h3>
 
             {/* Staggered list reveal */}

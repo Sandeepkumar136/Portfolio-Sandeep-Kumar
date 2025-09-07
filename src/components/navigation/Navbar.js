@@ -232,7 +232,7 @@ const Navbar = () => {
                     <span className="user-name-n">{authUser.name}</span>
                   </>
                 ) : (
-                  <Link to="/login" className="user-name-n">Login</Link>
+                  <Link onClick={toggleSidebarBtn} to="/login" className="user-name-n">Login</Link>
                 )}
                 <motion.i
                   className="bx  bx-chevron-down btn-s-n-db"
@@ -257,7 +257,10 @@ const Navbar = () => {
                           <motion.li
                             className="btn-s-n-item-db"
                             variants={itemVariants}
-                            onClick={handleChangePassword}
+                            onClick={()=> {
+                              handleChangePassword();
+                              setIsOpen(false);
+                            }}  
                           >
                             change password
                           </motion.li>
@@ -265,22 +268,26 @@ const Navbar = () => {
                         <motion.li
                           className="btn-s-n-item-db"
                           variants={itemVariants}
-                          onClick={handleLogout}
-                        >
+                            onClick={()=> {
+                              handleLogout();
+                              setIsOpen(false);
+                            }}                          >
                           logout
                         </motion.li>
                         <motion.li
                           className="btn-s-n-item-db"
                           variants={itemVariants}
-                          onClick={handleDeleteAccount}
-                        >
+                            onClick={()=> {
+                              handleDeleteAccount();
+                              setIsOpen(false);
+                            }}                          >
                           delete account
                         </motion.li>
                       </motion.ul>
                     ) : (
                       <motion.ul className="btn-s-n-db-c">
                         <motion.div variants={itemVariants}>
-                          <Link to="/login" className="btn-s-n-item-db">
+                          <Link onClick={toggleSidebarBtn} to="/login" className="btn-s-n-item-db">
                             Login
                           </Link>
                         </motion.div>
