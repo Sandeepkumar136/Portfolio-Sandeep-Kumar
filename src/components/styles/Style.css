@@ -329,10 +329,6 @@ body {
   color: #111;
 }
 
-.dark-mode .n-db-u-img {
-  color: #fff;
-}
-
 .drop-content-n {
   position: absolute;
   right: 0;
@@ -2805,11 +2801,11 @@ body {
 }
 
 .heading-pro {
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 .subtitle-pro {
-  font-size: 1.7rem;
+  font-size: 1.3rem;
   opacity: 0.7;
 }
 
@@ -2855,8 +2851,12 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  justify-self: center;
   flex-direction: column;
-  padding: 1rem;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 0.5rem;
+  gap: 0.3rem;
 }
 
 .err-pro {
@@ -2869,6 +2869,10 @@ body {
   background-color: #ffd9ae;
 }
 
+.dark-mode .err-pro {
+  background-color: #ff8c00;
+}
+
 .p-l-contain {
   padding: 2rem;
   display: flex;
@@ -2877,6 +2881,10 @@ body {
   flex-direction: column;
   gap: 0.3rem;
   background-color: #f0f0f0;
+}
+
+.dark-mode .p-l-contain {
+  background-color: #1e1e2f;
 }
 
 .p-l-contain form {
@@ -2916,13 +2924,18 @@ body {
 .p-l-l-wrap input {
   outline: none;
   padding: 0.5rem;
-  width: 300px;
+  width: 100%;
   font-size: 1.1rem;
   border: none;
   outline: none;
   background-color: transparent;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #111;
   transform-origin: bottom;
+}
+
+.dark-mode .p-l-l-wrap input {
+  border-bottom: 1px solid #fff;
+  color: #fff;
 }
 
 .pro-s-btn {
@@ -2932,6 +2945,13 @@ body {
   background-color: #111;
   color: #fff;
   cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.dark-mode .pro-s-btn {
+  background-color: #fff;
+  color: #111;
 }
 
 @media only screen and (max-width: 768px) {
@@ -2952,9 +2972,9 @@ body {
     font-size: 0.8rem;
   }
   .p-l-l-wrap input {
-    width: 280px;
+    width: 100%;
     font-size: 0.9rem;
-    padding: 0.8rem;
+    padding: 0.8rem 2rem;
   }
   .btn-sr-d {
     font-size: 0.8rem;
@@ -3572,6 +3592,7 @@ body {
   justify-content: start;
   align-items: start;
   gap: 0.5rem;
+  flex-direction: column;
 }
 
 .rbc-pr-wrap {
@@ -3610,4 +3631,120 @@ body {
 .rbc-meta {
   font-size: 0.8rem;
   opacity: 0.5;
+}
+
+@media only screen and (max-width: 768px) {
+  .rbc-btn-functions button {
+    font-size: 0.8rem;
+    padding: 7px 10px;
+  }
+  .rbc-btn-functions i {
+    font-size: 1rem;
+  }
+  .rbc-head-container h2 {
+    font-size: 1.3rem;
+    margin-bottom: 0.3rem;
+  }
+  .rbc-head-container h3 {
+    font-size: 0.8rem;
+  }
+  .rbc-heading {
+    font-size: 0.8rem;
+  }
+  .rbc-subtitle {
+    font-size: 1rcap;
+  }
+  .rbc-meta {
+    font-size: 0.6rem;
+  }
+}
+.fl-container-wrap {
+  width: 100%;
+  padding-top: 5rem;
+  margin: 1rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-self: center;
+  align-self: center;
+}
+
+.fl-container {
+  padding: 2rem 1rem;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  gap: 0.3rem;
+  flex-direction: column;
+}
+
+.fl-heading {
+  font-size: 1rem;
+  opacity: 0.8;
+  font-family: "poppins", sans-serif;
+}
+
+.fl-inp-l-wrap {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+  gap: 0.2rem;
+  width: 100%;
+}
+
+.fl-inp-l-wrap label {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.fl-inp-l-wrap input {
+  border: none;
+  outline: 0.2px solid #000;
+  width: 100%;
+  height: 2.7rem;
+  border-radius: none;
+  padding-left: 0.5rem;
+}
+
+.fl-u-btn-contain {
+  width: 100%;
+}
+
+.btn-m-fl {
+  background-color: #00b3ff;
+  padding: 0.5rem;
+  color: #fff;
+  font-size: 0.9rem;
+  width: 100%;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.fl-m-contain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.3rem;
+}
+
+.fl-m-contain button {
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  outline: none;
+  background-color: #00b3ff;
+  opacity: 0.5;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.fl-b-text {
+  font-size: 0.8rem;
 }/*# sourceMappingURL=Style.css.map */

@@ -3,5 +3,6 @@ const Image_Exported = {
     "user-picture": require('./images/gare.PNG'),
     "madel-image": require('./images/star medal.png'),
     "Book-not-found": require('./images/vecteezy_young-man-painting-on-easel_69294864.png'),
+    "google-logo": require('./images/google.png'),
 }
 export default Image_Exported;

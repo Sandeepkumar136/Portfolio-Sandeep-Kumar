@@ -235,71 +235,72 @@ const ForDev = () => {
             <span className="p-highlight">impactful</span> user experiences.
           </h6>
         </div>
+        <div className="p-l-pro-wrap">
+          {/* Error Alert Animation */}
+          <AnimatePresence>
+            {error && (
+              <motion.div
+                className="err-pro"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                key="error"
+              >
+                {error}
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-        {/* Error Alert Animation */}
-        <AnimatePresence>
-          {error && (
-            <motion.div
-              className="err-pro"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              key="error"
-            >
-              {error}
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Login Form Animation */}
-        <motion.form
-          onSubmit={handleLogin}
-          className="p-l-contain"
-          initial={{ scale: 0.95, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <h4 className="heading-p-l">Login</h4>
-          <div className="pro-m-wrap">
-            <div className="p-l-l-wrap">
-              <label htmlFor="username" className="lbl-p-l">
-                Username
-              </label>
-              <motion.input
-                id="username"
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className="input-underline"
-                whileFocus={focusRing}
-                transition={{ type: "spring", stiffness: 300, damping: 22 }}
-              />
+          {/* Login Form Animation */}
+          <motion.form
+            onSubmit={handleLogin}
+            className="p-l-contain"
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h4 className="heading-p-l">Login</h4>
+            <div className="pro-m-wrap">
+              <div className="p-l-l-wrap">
+                <label htmlFor="username" className="lbl-p-l">
+                  Username
+                </label>
+                <motion.input
+                  id="username"
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  className="input-underline"
+                  whileFocus={focusRing}
+                  transition={{ type: "spring", stiffness: 300, damping: 22 }}
+                />
+              </div>
+              <div className="p-l-l-wrap">
+                <label htmlFor="password" className="lbl-p-l">
+                  Password
+                </label>
+                <motion.input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="input-underline"
+                  whileFocus={focusRing}
+                  transition={{ type: "spring", stiffness: 300, damping: 22 }}
+                />
+              </div>
+              <motion.button
+                className="pro-s-btn"
+                type="submit"
+                whileHover={btnHover}
+                whileTap={btnTap}
+              >
+                Login
+              </motion.button>
             </div>
-            <div className="p-l-l-wrap">
-              <label htmlFor="password" className="lbl-p-l">
-                Password
-              </label>
-              <motion.input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="input-underline"
-                whileFocus={focusRing}
-                transition={{ type: "spring", stiffness: 300, damping: 22 }}
-              />
-            </div>
-            <motion.button
-              className="pro-s-btn"
-              type="submit"
-              whileHover={btnHover}
-              whileTap={btnTap}
-            >
-              Login
-            </motion.button>
-          </div>
-        </motion.form>
+          </motion.form>
+        </div>
       </div>
     );
   }

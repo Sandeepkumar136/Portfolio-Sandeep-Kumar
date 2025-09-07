@@ -4,7 +4,7 @@ import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 import { blogDb } from "../Auth/firebaseConfig";
 import SinglePost from "../contents/SinglePost";
 
-// NEW: Framer Motion
+// Framer Motion
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 
 const heroVariants = {
@@ -21,7 +21,6 @@ const listVariants = {
   visible: {
     opacity: 1,
     transition: {
-      // Orchestrate children entering in a cascade
       staggerChildren: 0.08,
       delayChildren: 0.12,
     },
@@ -59,10 +58,9 @@ const PostList = () => {
 
   return (
     <LayoutGroup>
-      {/* AnimatePresence controls enter/exit across views */}
       <AnimatePresence mode="wait" initial={false}>
         {selectedPost ? (
-          // Detail view (exits list, then enters detail)
+          // Detail view
           <motion.div
             key="detail"
             initial={{ opacity: 0, y: 8 }}
@@ -81,7 +79,7 @@ const PostList = () => {
             animate="visible"
             exit="hidden"
           >
-            {/* Hero text entrance */}
+            {/* Hero Section */}
             <motion.h1 className="heading-jsm" variants={heroVariants}>
               Craft. Share. Inspire.
             </motion.h1>
@@ -90,47 +88,52 @@ const PostList = () => {
               expression.
             </motion.h3>
 
-            {/* Staggered list reveal */}
-            <motion.ul
-              className="jsm-container"
-              variants={listVariants}
-              initial="hidden"
-              animate="visible"
-              // Enable layout animations when list changes
-              layout
-            >
-              {/* AnimatePresence for item-level add/remove */}
-              <AnimatePresence initial={false}>
-                {posts.map((post) => (
-                  <motion.li
-                    key={post.id}
-                    className="jsm-contain"
-                    variants={itemVariants}
-                    // Exit when removed or re-ordered
-                    exit="exit"
-                    // Subtle hover/tap micro-interactions
-                    whileHover={{ y: -2, scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => handleClick(post)}
-                    // Layout animations between states
-                    layout
-                    // Shared element link to detail view (title or card)
-                    layoutId={`post-${post.id}`}
-                  >
-                    <motion.h2
-                      className="jsm-c-title"
-                      // Optionally share just the title
-                      layoutId={`post-title-${post.id}`}
+            {/* Show posts if available, else fallback */}
+            {posts.length > 0 ? (
+              <motion.ul
+                className="jsm-container"
+                variants={listVariants}
+                initial="hidden"
+                animate="visible"
+                layout
+              >
+                <AnimatePresence initial={false}>
+                  {posts.map((post) => (
+                    <motion.li
+                      key={post.id}
+                      className="jsm-contain"
+                      variants={itemVariants}
+                      exit="exit"
+                      whileHover={{ y: -2, scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => handleClick(post)}
+                      layout
+                      layoutId={`post-${post.id}`}
                     >
-                      {post.title}
-                    </motion.h2>
-                    <motion.h3 className="jsm-c-subtitle">
-                      {post.subtitle}
-                    </motion.h3>
-                  </motion.li>
-                ))}
-              </AnimatePresence>
-            </motion.ul>
+                      <motion.h2
+                        className="jsm-c-title"
+                        layoutId={`post-title-${post.id}`}
+                      >
+                        {post.title}
+                      </motion.h2>
+                      <motion.h3 className="jsm-c-subtitle">
+                        {post.subtitle}
+                      </motion.h3>
+                    </motion.li>
+                  ))}
+                </AnimatePresence>
+              </motion.ul>
+            ) : (
+              <motion.div
+                className="no-blogs"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 8 }}
+                transition={{ type: "spring", stiffness: 160, damping: 20 }}
+              >
+                <h2>✨ Blogs will be coming soon...</h2>
+              </motion.div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

@@ -1,37 +1,36 @@
 // src/components/Navbar.jsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { auth, authDb } from "../Auth/firebaseConfig"; // adjust if needed
+import { auth, authDb } from "../Auth/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
-import { deleteUser } from "firebase/auth";
+import { deleteUser, onAuthStateChanged } from "firebase/auth";
 import { useDarkMode } from "../context/DarkModeContext";
 
 const Navbar = () => {
   // DROPDOWNS / SIDEBAR STATE
-  const [isOpen, setIsOpen] = useState(false);
-  const [isNdOpen, setIsNdOpen] = useState(false);
-  const [isSdOpen, setIsSdOpen] = useState(false);
-  const [isAOpen, setIsAdOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);      // top-right account menu
+  const [isNdOpen, setIsNdOpen] = useState(false);  // navbar "Snapshot" dropdown
+  const [isSdOpen, setIsSdOpen] = useState(false);  // sidebar "Snapshot" dropdown
+  const [isAOpen, setIsAOpen] = useState(false);    // sidebar "Account" dropdown
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const {darkMode, toggleDarkMode} = useDarkMode();
+  const { darkMode, toggleDarkMode } = useDarkMode();
   const MotionLink = motion(Link);
-
 
   // AUTH STATE FOR NAVBAR/SIDEBAR
   const [authUser, setAuthUser] = useState(null);
   const navigate = useNavigate();
 
-  // Listeners
-  const toggleNdBtn = () => setIsNdOpen(!isNdOpen);
-  const toggleDropdown = () => setIsOpen(!isOpen);
-  const toggleSdBtn = () => setIsSdOpen(!isSdOpen);
-  const toggleAdBtn = () => setIsAdOpen(!isAOpen);
-  const toggleSidebarBtn = () => setSidebarOpen(!isSidebarOpen);
+  // Toggle handlers
+  const toggleNdBtn = useCallback(() => setIsNdOpen((v) => !v), []);
+  const toggleDropdown = useCallback(() => setIsOpen((v) => !v), []);
+  const toggleSdBtn = useCallback(() => setIsSdOpen((v) => !v), []);
+  const toggleABtn = useCallback(() => setIsAOpen((v) => !v), []);
+  const toggleSidebarBtn = useCallback(() => setSidebarOpen((v) => !v), []);
 
   // Subscribe to Firebase auth; fetch optional profile fields from Firestore
   useEffect(() => {
-    const unsub = auth.onAuthStateChanged(async (fbUser) => {
+    const unsub = onAuthStateChanged(auth, async (fbUser) => {
       if (fbUser) {
         try {
           const snap = await getDoc(doc(authDb, "Users", fbUser.uid));
@@ -153,10 +152,10 @@ const Navbar = () => {
           </Link>
 
           <ul className="nav-links">
-            <Link to='/services' className="nav-contain">services</Link>
-            <Link to='/books' className="nav-contain">books</Link>
-            <Link to='/projects' className="nav-contain">projects</Link>
-            <Link to='/blog' className="nav-contain">blogs</Link>
+            <Link to="/services" className="nav-contain">services</Link>
+            <Link to="/books" className="nav-contain">books</Link>
+            <Link to="/projects" className="nav-contain">projects</Link>
+            <Link to="/blog" className="nav-contain">blogs</Link>
 
             {/* Snapshot dropdown */}
             <div className="n-d-d-btn-contain">
@@ -165,10 +164,12 @@ const Navbar = () => {
                 whileHover={buttonHover}
                 whileTap={buttonTap}
                 onClick={toggleNdBtn}
+                aria-expanded={isNdOpen}
+                aria-haspopup="menu"
               >
-                <div className="n-d-d-heading">Shapshot</div>
+                <div className="n-d-d-heading">Snapshot</div>
                 <motion.i
-                  className="n-d-d-icon bx-chevron-down"
+                  className="bx bx-chevron-down n-d-d-icon"
                   animate={chevronRotate(isNdOpen)}
                 />
               </motion.button>
@@ -183,15 +184,34 @@ const Navbar = () => {
                     animate="open"
                     exit="closed"
                     style={{ transformOrigin: "top center" }}
+                    role="menu"
                   >
-                    <MotionLink to='/menifesto' className="n-d-links" variants={itemVariants}>
+                    <MotionLink
+                      onClick={() => setIsNdOpen(false)}
+                      to="/manifesto"
+                      className="n-d-links"
+                      variants={itemVariants}
+                      role="menuitem"
+                    >
                       manifesto
                     </MotionLink>
-                    <MotionLink to='/achievements' className="n-d-links" variants={itemVariants}>
-                      Achivements
+                    <MotionLink
+                      onClick={() => setIsNdOpen(false)}
+                      to="/achievements"
+                      className="n-d-links"
+                      variants={itemVariants}
+                      role="menuitem"
+                    >
+                      achievements
                     </MotionLink>
-                    <MotionLink to='/resume' className="n-d-links" variants={itemVariants}>
-                      Resume
+                    <MotionLink
+                      onClick={() => setIsNdOpen(false)}
+                      to="/resume"
+                      className="n-d-links"
+                      variants={itemVariants}
+                      role="menuitem"
+                    >
+                      resume
                     </MotionLink>
                   </motion.ul>
                 )}
@@ -202,108 +222,110 @@ const Navbar = () => {
 
         <div className="nav-l-contain">
           <ul className="nav-side-links">
-            <Link to='/fordev' className="nav-s-contain">for dev</Link>
-            <Link to='/about' className="nav-s-contain">about</Link>
+            <Link to="/fordev" className="nav-s-contain">for dev</Link>
+            <Link to="/about" className="nav-s-contain">about</Link>
 
-            {/* Account dropdown (top-right) */}
+            {/* Account (top-right) */}
             <li className="nav-s-drop-btn-c">
-              <motion.button
-                className="dropdown-btn-n"
-                whileHover={buttonHover}
-                whileTap={buttonTap}
-                onClick={toggleDropdown}
-              >
-                {isLoggedIn ? (
-                  <>
-                    <div className="user-p-logo-n">
-                      {authUser.photo ? (
-                        <img
-                          src={authUser.photo}
-                          alt="Profile"
-                          width="28"
-                          height="28"
-                          style={{ borderRadius: "50%", objectFit: "cover" }}
-                          referrerPolicy="no-referrer"
-                        />
-                      ) : (
-                        <i className="bx bx-user n-db-u-img"></i>
-                      )}
-                    </div>
-                    <span className="user-name-n">{authUser.name}</span>
-                  </>
-                ) : (
-                  <Link onClick={toggleSidebarBtn} to="/login" className="user-name-n">Login</Link>
-                )}
-                <motion.i
-                  className="bx  bx-chevron-down btn-s-n-db"
-                  animate={chevronRotate(isOpen)}
-                />
-              </motion.button>
-
-              <AnimatePresence initial={false} mode="wait">
-                {isOpen && (
-                  <motion.div
-                    className="drop-content-n"
-                    key="account-menu"
-                    variants={menuVariants}
-                    initial="closed"
-                    animate="open"
-                    exit="closed"
-                    style={{ transformOrigin: "top center" }}
+              {isLoggedIn ? (
+                <>
+                  <motion.button
+                    className="dropdown-btn-n"
+                    whileHover={buttonHover}
+                    whileTap={buttonTap}
+                    onClick={toggleDropdown}
+                    aria-expanded={isOpen}
+                    aria-haspopup="menu"
                   >
-                    {isLoggedIn ? (
-                      <motion.ul className="btn-s-n-db-c">
-                        {!isGoogleUser && (
+                    <>
+                      <div className="user-p-logo-n">
+                        {authUser.photo ? (
+                          <img
+                            src={authUser.photo}
+                            alt="Profile"
+                            width="28"
+                            height="28"
+                            style={{ borderRadius: "50%", objectFit: "cover" }}
+                            referrerPolicy="no-referrer"
+                          />
+                        ) : (
+                          <i className="bx bx-user n-db-u-img"></i>
+                        )}
+                      </div>
+                      <span className="user-name-n">{authUser.name}</span>
+                    </>
+                    <motion.i
+                      className="bx bx-chevron-down btn-s-n-db"
+                      animate={chevronRotate(isOpen)}
+                    />
+                  </motion.button>
+
+                  <AnimatePresence initial={false} mode="wait">
+                    {isOpen && (
+                      <motion.div
+                        className="drop-content-n"
+                        key="account-menu"
+                        variants={menuVariants}
+                        initial="closed"
+                        animate="open"
+                        exit="closed"
+                        style={{ transformOrigin: "top center" }}
+                        role="menu"
+                      >
+                        <motion.ul className="btn-s-n-db-c">
+                          {!isGoogleUser && (
+                            <motion.li
+                              className="btn-s-n-item-db"
+                              variants={itemVariants}
+                              onClick={() => {
+                                handleChangePassword();
+                                setIsOpen(false);
+                              }}
+                              role="menuitem"
+                            >
+                              change password
+                            </motion.li>
+                          )}
                           <motion.li
                             className="btn-s-n-item-db"
                             variants={itemVariants}
-                            onClick={()=> {
-                              handleChangePassword();
-                              setIsOpen(false);
-                            }}  
-                          >
-                            change password
-                          </motion.li>
-                        )}
-                        <motion.li
-                          className="btn-s-n-item-db"
-                          variants={itemVariants}
-                            onClick={()=> {
+                            onClick={() => {
                               handleLogout();
                               setIsOpen(false);
-                            }}                          >
-                          logout
-                        </motion.li>
-                        <motion.li
-                          className="btn-s-n-item-db"
-                          variants={itemVariants}
-                            onClick={()=> {
+                            }}
+                            role="menuitem"
+                          >
+                            logout
+                          </motion.li>
+                          <motion.li
+                            className="btn-s-n-item-db"
+                            variants={itemVariants}
+                            onClick={() => {
                               handleDeleteAccount();
                               setIsOpen(false);
-                            }}                          >
-                          delete account
-                        </motion.li>
-                      </motion.ul>
-                    ) : (
-                      <motion.ul className="btn-s-n-db-c">
-                        <motion.div variants={itemVariants}>
-                          <Link onClick={toggleSidebarBtn} to="/login" className="btn-s-n-item-db">
-                            Login
-                          </Link>
-                        </motion.div>
-                      </motion.ul>
+                            }}
+                            role="menuitem"
+                          >
+                            delete account
+                          </motion.li>
+                        </motion.ul>
+                      </motion.div>
                     )}
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                  </AnimatePresence>
+                </>
+              ) : (
+                <Link to="/login" className="user-name-n" onClick={toggleSidebarBtn}>
+                  Login
+                </Link>
+              )}
             </li>
           </ul>
 
           <ul className="toogle-btns-contain-n">
-            <button className="t-b-c-nav">
-              <i onClick={toggleDarkMode} className={`bx bx-${darkMode ? 'moon': 'sun'}`}></i>
+            <button className="t-b-c-nav" aria-label="toggle theme">
+              <i onClick={toggleDarkMode} className={`bx bx-${darkMode ? "moon" : "sun"}`}></i>
             </button>
-            <button className="t-b-c-nav nav-toggle-btn">
+            <button className="t-b-c-nav nav-toggle-btn" aria-label="toggle menu">
               <i
                 onClick={toggleSidebarBtn}
                 className={`bx ${isSidebarOpen ? "bx-x" : "bx-menu"}`}
@@ -323,6 +345,7 @@ const Navbar = () => {
             initial="closed"
             animate="open"
             exit="closed"
+            aria-label="Sidebar"
           >
             <div className="s-user-contain">
               {isLoggedIn ? (
@@ -344,24 +367,26 @@ const Navbar = () => {
                   <span className="side-username">{authUser.name}</span>
                 </>
               ) : (
-                <Link to="/login" className="side-username">Login</Link>
+                <Link onClick={toggleSidebarBtn} to="/login" className="side-username">
+                  Login
+                </Link>
               )}
             </div>
 
             <motion.ul className="side-contents">
-              <MotionLink to='/services' className="side-items" variants={itemVariants}>
+              <MotionLink to="/services" onClick={toggleSidebarBtn} className="side-items" variants={itemVariants}>
                 <i className="side-c-icon bx bx-devices"></i>
                 <span className="side-c-title">services</span>
               </MotionLink>
-              <MotionLink to='/books' className="side-items" variants={itemVariants}>
+              <MotionLink to="/books" onClick={toggleSidebarBtn} className="side-items" variants={itemVariants}>
                 <i className="side-c-icon bx bx-book-open"></i>
                 <span className="side-c-title">books</span>
               </MotionLink>
-              <MotionLink to='/projects' className="side-items" variants={itemVariants}>
+              <MotionLink to="/projects" onClick={toggleSidebarBtn} className="side-items" variants={itemVariants}>
                 <i className="side-c-icon bx bx-layers"></i>
                 <span className="side-c-title">projects</span>
               </MotionLink>
-              <MotionLink to='/blog' className="side-items" variants={itemVariants}>
+              <MotionLink to="/blog" onClick={toggleSidebarBtn} className="side-items" variants={itemVariants}>
                 <i className="side-c-icon bx bx-comment"></i>
                 <span className="side-c-title">blogs</span>
               </MotionLink>
@@ -373,13 +398,15 @@ const Navbar = () => {
                   whileHover={buttonHover}
                   whileTap={buttonTap}
                   onClick={toggleSdBtn}
+                  aria-expanded={isSdOpen}
+                  aria-controls="sidebar-snapshot-menu"
                 >
                   <div className="side-c-title-db">
                     <i className="bx bx-dots-horizontal-rounded"></i>
                     <span className="side-inner-db-title">snapshot</span>
                   </div>
                   <motion.i
-                    className="side-c-db-btn bx-chevron-down"
+                    className="side-c-db-btn bx bx-chevron-down"
                     animate={chevronRotate(isSdOpen)}
                   />
                 </motion.button>
@@ -387,6 +414,7 @@ const Navbar = () => {
                 <AnimatePresence initial={false}>
                   {isSdOpen && (
                     <motion.ul
+                      id="sidebar-snapshot-menu"
                       className="side-s-d-contain"
                       key="side-snapshot"
                       variants={menuVariants}
@@ -394,16 +422,17 @@ const Navbar = () => {
                       animate="open"
                       exit="closed"
                       style={{ transformOrigin: "top center" }}
+                      role="menu"
                     >
-                      <MotionLink to='/menifesto' className="side-s-links" variants={itemVariants}>
+                      <MotionLink onClick={toggleSidebarBtn} to="/manifesto" className="side-s-links" variants={itemVariants} role="menuitem">
                         <i className="bx bx-bulb"></i>
                         <span className="side-s-title">manifesto</span>
                       </MotionLink>
-                      <MotionLink to='/achievements' className="side-s-links" variants={itemVariants}>
+                      <MotionLink onClick={toggleSidebarBtn} to="/achievements" className="side-s-links" variants={itemVariants} role="menuitem">
                         <i className="bx bx-trophy"></i>
                         <span className="side-s-title">achievements</span>
                       </MotionLink>
-                      <MotionLink to='/resume' className="side-s-links" variants={itemVariants}>
+                      <MotionLink onClick={toggleSidebarBtn} to="/resume" className="side-s-links" variants={itemVariants} role="menuitem">
                         <i className="bx bx-id-card"></i>
                         <span className="side-s-title">resume</span>
                       </MotionLink>
@@ -412,11 +441,11 @@ const Navbar = () => {
                 </AnimatePresence>
               </div>
 
-              <MotionLink to='/fordev' className="side-items" variants={itemVariants}>
+              <MotionLink onClick={toggleSidebarBtn} to="/fordev" className="side-items" variants={itemVariants}>
                 <i className="side-c-icon bx bx-code-alt"></i>
                 <span className="side-c-title">for dev</span>
               </MotionLink>
-              <MotionLink to='/about' className="side-items" variants={itemVariants}>
+              <MotionLink onClick={toggleSidebarBtn} to="/about" className="side-items" variants={itemVariants}>
                 <i className="side-c-icon bx bx-info-circle"></i>
                 <span className="side-c-title">about</span>
               </MotionLink>
@@ -428,14 +457,16 @@ const Navbar = () => {
                     className="side-c-drop-btn"
                     whileHover={buttonHover}
                     whileTap={buttonTap}
-                    onClick={toggleAdBtn}
+                    onClick={toggleABtn}
+                    aria-expanded={isAOpen}
+                    aria-controls="sidebar-account-menu"
                   >
                     <div className="side-c-title-db">
                       <i className="bx bx-cog"></i>
                       <span className="side-inner-db-title">Account</span>
                     </div>
                     <motion.i
-                      className="side-c-db-btn bx-chevron-down"
+                      className="side-c-db-btn bx bx-chevron-down"
                       animate={chevronRotate(isAOpen)}
                     />
                   </motion.button>
@@ -443,6 +474,7 @@ const Navbar = () => {
                   <AnimatePresence initial={false}>
                     {isAOpen && (
                       <motion.ul
+                        id="sidebar-account-menu"
                         className="side-s-d-contain"
                         key="side-account"
                         variants={menuVariants}
@@ -450,12 +482,17 @@ const Navbar = () => {
                         animate="open"
                         exit="closed"
                         style={{ transformOrigin: "top center" }}
+                        role="menu"
                       >
                         {!isGoogleUser && (
                           <motion.li
                             className="side-s-links"
                             variants={itemVariants}
-                            onClick={handleChangePassword}
+                            onClick={() => {
+                              handleChangePassword();
+                              setIsAOpen(false);
+                            }}
+                            role="menuitem"
                           >
                             <i className="bx bx-lock-alt"></i>
                             <span className="side-s-title">Change Password</span>
@@ -465,7 +502,11 @@ const Navbar = () => {
                         <motion.li
                           className="side-s-links"
                           variants={itemVariants}
-                          onClick={handleLogout}
+                          onClick={() => {
+                            handleLogout();
+                            setIsAOpen(false);
+                          }}
+                          role="menuitem"
                         >
                           <i className="bx bx-log-out"></i>
                           <span className="side-s-title">Logout</span>
@@ -474,7 +515,11 @@ const Navbar = () => {
                         <motion.li
                           className="side-s-links"
                           variants={itemVariants}
-                          onClick={handleDeleteAccount}
+                          onClick={() => {
+                            handleDeleteAccount();
+                            setIsAOpen(false);
+                          }}
+                          role="menuitem"
                         >
                           <i className="bx bx-user-x"></i>
                           <span className="side-s-title">Delete Account</span>
