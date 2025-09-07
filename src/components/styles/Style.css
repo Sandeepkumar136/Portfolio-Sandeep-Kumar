@@ -3680,6 +3680,10 @@ body {
   flex-direction: column;
 }
 
+.dark-mode .fl-container {
+  background-color: #1e1e2f;
+}
+
 .fl-heading {
   font-size: 1rem;
   opacity: 0.8;
@@ -3707,6 +3711,12 @@ body {
   height: 2.7rem;
   border-radius: none;
   padding-left: 0.5rem;
+}
+
+.dark-mode .fl-inp-l-wrap input {
+  background-color: #111;
+  outline: 0.2px solid #999;
+  color: #fff;
 }
 
 .fl-u-btn-contain {
@@ -3743,8 +3753,22 @@ body {
   font-size: 0.9rem;
   border-radius: 5px;
   cursor: pointer;
+  color: #fff;
 }
 
 .fl-b-text {
   font-size: 0.8rem;
+}
+
+.dark-mode .fl-b-text a {
+  color: #d1d0d0;
+}
+
+@media only screen and (max-width: 768px) {
+  .fl-container {
+    width: 300px;
+  }
+  .fl-m-contain button {
+    font-size: 0.8rem;
+  }
 }/*# sourceMappingURL=Style.css.map */
