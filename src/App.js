@@ -33,6 +33,7 @@ import Login from "./components/Auth/login";
 import PrivateRoute from "./components/Auth/PrivateRoute";
 import Menifesto from "./components/Routes/Menifesto";
 import { PDialogueBoxProvider } from "./components/context/PDialogueBoxContext";
+import Footer from "./Footer/Footer";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -74,6 +75,7 @@ const App = () => {
                 {/* Fallback */}
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
+              <Footer/>
             </CertDialogueContextProvider>
           </FilterDialogueBoxProvider>
           </PDialogueBoxProvider>
