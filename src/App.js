@@ -22,8 +22,6 @@ import { LangDialogueboxProvider } from "./components/context/LanguageContext";
 import { FilterDialogueBoxProvider } from "./components/context/FilterContext";
 import ServicesDetails from "./components/contents/ServicesDetails";
 import { CertDialogueContextProvider } from "./components/context/CertDialogueContext";
-import ForDev from "./components/Routes/ForDev";
-import PostList from "./components/Routes/PostList";
 import { auth } from "./components/Auth/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 
@@ -34,6 +32,9 @@ import PrivateRoute from "./components/Auth/PrivateRoute";
 import Menifesto from "./components/Routes/Menifesto";
 import { PDialogueBoxProvider } from "./components/context/PDialogueBoxContext";
 import Footer from "./Footer/Footer";
+import AdminRoute from "./DB/AdminRoute";
+import PostList from "./DB/PostList";
+import ForDev from "./DB/ForDev";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -48,36 +49,36 @@ const App = () => {
       <DarkModeProvider>
         <LangDialogueboxProvider>
           <PDialogueBoxProvider>
-          <FilterDialogueBoxProvider>
-            <CertDialogueContextProvider>
-              <Navbar />
-              <Routes>
-                {/* Public routes */}
-                <Route path="/" element={<Home />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<SignUp />} />
-                <Route path="/services" element={<Services />} />
-                <Route path="/services/:id" element={<ServicesDetails />} />
-                <Route path="/books" element={<Books />} />
-                <Route path="/projects" element={<Projects />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/fordev" element={<ForDev />} />
-                <Route path="/blog" element={<PostList />} />
+            <FilterDialogueBoxProvider>
+              <CertDialogueContextProvider>
+                <Navbar />
+                <Routes>
+                  {/* Public routes */}
+                  <Route path="/" element={<Home />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<SignUp />} />
+                  <Route path="/services" element={<Services />} />
+                  <Route path="/services/:id" element={<ServicesDetails />} />
+                  <Route path="/books" element={<Books />} />
+                  <Route path="/projects" element={<Projects />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/blog" element={<PostList />} />
+                  <Route path="/fordev" element={<ForDev />} />
 
-                {/* Protected routes */}
-                <Route element={<PrivateRoute user={user} />}>
-                  <Route path="/profile" element={<Profile />} />
-                  <Route path="/manifesto" element={<Menifesto />} />
-                  <Route path="/resume" element={<Resume />} />
-                  <Route path="/achievements" element={<Achievements />} />
-                </Route>
+                  {/* Protected routes */}
+                  <Route element={<PrivateRoute user={user} />}>
+                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/manifesto" element={<Menifesto />} />
+                    <Route path="/resume" element={<Resume />} />
+                    <Route path="/achievements" element={<Achievements />} />
+                  </Route>
 
-                {/* Fallback */}
-                <Route path="*" element={<Navigate to="/" replace />} />
-              </Routes>
-              <Footer/>
-            </CertDialogueContextProvider>
-          </FilterDialogueBoxProvider>
+                  {/* Fallback */}
+                  <Route path="*" element={<Navigate to="/" replace />} />
+                </Routes>
+                <Footer />
+              </CertDialogueContextProvider>
+            </FilterDialogueBoxProvider>
           </PDialogueBoxProvider>
         </LangDialogueboxProvider>
       </DarkModeProvider>

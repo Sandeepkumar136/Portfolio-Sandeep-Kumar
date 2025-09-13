@@ -1,8 +1,8 @@
 // PostList.js
 import React, { useEffect, useState } from "react";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
-import { blogDb } from "../Auth/firebaseConfig";
-import SinglePost from "../contents/SinglePost";
+import { blogDb } from "../components/Auth/firebaseConfig";
+import SinglePost from "../components/contents/SinglePost";
 
 // Framer Motion
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";

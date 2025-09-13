@@ -1,45 +1,28 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// Variants
+// Variants without any opacity changes
 const listContainerVariants = {
   closed: {
-    opacity: 0,
     height: 0,
-    transition: { when: "afterChildren" },
+    transition: { when: "afterChildren" }
   },
   open: {
-    opacity: 1,
     height: "auto",
     transition: {
       when: "beforeChildren",
       staggerChildren: 0.06,
-      delayChildren: 0.02,
-    },
-  },
+      delayChildren: 0.02
+    }
+  }
 };
 
 const listItemVariants = {
-  closed: { opacity: 0, y: -12 },
+  closed: { y: -12 },
   open: {
-    opacity: 1,
     y: 0,
-    transition: { type: "spring", stiffness: 420, damping: 28 },
-  },
-};
-
-const fadeUpStagger = {
-  hidden: { opacity: 0, y: 8 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { staggerChildren: 0.05, delayChildren: 0.03 },
-  },
-};
-
-const fadeUpItem = {
-  hidden: { opacity: 0, y: 8 },
-  show: { opacity: 1, y: 0 },
+    transition: { type: "spring", stiffness: 420, damping: 28 }
+  }
 };
 
 const Footer = () => {
@@ -53,14 +36,9 @@ const Footer = () => {
 
   return (
     <div className="footer">
-      {/* Desktop / Max footer */}
-      <motion.div
-        className="max-footer"
-        variants={fadeUpStagger}
-        initial="hidden"
-        animate="show"
-      >
-        <motion.div className="mx-footer-container" variants={fadeUpItem}>
+      {/* Desktop / Max footer (no enter opacity/transition, only hover/tap on items) */}
+      <div className="max-footer">
+        <div className="mx-footer-container">
           <h3 className="heading-mx-footer">main</h3>
           <ul className="mx-footer-contain">
             <motion.li
@@ -88,9 +66,9 @@ const Footer = () => {
               Home
             </motion.li>
           </ul>
-        </motion.div>
+        </div>
 
-        <motion.div className="mx-footer-container" variants={fadeUpItem}>
+        <div className="mx-footer-container">
           <h3 className="heading-mx-footer">About</h3>
           <ul className="mx-footer-contain">
             <motion.li
@@ -118,9 +96,9 @@ const Footer = () => {
               For Developers
             </motion.li>
           </ul>
-        </motion.div>
+        </div>
 
-        <motion.div className="mx-footer-container" variants={fadeUpItem}>
+        <div className="mx-footer-container">
           <h3 className="heading-mx-footer">Legal</h3>
           <ul className="mx-footer-contain">
             <motion.li
@@ -148,9 +126,9 @@ const Footer = () => {
               FAQ
             </motion.li>
           </ul>
-        </motion.div>
+        </div>
 
-        <motion.div className="mx-footer-container" variants={fadeUpItem}>
+        <div className="mx-footer-container">
           <h3 className="heading-mx-footer">Social</h3>
           <ul className="mx-footer-contain">
             <motion.li
@@ -193,12 +171,40 @@ const Footer = () => {
               <span className="title-mx-social-footer">Github</span>
             </motion.li>
           </ul>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
 
       {/* Mobile / Min footer */}
       <div className="min-footer-container">
         {/* Main */}
+                <div className="min-footer">
+          <div className="min-footer-head-contain">
+            <h3 className="heading-mn-footer">legal</h3>
+          </div>
+          <ul className="min-footer-contain">
+            <motion.li
+              className="min-footer-items"
+              whileHover={{ x: 4 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              terms
+            </motion.li>
+            <motion.li
+              className="min-footer-items"
+              whileHover={{ x: 4 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              privacy
+            </motion.li>
+            <motion.li
+              className="min-footer-items"
+              whileHover={{ x: 4 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              FAQ
+            </motion.li>
+          </ul>
+        </div>
         <div className="min-footer">
           <div className="min-footer-head-contain">
             <h3 className="heading-mn-footer">main</h3>
@@ -282,54 +288,21 @@ const Footer = () => {
                 exit="closed"
                 style={{ overflow: "hidden" }}
               >
-                {["our services", "our missions", "for developers"].map(
-                  (txt) => (
-                    <motion.li
-                      key={txt}
-                      className="min-footer-items"
-                      variants={listItemVariants}
-                      whileHover={{ x: 4 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      {txt}
-                    </motion.li>
-                  )
-                )}
+                {["our services", "our missions", "for developers"].map((txt) => (
+                  <motion.li
+                    key={txt}
+                    className="min-footer-items"
+                    variants={listItemVariants}
+                    whileHover={{ x: 4 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    {txt}
+                  </motion.li>
+                ))}
               </motion.ul>
             )}
           </AnimatePresence>
         </div>
-
-        {/* Legal (static) */}
-        <div className="min-footer">
-          <div className="min-footer-head-contain">
-            <h3 className="heading-mn-footer">legal</h3>
-          </div>
-          <ul className="min-footer-contain">
-            <motion.li
-              className="min-footer-items"
-              whileHover={{ x: 4 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              terms
-            </motion.li>
-            <motion.li
-              className="min-footer-items"
-              whileHover={{ x: 4 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              privacy
-            </motion.li>
-            <motion.li
-              className="min-footer-items"
-              whileHover={{ x: 4 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              FAQ
-            </motion.li>
-          </ul>
-        </div>
-
         {/* Social */}
         <div className="min-footer">
           <div className="min-footer-head-contain">
