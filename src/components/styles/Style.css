@@ -1276,7 +1276,12 @@ body {
 .p-ed-card {
   height: 100%;
   padding: 1rem;
-  box-shadow: 0 0 1px 0.3px #999;
+  outline: 0.1px solid #999;
+  border-radius: 10px;
+}
+
+.dark-mode .p-ed-card {
+  outline: 0.1px solid #333;
 }
 
 .p-ed-upper-contain {
@@ -1287,12 +1292,13 @@ body {
 
 .heading-p-ed {
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 600;
+  opacity: 0.8;
 }
 
 .p-ed-subtitle {
   font-size: 0.9rem;
-  font-weight: 700;
+  font-weight: 600;
   opacity: 0.7;
 }
 
@@ -1304,21 +1310,21 @@ body {
 }
 
 .p-ed-state {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 600;
   opacity: 0.5;
 }
 
 .p-ed-city {
   opacity: 0.9;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 600;
 }
 
 .text-p-ed {
-  padding: 1rem;
+  margin-top: 0.5rem;
   opacity: 0.5;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 @media only screen and (max-width: 768px) {
@@ -1362,8 +1368,14 @@ body {
 }
 
 .cur-ed-cards {
-  border: 1px solid #999;
+  outline: 0.1px solid #999;
   height: 100%;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.dark-mode .cur-ed-cards {
+  outline: 0.1px solid #333;
 }
 
 .cur-ed-upper-contain {
@@ -1374,20 +1386,20 @@ body {
 }
 
 .cur-ed-title {
-  font-size: 1.1rem;
-  font-weight: 800;
+  font-size: 1rem;
+  font-weight: 600;
   opacity: 0.8;
 }
 
 .cur-ed-subtitle {
-  font-size: 1rem;
-  font-weight: 700;
+  font-size: 0.9rem;
+  font-weight: 500;
   opacity: 0.6;
 }
 
 .curr-cur-info {
-  border: 1px solid #999;
-  font-size: 0.9rem;
+  outline: 0.1px solid #999;
+  font-size: 0.7rem;
   padding: 5px 15px;
   text-transform: capitalize;
   font-weight: 600;
@@ -1396,7 +1408,7 @@ body {
 }
 
 .cur-ed-text {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   padding: 1rem;
   font-weight: 600;
   opacity: 0.5;
@@ -1442,7 +1454,11 @@ body {
   align-items: start;
   gap: 1rem;
   border-radius: 10px;
-  border: 0.2px solid #999;
+  outline: 0.1px solid #999;
+}
+
+.dark-mode .lang-card {
+  outline: 0.1px solid #333;
 }
 
 .lang-item-contain {
@@ -1480,10 +1496,11 @@ body {
   border-radius: 5px;
   transition: 0.2s all ease-in-out;
   cursor: pointer;
+  opacity: 0.5;
 }
 
 .logo-lang-base:hover {
-  border: 0.2px solid #999;
+  opacity: 1;
 }
 
 .logo-lang-base i {
@@ -1494,6 +1511,16 @@ body {
   font-size: 0.8rem;
 }
 
+@media only screen and (max-width: 768px) {
+  .lang-container {
+    margin: 2rem;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1rem;
+  }
+  .lang-card {
+    height: 100%;
+  }
+}
 .p-g-inp-container {
   padding: 1rem 2rem;
 }
