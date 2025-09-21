@@ -16,7 +16,7 @@ export default function BlogDetail() {
 
   return (
     <div style={{ maxWidth: 900, margin: '24px auto' }}>
-      <Link to="/">← Back</Link>
+      <Link to="/blog">← Back</Link>
       <h1>{doc.heading}</h1>
       <h3 style={{ color: '#555' }}>{doc.subtitle}</h3>
       <div style={{ fontSize: 12, color: '#999' }}>

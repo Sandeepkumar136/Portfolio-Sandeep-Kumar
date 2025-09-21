@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Image_Exported from "../assets/ImageExporter";
+import LangData from "../Jsons/LangData";
 
 const Menifesto = () => {
   const items = [
@@ -222,15 +223,36 @@ const Menifesto = () => {
       </div>
       <h4 className="infinity-heading">Languages</h4>
       <div className="lang-container">
-        <div className="lang-overlay">
-          <div className="lang-list">
-              {
-                skills.map((e, i)=>(
-                  <i key={i} className={`bx ${e.startsWith("bxs") ? e: `bxl-${e}` }`} />
-                ))
-              }
+        {LangData.LangAssets.map((element, index) => (
+          <div key={index} className="lang-card">
+            <div className="lang-logo-contain">
+              <img
+                src={element.icon}
+                alt={element.title}
+                className="lang-img"
+              />
+            </div>
+            <div className="lang-item-contain">
+              <h3 className="lang-title">{element.title}</h3>
+              <div className="lang-logo-contain-main">
+                <div className="logo-lang-base">
+                  <i
+                    className="bx bx-book-open"
+                    onClick={() => window.open(element.docs, "_blank")}
+                  ></i>
+                  <span className="title-lgo-base">Docs</span>
+                </div>
+                <div className="logo-lang-base">
+                  <i
+                    className="bx bxl-git"
+                    onClick={() => window.open(element.git, "_blank")}
+                  ></i>
+                  <span className="title-lgo-base">Git</span>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        ))}
       </div>
     </motion.div>
   );
