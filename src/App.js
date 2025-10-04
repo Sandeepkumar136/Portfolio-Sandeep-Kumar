@@ -32,11 +32,10 @@ import PrivateRoute from "./components/Auth/PrivateRoute";
 import Menifesto from "./components/Routes/Menifesto";
 import { PDialogueBoxProvider } from "./components/context/PDialogueBoxContext";
 import Footer from "./Footer/Footer";
-import BlogList from "./components/lib/BlogList";
-import BlogDetail from "./components/lib/BlogDetail";
-import BlogLogin from "./components/lib/auth/BlogLogin";
-import BlogProtectedRoute from "./components/lib/BlogProtectedRoute";
-import AdminPage from "./components/lib/AdminPage";
+import AdminPage from "./Blog/pages/AdminPage";
+import PublicDetail from "./Blog/pages/PublicDetail";
+import PublicList from "./Blog/pages/PList";
+import { AlertBoxContextProvider } from "./utils/AlertBox";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -53,6 +52,7 @@ const App = () => {
           <PDialogueBoxProvider>
             <FilterDialogueBoxProvider>
               <CertDialogueContextProvider>
+                <AlertBoxContextProvider>
                 <Navbar />
                 <Routes>
                   {/* Public routes */}
@@ -64,16 +64,9 @@ const App = () => {
                   <Route path="/books" element={<Books />} />
                   <Route path="/projects" element={<Projects />} />
                   <Route path="/about" element={<About />} />
-                  <Route path="/blog" element={<BlogList />} />
-                  <Route path="/post/:id" element={<BlogDetail />} />
-                  <Route path="/bloglogin" element={<BlogLogin />} />
-                  {/* Blog Protected */}
-                  <Route path="/fordev" element={
-                    <BlogProtectedRoute>
-                      <AdminPage/>
-                    </BlogProtectedRoute>
-                  } />
-                  
+                  <Route path="/blogs" element={<PublicList />} />
+                  <Route path="/blog/:id" element={<PublicDetail />} />
+                  <Route path="/fordev" element={<AdminPage />} />
 
                   {/* Protected routes */}
                   <Route element={<PrivateRoute user={user} />}>
@@ -86,6 +79,7 @@ const App = () => {
                   {/* Fallback */}
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
+                </AlertBoxContextProvider>
                 <Footer />
               </CertDialogueContextProvider>
             </FilterDialogueBoxProvider>

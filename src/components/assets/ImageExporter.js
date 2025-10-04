@@ -4,5 +4,6 @@ const Image_Exported = {
     "madel-image": require('./images/star medal.png'),
     "Book-not-found": require('./images/vecteezy_young-man-painting-on-easel_69294864.png'),
     "google-logo": require('./images/google.png'),
+    "blog-input": require('./images/Gray White Minimalist Personal Profile Linkedin Banner.png'),
 }
 export default Image_Exported;

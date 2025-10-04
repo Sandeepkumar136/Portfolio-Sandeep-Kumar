@@ -155,7 +155,7 @@ const Navbar = () => {
             <Link to="/services" className="nav-contain">services</Link>
             <Link to="/books" className="nav-contain">books</Link>
             <Link to="/projects" className="nav-contain">projects</Link>
-            <Link to="/blog" className="nav-contain">blogs</Link>
+            <Link to="/blogs" className="nav-contain">blogs</Link>
 
             {/* Snapshot dropdown */}
             <div className="n-d-d-btn-contain">
