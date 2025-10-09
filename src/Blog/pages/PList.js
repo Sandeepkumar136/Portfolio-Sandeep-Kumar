@@ -22,18 +22,17 @@ function PublicList() {
   }, []);
 
   return (
-    <div style={{ maxWidth: 900, margin: '0 auto', padding: 16 }}>
-      <h2>Blog</h2>
-      {err && <div style={{ color: 'red' }}>{err}</div>}
-      <div style={{ display: 'grid', gap: 8 }}>
+    <div>
+      {err && <div className='err' style={{ color: 'red' }}>{err}</div>}
+      <div className='bl-l-container'>
         {list.map(doc => (
-          <Link key={doc.$id} to={`/blog/${doc.$id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-            <div style={{ border: '1px solid #eee', padding: 12 }}>
-              <div style={{ fontWeight: 600 }}>{doc.heading}</div>
-              <div style={{ color: '#555' }}>{doc.subtitle}</div>
-              <div style={{ fontSize: 12, color: '#888' }}>
+          <Link key={doc.$id} to={`/blog/${doc.$id}`} className='bl-l-contain'>
+            <div className='bl-l-m-c' >
+              <div className='bl-l-m-head'>{doc.heading.split(' ').slice(0, 5).join(' ')}...</div>
+              <div className='bl-l-m-d'>
                 {doc.$createdAt ? new Date(doc.$createdAt).toLocaleString() : ''}
               </div>
+              <div className='bl-l-m-s'>{doc.subtitle.split(' ').slice(0, 10).join(' ')}...</div>
             </div>
           </Link>
         ))}

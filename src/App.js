@@ -36,6 +36,7 @@ import AdminPage from "./Blog/pages/AdminPage";
 import PublicDetail from "./Blog/pages/PublicDetail";
 import PublicList from "./Blog/pages/PList";
 import { AlertBoxContextProvider } from "./utils/AlertBox";
+import Form from "./components/contents/Form";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -67,6 +68,8 @@ const App = () => {
                   <Route path="/blogs" element={<PublicList />} />
                   <Route path="/blog/:id" element={<PublicDetail />} />
                   <Route path="/fordev" element={<AdminPage />} />
+                  <Route path="/booknow" element={<Form />} />
+
 
                   {/* Protected routes */}
                   <Route element={<PrivateRoute user={user} />}>

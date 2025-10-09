@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import servicesDetails from "./ServicesData";
 
 const ServicesDetails = () => {
@@ -32,7 +32,7 @@ const ServicesDetails = () => {
         <h3 className="heading-sr-d-p">Price:</h3>
         <p className="text-p-sr-d">{service.price}</p>
       </div>
-      <button className="btn-sr-d">{service.cta}</button>
+      <Link to={service.link} className="btn-sr-d">{service.cta}</Link>
     </div>
   );
 };
