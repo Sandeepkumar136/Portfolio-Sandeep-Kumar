@@ -99,8 +99,9 @@ export default function BlogForm({ me, editingDoc, onSaved, onCancel }) {
   }
 
   return (
-    <form className='ad-form-main ' onSubmit={handleSubmit}>
+    <>
       <ToastContainer/>
+    <form className='ad-form-main ' onSubmit={handleSubmit}>
       <div className="ad-f-head-main-contain">
         <input className='ad-f-head-m'
           placeholder="Heading"
@@ -281,5 +282,6 @@ export default function BlogForm({ me, editingDoc, onSaved, onCancel }) {
       </div>
       {err && <div className='err' style={{ color: 'red' }}>{err}</div>}
     </form>
+    </>
   );
 }

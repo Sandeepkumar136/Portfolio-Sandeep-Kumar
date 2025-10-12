@@ -4550,6 +4550,7 @@ body {
   align-items: start;
   flex-direction: column;
   gap: 0.3rem;
+  width: 100%;
 }
 
 .heading-bk-fm {
@@ -4563,6 +4564,7 @@ body {
   justify-content: start;
   align-items: start;
   gap: 1rem;
+  width: 100%;
 }
 
 .bk-fm-inp-contain {
@@ -4581,6 +4583,12 @@ body {
   background-color: #fafaff;
   border: none;
   outline: 0.1px solid #999;
+  font: inherit;
+}
+
+.dark-mode .bk-nm-inp {
+  background-color: #222;
+  color: #fff;
 }
 
 .bk-nm-lb {
@@ -4602,4 +4610,278 @@ body {
   align-items: start;
   gap: 0.3rem;
   flex-direction: column;
+}
+
+/* Checkbox */
+input[type=checkbox].bk-ch-fm {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #16a34a;
+  border-radius: 4px;
+  display: inline-grid;
+  place-content: center;
+}
+
+input[type=checkbox].bk-ch-fm:checked {
+  background: #16a34a;
+  border-color: #16a34a;
+}
+
+input[type=checkbox].bk-ch-fm:checked::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  transform: rotate(50deg);
+  border-right: 2px solid white;
+  border-bottom: 2px solid white;
+  margin-top: -2px;
+}
+
+/* Textarea */
+.txt-ar-bk-fm {
+  width: 150vh;
+  resize: vertical;
+  height: 30vh;
+  /* margin: 1rem 0; */
+  padding: 1rem;
+  background-color: transparent;
+  border-radius: 5px;
+  border: none;
+  outline: 0.5px solid #999;
+  font: inherit;
+}
+
+.dark-mode .txt-ar-bk-fm {
+  background-color: #222;
+  color: #fff;
+}
+
+/* Select container */
+.bk-sl-contain {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Submit button */
+.bk-submit {
+  border: none;
+  outline: none;
+  padding: 8px 20px;
+  background-color: #0099ff;
+  color: #f0f0f0;
+  border-radius: 5px;
+  cursor: pointer;
+  font: inherit;
+}
+
+/* Dropdown: match input sizing and typography */
+.bk-sl .react-dropdown-select {
+  width: 300px; /* match .bk-nm-inp desktop width */
+  min-height: 50px; /* match .bk-nm-inp height */
+  background-color: #fafaff;
+  border: none;
+  outline: 0.1px solid #999;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  font: inherit; /* same text size as inputs */
+}
+
+/* Dark mode parity */
+.dark-mode .bk-sl .react-dropdown-select {
+  background-color: #222;
+  color: #fff;
+  outline-color: #999;
+}
+
+/* Inner input/content spacing and font */
+.bk-sl .react-dropdown-select .react-dropdown-select-input {
+  padding-left: 0.5rem;
+  font: inherit;
+  font-size: 1rem; /* explicit text size parity */
+}
+
+.bk-sl .react-dropdown-select-item {
+  font: inherit;
+  font-size: 1rem;
+  padding: 10px 12px;
+}
+
+/* Dropdown menu rounding */
+.bk-sl .react-dropdown-select-dropdown {
+  border-radius: 8px;
+}
+
+/* Keep text crisp: avoid opacity transitions on text */
+.bk-form, .bk-form * {
+  transition-property: transform, background-color, border-color, box-shadow;
+  transition-duration: 200ms;
+}
+
+/* Focus styles */
+.bk-nm-inp:focus,
+.txt-ar-bk-fm:focus,
+.react-dropdown-select:focus-within {
+  outline: none;
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+}
+
+/* Error states */
+.bk-err {
+  border-color: #ef4444 !important;
+}
+
+.bk-lb-err {
+  color: #ef4444;
+}
+
+/* Responsive */
+@media only screen and (max-width: 1203px) {
+  .bk-inp-cov {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .bk-nm-inp {
+    width: 250px;
+  }
+  .bk-inp-cov-hp {
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+  }
+  .txt-ar-bk-fm {
+    width: 250px;
+  }
+  /* Dropdown width matches inputs on smaller screens */
+  .bk-sl .react-dropdown-select {
+    width: 250px;
+  }
+}
+/* Base form styles from earlier remain the same */
+/* Custom dropdown wrapper matches input sizing */
+.bk-dd.bk-sl {
+  width: 300px;
+  font: inherit;
+  position: relative;
+}
+
+/* Button styled like input */
+.bk-dd-btn {
+  width: 100%;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0 0.5rem;
+  border-radius: 8px;
+  background-color: #fafaff;
+  border: none;
+  outline: 0.1px solid #999;
+  cursor: pointer;
+  font: inherit;
+}
+
+.dark-mode .bk-dd-btn {
+  background-color: #222;
+  color: #fff;
+  outline-color: #999;
+}
+
+/* Chevron */
+.bk-dd-chv {
+  display: inline-block;
+  font-size: 0.9em;
+}
+
+/* Menu popup */
+.bk-dd-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 40;
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -4px rgba(0, 0, 0, 0.1);
+  outline: 0.1px solid #dcdcdc;
+  max-height: 240px;
+  overflow: auto;
+  transform-origin: top;
+}
+
+.dark-mode .bk-dd-menu {
+  background: #1a1a1a;
+  color: #fff;
+  outline-color: #444;
+}
+
+/* Menu item */
+.bk-dd-item {
+  padding: 10px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  font: inherit;
+  font-size: 1rem; /* text parity with inputs */
+}
+
+.bk-dd-item:hover,
+.bk-dd-item.is-highlighted {
+  background: rgba(124, 58, 237, 0.08);
+}
+
+.bk-dd-item[aria-selected=true] {
+  outline: 2px solid rgba(124, 58, 237, 0.3);
+}
+
+/* Error states reused */
+.bk-err {
+  outline-color: #ef4444 !important;
+}
+
+.bk-lb-err {
+  color: #ef4444;
+}
+
+/* Keep text crisp: avoid opacity transitions on text */
+.bk-form, .bk-form * {
+  transition-property: transform, background-color, border-color, box-shadow;
+  transition-duration: 200ms;
+}
+
+/* Focus ring parity */
+.bk-nm-inp:focus,
+.txt-ar-bk-fm:focus,
+.bk-dd:focus-within .bk-dd-btn {
+  outline: none;
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+}
+
+/* Responsiveness */
+@media only screen and (max-width: 1203px) {
+  .bk-nm-inp {
+    width: 250px;
+  }
+  .txt-ar-bk-fm {
+    width: 250px;
+  }
+  .bk-dd.bk-sl {
+    width: 250px;
+  }
 }/*# sourceMappingURL=Style.css.map */
