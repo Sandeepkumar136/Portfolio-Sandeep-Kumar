@@ -386,7 +386,7 @@ const Navbar = () => {
                 <i className="side-c-icon bx bx-layers"></i>
                 <span className="side-c-title">projects</span>
               </MotionLink>
-              <MotionLink to="/blog" onClick={toggleSidebarBtn} className="side-items" variants={itemVariants}>
+              <MotionLink to="/blogs" onClick={toggleSidebarBtn} className="side-items" variants={itemVariants}>
                 <i className="side-c-icon bx bx-comment"></i>
                 <span className="side-c-title">blogs</span>
               </MotionLink>
