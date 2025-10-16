@@ -118,10 +118,7 @@ function CustomDropdown({
       case "ArrowUp":
         e.preventDefault();
         if (!open) openMenu();
-        else
-          setHighlightedIndex((i) =>
-            i <= 0 ? options.length - 1 : i - 1
-          );
+        else setHighlightedIndex((i) => (i <= 0 ? options.length - 1 : i - 1));
         break;
       case "Enter":
       case " ":
@@ -195,7 +192,9 @@ function CustomDropdown({
       aria-expanded={open}
       aria-controls={listboxId}
       aria-activedescendant={
-        open && highlightedIndex >= 0 ? getOptionId(highlightedIndex) : undefined
+        open && highlightedIndex >= 0
+          ? getOptionId(highlightedIndex)
+          : undefined
       }
       tabIndex={-1}
     >
@@ -229,7 +228,7 @@ function CustomDropdown({
           transition={chevronMotion.transition}
           style={{ willChange: "transform" }}
         >
-          ▼
+          <i className="bx bx-chevron-down"></i>
         </motion.span>
       </motion.button>
 
@@ -435,7 +434,11 @@ const Form = () => {
           <motion.div
             className="bk-inp-contain-nme"
             variants={itemVariants}
-            animate={triggerShake && (errors.firstName || errors.lastName) ? shakeKeyframes : {}}
+            animate={
+              triggerShake && (errors.firstName || errors.lastName)
+                ? shakeKeyframes
+                : {}
+            }
             style={{ willChange: "transform" }}
           >
             <h4 className="heading-bk-fm">Enter name</h4>
@@ -808,6 +811,30 @@ const Form = () => {
             {isSending ? "Sending..." : "Submit"}
           </motion.button>
         </motion.form>
+        <div className="dec-container">
+          <div className="dec-contain">
+            <h4 className="heading-dec">Required Information and Consent</h4>
+            <p className="text-dec">
+              By submitting this form, you declare that the details provided are
+              accurate and complete. Your full name and active phone number are
+              mandatory; submissions missing either cannot be processed. You
+              consent to the secure use of your information for scheduling your
+              consultation and for related service communications in accordance
+              with our privacy practices.
+            </p>
+          </div>
+          <div className="dec-contain">
+            <h4 className="heading-dec">Contact and Consultation Timeline</h4>
+            <p className="text-dec">
+              After submission, our team will reach out within 24 hours. You
+              will receive a confirmation email and a phone call to arrange your
+              consultation using the contact details you provide. Requests made
+              outside business hours or on holidays will be prioritized on the
+              next working day. You may withdraw consent at any time by
+              notifying us in writing or during the call.
+            </p>
+          </div>
+        </div>
       </div>
     </>
   );
