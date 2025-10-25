@@ -10,8 +10,9 @@ import {
 } from "firebase/auth";
 import { auth } from "./firebaseConfig";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence, MotionConfig } from "framer-motion";
+import Image_Exported from "../assets/ImageExporter";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -45,7 +46,9 @@ function Login() {
       toast.success("User logged in successfully", { position: "top-center" });
       navigate("/profile", { replace: true });
     } catch (error) {
-      toast.error(error.message || "Login failed", { position: "bottom-center" });
+      toast.error(error.message || "Login failed", {
+        position: "bottom-center",
+      });
     }
   };
 
@@ -80,7 +83,9 @@ function Login() {
         } catch (redirErr) {
           toast.error(redirErr?.message || "Google sign-in failed (redirect)");
         }
-      } else if (error?.code === "auth/account-exists-with-different-credential") {
+      } else if (
+        error?.code === "auth/account-exists-with-different-credential"
+      ) {
         toast.error(
           "Account exists with different sign-in method. Use the original provider."
         );
@@ -96,13 +101,22 @@ function Login() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.35, ease: "easeOut", when: "beforeChildren", staggerChildren: 0.06 },
+      transition: {
+        duration: 0.35,
+        ease: "easeOut",
+        when: "beforeChildren",
+        staggerChildren: 0.06,
+      },
     },
   };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 10 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.25, ease: "easeOut" } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.25, ease: "easeOut" },
+    },
   };
 
   const buttonHover = { scale: 1.04, boxShadow: "0 6px 18px rgba(0,0,0,0.08)" };
@@ -118,6 +132,25 @@ function Login() {
   return (
     <MotionConfig reducedMotion="user">
       <div className="fl-container-wrap">
+        <div className="dum-fl-contain">
+          <div className="dum-fl-cover">
+            <div className="dum-upper-contain">
+              <span className="title-dum">
+                <i className="icon-dum bx bx-code-alt"></i>
+                <span className="title-main-dum">CodewithSanju</span>
+              </span>
+              <span className="subtitle-dum">
+                <Link to="/" className="subtitle-main-dum">
+                  <span className="sub-dum-btm">Back to Website</span>
+                  <i class=" icon-b-dum bx  bx-arrow-right-stroke"></i>
+                </Link>
+              </span>
+            </div>
+            <span className="down-dum-title">
+              Feel Free <br /> For Beyond Knowledge{" "}
+            </span>
+          </div>
+        </div>
         <AnimatePresence initial={false}>
           <motion.form
             className="fl-container"
@@ -127,16 +160,18 @@ function Login() {
             animate="visible"
             exit="hidden"
           >
-            <motion.h3 className="fl-heading" variants={itemVariants}>
-              Login
+            <motion.h3 className="fl-heading">
+              Login an Account
             </motion.h3>
+            <p className="fl-b-text">
+              New user? <a href="/register">Register Here</a>
+            </p>
 
-            <motion.div className="fl-inp-l-wrap" variants={itemVariants}>
-              <label>Email address</label>
+            <motion.div className="fl-inp-l-wrap">
               <motion.input
                 type="email"
                 className="form-control"
-                placeholder="Enter email"
+                placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 autoComplete="username"
@@ -147,14 +182,14 @@ function Login() {
                   outline: "none",
                 }}
               />
+              <label>Email address</label>
             </motion.div>
 
-            <motion.div className="fl-inp-l-wrap" variants={itemVariants}>
-              <label>Password</label>
+            <motion.div className="fl-inp-l-wrap">
               <motion.input
                 type="password"
                 className="form-control"
-                placeholder="Enter password"
+                placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 autoComplete="current-password"
@@ -164,9 +199,9 @@ function Login() {
                   outline: "none",
                 }}
               />
+              <label>Password</label>
             </motion.div>
 
-            <motion.div className="fl-u-btn-contain" variants={itemVariants}>
               <motion.button
                 type="submit"
                 className="btn-m-fl"
@@ -176,9 +211,8 @@ function Login() {
               >
                 Login
               </motion.button>
-            </motion.div>
 
-            <motion.div className="fl-m-contain" variants={itemVariants}>
+            <motion.div className="fl-m-contain">
               <motion.button
                 type="button"
                 className="btn btn-link"
@@ -200,13 +234,9 @@ function Login() {
                 style={{ display: "inline-flex", alignItems: "center", gap: 8 }}
               >
                 <span className="text-g-b">Login with</span>
-                <i className="bx bxl-google" aria-hidden="true"></i>
+                <img src={Image_Exported["google-logo"]} alt="G" className="img-fl-logo" />
               </motion.button>
             </motion.div>
-
-            <motion.p className="fl-b-text" variants={itemVariants}>
-              New user? <a href="/register">Register Here</a>
-            </motion.p>
           </motion.form>
         </AnimatePresence>
       </div>

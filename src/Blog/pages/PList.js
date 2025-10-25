@@ -28,11 +28,11 @@ function PublicList() {
         {list.map(doc => (
           <Link key={doc.$id} to={`/blog/${doc.$id}`} className='bl-l-contain'>
             <div className='bl-l-m-c' >
-              <div className='bl-l-m-head'>{doc.heading.split(' ').slice(0, 5).join(' ')}...</div>
+              <div className='bl-l-m-head'>{doc.heading}</div>
               <div className='bl-l-m-d'>
                 {doc.$createdAt ? new Date(doc.$createdAt).toLocaleString() : ''}
               </div>
-              <div className='bl-l-m-s'>{doc.subtitle.split(' ').slice(0, 10).join(' ')}...</div>
+              <div className='bl-l-m-s'>{doc.subtitle}</div>
             </div>
           </Link>
         ))}

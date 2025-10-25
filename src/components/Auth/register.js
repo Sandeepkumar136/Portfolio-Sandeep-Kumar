@@ -1,9 +1,10 @@
+// src/components/Auth/Register.jsx
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { auth, authDb } from "./firebaseConfig";
 import { setDoc, doc } from "firebase/firestore";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Import Link
 
 function Register() {
   const [email, setEmail] = useState("");
@@ -15,18 +16,24 @@ function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      const user = auth.currentUser;
+      // 1. Create user
+      // Get user from the returned userCredential
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // 2. Save user data to Firestore
       if (user) {
         await setDoc(doc(authDb, "Users", user.uid), {
           email: user.email,
-          firstName: fname,
+          firstName: fname, // This 'fname' now matches 'data.firstName' in Navbar
           lastName: lname,
-          photo: "",
+          photo: "", // Default photo
         });
       }
+      
+      // 3. Notify and navigate
       toast.success("User Registered Successfully!!", { position: "top-center" });
-      navigate("/profile");
+      navigate("/"); // Navigate to home or profile after signup
     } catch (error) {
       toast.error(error.message, { position: "bottom-center" });
     }
@@ -37,25 +44,50 @@ function Register() {
       <h3>Sign Up</h3>
       <div className="mb-3">
         <label>First name</label>
-        <input type="text" className="form-control" placeholder="First name" onChange={(e) => setFname(e.target.value)} required />
+        <input
+          type="text"
+          className="form-control"
+          placeholder="First name"
+          onChange={(e) => setFname(e.target.value)}
+          required
+        />
       </div>
       <div className="mb-3">
         <label>Last name</label>
-        <input type="text" className="form-control" placeholder="Last name" onChange={(e) => setLname(e.target.value)} />
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Last name"
+          onChange={(e) => setLname(e.target.value)}
+        />
       </div>
       <div className="mb-3">
         <label>Email address</label>
-        <input type="email" className="form-control" placeholder="Enter email" onChange={(e) => setEmail(e.target.value)} required />
+        <input
+          type="email"
+          className="form-control"
+          placeholder="Enter email"
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
       </div>
       <div className="mb-3">
         <label>Password</label>
-        <input type="password" className="form-control" placeholder="Enter password" onChange={(e) => setPassword(e.target.value)} required />
+        <input
+          type="password"
+          className="form-control"
+          placeholder="Enter password"
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
       </div>
       <div className="d-grid">
-        <button type="submit" className="btn btn-primary">Sign Up</button>
+        <button type="submit" className="btn btn-primary">
+          Sign Up
+        </button>
       </div>
       <p className="forgot-password text-right">
-        Already registered? <a href="/login">Login</a>
+        Already registered? <Link to="/login">Login</Link> {/* Use Link here */}
       </p>
     </form>
   );
